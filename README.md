@@ -1,7 +1,9 @@
 # Arty-S7-Based-FM-Radio
-FPGA Based FM Radio with custom RF frontend using an Arty S7 off the shelf development board spanning the 88MHz to 108 MHz band with crisp high-end audio. See fm-radio-sysarch.png for a simple system block design.
+FPGA Based FM Radio with custom RF frontend using an Arty S7 off the shelf development board spanning the 88MHz to 108 MHz band with crisp high-end audio. 
 
-This is the 3rd gen design (First two generations were an all in one board with a Spartan 7 onboard), please ignore the _v2 nomenclature. I consider this to be the 2nd major iteration.
+Please See fm-radio-sysarch.png for a simple system block design.
+
+This is the 3rd gen design (First two generations were an all in one board with a Spartan 7 onboard), ignore the _v2 nomenclature. I consider this to be the 2nd major iteration.
 
 TerosHDL, Vivado 2025.2, VUnit and KiCAD 9.0.6 have been used with github actions for CI
 
