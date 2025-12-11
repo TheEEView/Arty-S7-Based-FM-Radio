@@ -20,7 +20,6 @@ signal data_buffered2   : unsigned(DATA_WIDTH - 1 downto 0);
 signal derivative_data  : unsigned(DATA_WIDTH - 1 downto 0);
 begin
 
--- Derivative process.
 process (i_sysclk_40)
 begin
     if rising_edge (i_sysclk_40) then
