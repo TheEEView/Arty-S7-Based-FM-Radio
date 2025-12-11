@@ -9,7 +9,9 @@ This is the 2nd major gen design (First generation with 2 iterations were an all
 
 The PCB is a 4 layer board with a S/G/G/S stackup using primarily 0402 components and high speed design principles.
 
-TerosHDL, Vivado 2025.2, VUnit and KiCAD 9.0.6 have been used with github actions for CI
+TerosHDL, Vivado 2025.2, VUnit and KiCAD 9.0.6 have been used with github actions for CI.
+
+Octave has been used for the filter design.
 
 Source is available in both VHDL and SV.
 
