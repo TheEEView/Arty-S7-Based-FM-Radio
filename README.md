@@ -3,6 +3,8 @@ FPGA Based FM Radio with custom RF frontend using an Arty S7 off the shelf devel
 
 TerosHDL, Vivado 2025.2, VUnit and KiCAD 9.0.6 have been used with github actions for CI
 
+Source is available in both VHDL and SV.
+
 ## How to generate BD TCL
 From TCL Window in Vivado:
 1. open_bd_design fm-radio-bd/fm-radio-bd.srcs/sources_1/bd/design_bd/design_bd.bd
