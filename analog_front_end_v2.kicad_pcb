@@ -6927,7 +6927,7 @@
 		(uuid "369b29f7-354d-48ee-9ee3-52179668fdc1")
 		(at 18.45 24.825)
 		(property "Reference" "L1"
-			(at -2.7 -1.125 0)
+			(at -2.81 -0.005 0)
 			(unlocked yes)
 			(layer "F.SilkS")
 			(uuid "9dc39306-6b91-4703-9bc2-e446fbfcb79b")
@@ -9704,7 +9704,7 @@
 		(uuid "4aa20713-c67d-48d8-a3da-37eb5390c7d1")
 		(at 34.5 24.28 -90)
 		(property "Reference" "U3"
-			(at 0.02 -1.62 270)
+			(at -0.19 -1.94 0)
 			(unlocked yes)
 			(layer "F.SilkS")
 			(uuid "6ad0fded-b2da-444d-8ad6-9acbc8968b5a")
@@ -9866,7 +9866,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
 		(property "Reference" "C4"
-			(at 1.525 0.95 180)
+			(at -1.565 -0.45 180)
 			(layer "F.SilkS")
 			(uuid "6cf3f4a1-d8ce-48c8-8f78-d076ac839418")
 			(effects
@@ -15742,7 +15742,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
 		(property "Reference" "C6"
-			(at -1.86 -0.54 180)
+			(at 2.35 -0.03 180)
 			(layer "F.SilkS")
 			(uuid "3bd0427a-4e67-43f2-be4d-656a9bff49b8")
 			(effects
@@ -20830,7 +20830,7 @@
 		(descr "Connector SMA, 0Hz to 20GHz, 50Ohm, Edge Mount (http://suddendocs.samtec.com/prints/sma-j-p-x-st-em1-mkt.pdf)")
 		(tags "SMA Straight Samtec Edge Mount")
 		(property "Reference" "J1"
-			(at -1.9875 -4.9 0)
+			(at -3.43 -4.09 0)
 			(layer "F.SilkS")
 			(uuid "15674784-d78c-47dc-9784-61408858d6f8")
 			(effects
@@ -31843,17 +31843,6 @@
 		(layer "Margin")
 		(uuid "5ee9a434-fcdb-4d50-970b-f65949065dd3")
 	)
-	(gr_text "TODO: Layout L2/L4 to cancel out mutual inductances"
-		(at 57 6.3 0)
-		(layer "Cmts.User")
-		(uuid "673dc509-5686-497d-8526-440f126a916d")
-		(effects
-			(font
-				(size 0.8 0.8)
-				(thickness 0.1)
-			)
-		)
-	)
 	(gr_text "12V DC IN from benchtop power supply and GND"
 		(at 118.875 59.555 0)
 		(layer "Cmts.User")
@@ -31865,7 +31854,7 @@
 			)
 		)
 	)
-	(gr_text "TODO: Ground via stitching\nUse 0.3mm trace for 50ohm characteristic impedance \nfor microstrip with solid groundplane\nUse 0.8mm silkscreen height for improved readability"
+	(gr_text "TODO: \nGround via stitching\nDecisions:\nUse 0.3mm trace for 50ohm characteristic impedance \nfor microstrip with solid groundplane\nUse 0.8mm silkscreen height for improved readability"
 		(at 31.6 2.1 0)
 		(layer "Cmts.User")
 		(uuid "edfbe10c-77da-42ab-ba23-7e0244f8ad0d")
@@ -33083,12 +33072,20 @@
 		(uuid "68ae0ce3-4ccf-43ed-a082-a538ffc8196c")
 	)
 	(segment
-		(start 34.83 19.55)
-		(end 34.19 19.55)
+		(start 32.28 21.55)
+		(end 32.28 22.29)
 		(width 0.3)
 		(layer "F.Cu")
 		(net 13)
-		(uuid "a9dd81ab-df62-4e64-ac30-634b6bea7423")
+		(uuid "95e27bbe-539e-4955-9d7b-a4259b0bd06e")
+	)
+	(segment
+		(start 34.83 19.55)
+		(end 34.28 19.55)
+		(width 0.3)
+		(layer "F.Cu")
+		(net 13)
+		(uuid "a1d423af-4c50-4137-b714-9ada04685b35")
 	)
 	(segment
 		(start 32.775 17.965)
@@ -33099,28 +33096,20 @@
 		(uuid "aff49213-8269-496d-aa38-d6aa91b0ada0")
 	)
 	(segment
-		(start 34.19 19.55)
-		(end 32.28 21.46)
-		(width 0.3)
-		(layer "F.Cu")
-		(net 13)
-		(uuid "d69a815f-f752-457f-ba59-ce63836b3f29")
-	)
-	(segment
-		(start 32.28 21.46)
-		(end 32.28 22.29)
-		(width 0.3)
-		(layer "F.Cu")
-		(net 13)
-		(uuid "e2d3913e-f7f5-4a7c-b02a-65a51bb3ae3e")
-	)
-	(segment
 		(start 34.83 19.55)
 		(end 34.83 17.975)
 		(width 0.3)
 		(layer "F.Cu")
 		(net 13)
 		(uuid "e96387db-8341-4879-a167-9307c44f55bc")
+	)
+	(segment
+		(start 34.28 19.55)
+		(end 32.28 21.55)
+		(width 0.3)
+		(layer "F.Cu")
+		(net 13)
+		(uuid "f30f26c9-1bde-4380-96f4-7b7992fd2d55")
 	)
 	(segment
 		(start 32.78 25.65)
