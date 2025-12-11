@@ -5,6 +5,8 @@ Please See fm-radio-sysarch.png for a simple system block design.
 
 This is the 3rd gen design (First two generations were an all in one board with a Spartan 7 onboard), ignore the _v2 nomenclature. I consider this to be the 2nd major iteration.
 
+The PCB is a 4 layer board using primarily 0402 components and high speed design principles.
+
 TerosHDL, Vivado 2025.2, VUnit and KiCAD 9.0.6 have been used with github actions for CI
 
 Source is available in both VHDL and SV.
