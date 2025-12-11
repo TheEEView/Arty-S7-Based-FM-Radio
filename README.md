@@ -5,7 +5,7 @@ Please See fm-radio-sysarch.png for a simple system block design.
 
 Plase see fm-radio-fpga-arch.png for FPGA architecture in a block design.
 
-This is the 3rd gen design (First two generations were an all in one board with a Spartan 7 onboard), ignore the _v2 nomenclature. I consider this to be the 2nd major iteration.
+This is the 2nd major gen design (First generation with 2 iterations were an all in one board with a Spartan 7 onboard), hence the v2 sch/pcb nomenclature. I will release the other version as another project.
 
 The PCB is a 4 layer board with a S/G/G/S stackup using primarily 0402 components and high speed design principles.
 
