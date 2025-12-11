@@ -13,7 +13,7 @@ TerosHDL, Vivado 2025.2, VUnit and KiCAD 9.0.6 have been used with github action
 
 Octave has been used for the filter design.
 
-Source is available in both VHDL and SV.
+Source is available in both VHDL (IEEE Std 1076-2019) and SV (IEEE 1800-2023).
 
 ## How to generate BD TCL
 From TCL Window in Vivado:
