@@ -9,7 +9,7 @@ generic (
     ACTIVE_HIGH_BTN : boolean := true       --! Button logic state to check for, high meaning a logic high refers to the button being stable once bouncing has finished
 );
 port (
-    i_sysclk_40     : in    std_logic;      --! Clock input
+    i_sysclk_40     : in    std_logic;
     i_rst           : in    std_logic;      --! Synchronous active high reset
     i_btn           : in    std_logic;      --! Button input
     o_pulse         : out   std_logic       --! Single clock cycle output pulse indicating a single button press
