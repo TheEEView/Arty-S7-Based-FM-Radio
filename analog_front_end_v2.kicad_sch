@@ -11484,7 +11484,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 276.86 164.592 90)
+			(at 276.86 164.338 90)
 			(effects
 				(font
 					(size 0.4572 0.4572)
@@ -14312,7 +14312,7 @@
 			)
 		)
 		(property "Value" "66.5k"
-			(at 301.498 177.8 0)
+			(at 300.482 177.8 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -18488,6 +18488,14 @@
 				(hide yes)
 			)
 		)
+		(property "Tolerance" "1%"
+			(at 241.046 122.936 0)
+			(effects
+				(font
+					(size 0.4572 0.4572)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "d0feeee3-d840-4f75-942f-1e2cbe136e16")
 		)
@@ -19253,7 +19261,7 @@
 		(dnp no)
 		(uuid "84fd3dfe-fe5c-4efa-b0ab-5ca63ebe7075")
 		(property "Reference" "R30"
-			(at 212.09 107.95 90)
+			(at 212.09 106.68 90)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -19261,7 +19269,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 212.344 113.03 90)
+			(at 212.09 108.458 90)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -19310,6 +19318,14 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 212.09 112.522 90)
+			(effects
+				(font
+					(size 0.4572 0.4572)
+				)
 			)
 		)
 		(pin "2"
@@ -23861,6 +23877,14 @@
 				(hide yes)
 			)
 		)
+		(property "Tolerance" "1%"
+			(at 518.16 42.672 90)
+			(effects
+				(font
+					(size 0.4572 0.4572)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "7fb31f9e-9f8f-40a5-beab-8e311f5a5485")
 		)
@@ -23886,7 +23910,7 @@
 		(dnp no)
 		(uuid "b33c5d2f-405a-4f3a-9187-6a214d8c36db")
 		(property "Reference" "R25"
-			(at 508 33.02 0)
+			(at 509.27 33.02 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -23894,7 +23918,7 @@
 			)
 		)
 		(property "Value" "50R"
-			(at 508.254 34.544 0)
+			(at 509.27 34.544 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -23943,6 +23967,14 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 509.778 35.56 0)
+			(effects
+				(font
+					(size 0.4572 0.4572)
+				)
 			)
 		)
 		(pin "2"
@@ -27097,6 +27129,14 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 241.046 133.604 0)
+			(effects
+				(font
+					(size 0.4572 0.4572)
+				)
 			)
 		)
 		(pin "2"
