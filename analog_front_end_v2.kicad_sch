@@ -5387,7 +5387,7 @@
 		)
 		(uuid "0dfd5b7c-9eec-42c6-b09c-dee31b0552ff")
 	)
-	(text "TODO: Add a small LCD to display FM freq and vol bars"
+	(text "101.4 (4 green 7 segments, don't display MHz, redundant)"
 		(exclude_from_sim no)
 		(at 281.686 203.708 0)
 		(effects
@@ -5487,6 +5487,16 @@
 		)
 		(uuid "7a0e2e8a-f4f2-4e4a-99d4-56e43e23a49e")
 	)
+	(text "https://au.element14.com/kingbright/kcpsc04-123/led-alpha-num-10-16mm-green/dp/2449718"
+		(exclude_from_sim no)
+		(at 280.67 226.568 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "9ab18402-91f7-4394-b27f-9067309f0ec7")
+	)
 	(text "SMA Connector for FM antenna input"
 		(exclude_from_sim no)
 		(at 26.67 31.75 0)
@@ -5566,6 +5576,16 @@
 			)
 		)
 		(uuid "da1f1aed-f2c6-4902-b428-b56b80a87a5e")
+	)
+	(text "TODO: Hook up 7 segs"
+		(exclude_from_sim no)
+		(at 267.716 213.868 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "f2e46e0e-addf-4526-ba1d-964864d40b55")
 	)
 	(text "VIN Testpoint"
 		(exclude_from_sim no)
