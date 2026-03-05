@@ -25128,18 +25128,6 @@
 		(layer "Margin")
 		(uuid "5ee9a434-fcdb-4d50-970b-f65949065dd3")
 	)
-	(gr_text "TODO: Add copper zone \nhere Layer 1 to Layer 4 \nconnecting grounds"
-		(at 0.7 43.34 0)
-		(layer "Cmts.User")
-		(uuid "61c49166-39d9-41b7-b099-1eb438552459")
-		(effects
-			(font
-				(size 0.8 0.8)
-				(thickness 0.1)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "12V lithium ion battery / or DC IN from benchtop power supply and GND"
 		(at 61.5 8.5 0)
 		(layer "Cmts.User")
@@ -25151,7 +25139,7 @@
 			)
 		)
 	)
-	(gr_text "TODO: \nAdd solid GND planes on layers 2/3\nGround via stitching\nDecisions:\nUse Coplanar Waveguide for RF filter section for more confined EM fields \nUse 0.6x0.3 vias\nUse 8mil trace with 0.05mm airgap assuming 1ounce copper, 4.6 dielectric constant\nUse 1mm via distance (2xgap)\nUse 2mm between vias horizontally\nfor microstrip with solid groundplane in layers 2,3 oriented horizontally for EM fields\nUse 0.4mm silkscreen width/height to balance readability/placement\nEnsure RF Mixer (U4) is far away from sensitive RF/analog front end"
+	(gr_text "TODO: \nAdd solid GND planes on layers 2/3\nGround via stitching\nDecisions:\nUse Coplanar Waveguide for RF filter section for more confined EM fields \nUse 0.6x0.3 vias\nUse 8mil trace with 0.05mm airgap assuming 1ounce copper, 4.6 dielectric constant\nUse 1mm via distance (2xgap)\nUse 2mm between vias horizontally\nfor microstrip with solid groundplane in layers 2,3 oriented horizontally for EM fields\nUse 0.4mm silkscreen width/height to balance readability/placement\nEnsure RF Mixer (U12) is far away from sensitive RF/analog front end"
 		(at 49.7 6.6 0)
 		(layer "Cmts.User")
 		(uuid "edfbe10c-77da-42ab-ba23-7e0244f8ad0d")
@@ -27670,10 +27658,7 @@
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
-		(remove_unused_layers yes)
-		(keep_end_layers yes)
 		(free yes)
-		(zone_layer_connections "In1.Cu" "In2.Cu")
 		(teardrops
 			(best_length_ratio 0.5)
 			(max_length 1)
@@ -31249,43 +31234,6 @@
 				(xy 114.685097 42.445072) (xy 114.677514 42.449835) (xy 114.675556 42.45) (xy 114.484444 42.45)
 				(xy 114.476171 42.446573) (xy 114.474903 42.445072) (xy 114.23571 42.108046) (xy 114.233716 42.099316)
 				(xy 114.236964 42.093015) (xy 114.571716 41.757307) (xy 114.579983 41.753869)
-			)
-		)
-	)
-	(zone
-		(net 2)
-		(net_name "GND")
-		(layer "F.Cu")
-		(uuid "156f145f-3476-4473-ab42-84f18c3389fb")
-		(name "$teardrop_padvia$")
-		(hatch none 0.1)
-		(priority 30138)
-		(attr
-			(teardrop
-				(type padvia)
-			)
-		)
-		(connect_pads yes
-			(clearance 0)
-		)
-		(min_thickness 0.0254)
-		(filled_areas_thickness no)
-		(fill yes
-			(thermal_gap 0.5)
-			(thermal_bridge_width 0.5)
-			(island_removal_mode 1)
-			(island_area_min 10)
-		)
-		(polygon
-			(pts
-				(xy 25.9909 40.434236) (xy 26.1941 40.434236) (xy 26.386736 39.898527) (xy 26.0925 39.839) (xy 25.798264 39.898527)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 26.386736 39.898527) (xy 26.1941 40.434236) (xy 25.9909 40.434236) (xy 25.798264 39.898527)
-				(xy 26.0925 39.839)
 			)
 		)
 	)
@@ -37844,6 +37792,42 @@
 				(xy 127.930102 27.656208) (xy 127.92297 27.661623) (xy 127.914098 27.660408) (xy 127.909898 27.656208)
 				(xy 127.621925 27.163295) (xy 127.620388 27.156203) (xy 127.664926 26.72051) (xy 127.669176 26.712628)
 				(xy 127.676565 26.71) (xy 128.163435 26.71)
+			)
+		)
+	)
+	(zone
+		(net 2)
+		(net_name "GND")
+		(layer "F.Cu")
+		(uuid "c0da968c-f087-43e5-8ad8-6aaf74743db5")
+		(name "$teardrop_padvia$")
+		(hatch none 0.1)
+		(priority 30000)
+		(attr
+			(teardrop
+				(type padvia)
+			)
+		)
+		(connect_pads yes
+			(clearance 0)
+		)
+		(min_thickness 0.0254)
+		(filled_areas_thickness no)
+		(fill yes
+			(thermal_gap 0.5)
+			(thermal_bridge_width 0.5)
+			(island_removal_mode 1)
+			(island_area_min 10)
+		)
+		(polygon
+			(pts
+				(xy 25.9909 40.434236) (xy 26.1941 40.434236) (xy 26.386736 39.898527) (xy 26.0925 39.839) (xy 25.798264 39.898527)
+			)
+		)
+		(filled_polygon
+			(layer "F.Cu")
+			(pts
+				(xy 25.9909 40.434236) (xy 26.1941 40.434236) (xy 26.386736 39.898527) (xy 26.0925 39.839) (xy 25.798264 39.898527)
 			)
 		)
 	)
