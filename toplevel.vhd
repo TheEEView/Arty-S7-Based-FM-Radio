@@ -6,6 +6,7 @@ entity toplevel is
 port (
     i_clk_12        : in std_logic;     --! 12 MHz clock input to FPGA
     i_rst           : in std_logic;     --! Active high reset input to FPGA
+    -- TODO: Add volume up/down and channel selection button inputs
     o_adc_sdi       : out std_logic;    --! MCP33131 ADC SDI output to FPGA
     o_adc_sclk      : out std_logic;    --! MCP33131 ADC SCLK output to FPGA
     i_adc_sdo       : in std_logic;     --! MCP33131 ADC SDO input from FPGA
@@ -37,6 +38,8 @@ port map (
     o_pulse         => rst_pulse
 );
 
+-- TODO: Add debouncing for other buttons here
+
 i_mpc33131_adc_driver : entity work.mpc33131_adc_driver
 port map (
     i_clk_60        => clk_60,
@@ -45,12 +48,14 @@ port map (
     o_sclk          => o_adc_sclk,
     i_sdo           => i_adc_sdo,
     o_convst        => o_adc_convst
+    -- TODO: Add serial->parallel ADC outputs and ready pulse for use downstream
 );
 
 i_max2606_vco_driver : entity work.max2606_vco_driver
 port map (
     i_clk_60        => clk_60,
     i_rst           => rst_pulse,
+    -- TODO: Add PWM value input to control the VCO frequency
     o_pwm_tune      => o_pwm_tune
 );
 
