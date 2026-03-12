@@ -1,8 +1,6 @@
 set_property -dict { PACKAGE_PIN F14   IOSTANDARD LVCMOS33 } [get_ports { i_clk_12 }]; #IO_L13P_T2_MRCC_15 Sch=uclk
 create_clock -add -name sys_clk_pin -period 83.333 -waveform {0 41.667} [get_ports { i_clk_12 }];
 
-set_property -dict { PACKAGE_PIN G15   IOSTANDARD LVCMOS33 } [get_ports { i_rst }]; #IO_L18N_T2_A23_15 Sch=btn[0]
-
 ## Buttons
 set_property -dict { PACKAGE_PIN G15   IOSTANDARD LVCMOS33 } [get_ports { btn[0] }]; #IO_L18N_T2_A23_15 Sch=btn[0]
 set_property -dict { PACKAGE_PIN K16   IOSTANDARD LVCMOS33 } [get_ports { btn[1] }]; #IO_L19P_T3_A22_15 Sch=btn[1]
