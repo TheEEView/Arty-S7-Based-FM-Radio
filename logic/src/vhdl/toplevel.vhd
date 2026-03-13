@@ -11,24 +11,29 @@ port (
     i_btn_ch_down   : in std_logic;     --! Active high channel down button
     o_adc_sdi       : out std_logic;    --! MCP33131 ADC SDI output to FPGA
     o_adc_sclk      : out std_logic;    --! MCP33131 ADC SCLK output to FPGA
-    i_adc_sdo       : in std_logic;     --! MCP33131 ADC SDO input from FPGA
+    i_adc_sdo       : in std_logic;     --! MCP33131 ADC SDO input to FPGA
     o_adc_convst    : out std_logic;    --! MCP33131 ADC CONVST output to FPGA
+    o_adc_data      : out std_logic_vector(15 downto 0); --! MCP33131 ADC parallel data output
+    o_adc_ready     : out std_logic;    --! MCP33131 ADC data ready pulse
     o_pwm_tune      : out std_logic     --! MAX2606 VCO PWM TUNE output to FPGA
 );
 end entity;
 
 architecture rtl of toplevel is
-constant SYSCLK_FREQ_HZ     : natural := 60000000; --! System clock frequency in Hz for debounce and ADC/VCO drivers
-constant DEB_CNT_50MS       : natural := (50*SYSCLK_FREQ_HZ) / 1000; --! Number of clock cycles the button needs to remain stable without switch bouncing
+constant SYSCLK_FREQ_HZ         : natural := 60000000; --! System clock frequency in Hz for debounce and ADC/VCO drivers
+constant DEB_CNT_50MS           : natural := (50*SYSCLK_FREQ_HZ) / 1000; --! Number of clock cycles the button needs to remain stable without switch bouncing
+constant ADC_RESOLUTION_BITS    : natural := 16; --! ADC resolution in bits (MPC33131 is 16-bit)
 
-signal clk_60               : std_logic; -- We use a 60 MHz clock for the 30 MHz ADC SCLK generation
-signal mmcm_lock            : std_logic; -- MMCM lock signal to indicate stable clock output also used for reset button debounce reset input
-signal mmcm_reset           : std_logic;
+signal clk_60                   : std_logic; -- We use a 60 MHz clock for the 30 MHz ADC SCLK generation
+signal mmcm_lock                : std_logic; -- MMCM lock signal to indicate stable clock output also used for reset button debounce reset input
+signal mmcm_reset               : std_logic;
 
-signal vol_up_pulse         : std_logic;
-signal vol_down_pulse       : std_logic;
-signal ch_up_pulse          : std_logic;
-signal ch_down_pulse        : std_logic;
+signal vol_up_pulse             : std_logic;
+signal vol_down_pulse           : std_logic;
+signal ch_up_pulse              : std_logic;
+signal ch_down_pulse            : std_logic;
+signal adc_data                 : std_logic_vector(ADC_RESOLUTION_BITS-1 downto 0);
+signal adc_ready                : std_logic;
 
 component clk_wiz_60
 port
@@ -102,20 +107,25 @@ port map (
 i_mpc33131_adc_driver : entity work.mpc33131_adc_driver
 port map (
     i_clk_60        => clk_60,
-    i_rst           => rst_pulse,
+    i_rst           => mmcm_reset,
     o_sdi           => o_adc_sdi,
     o_sclk          => o_adc_sclk,
     i_sdo           => i_adc_sdo,
-    o_convst        => o_adc_convst
-    -- TODO: Add serial->parallel ADC outputs and ready pulse for use downstream
+    o_convst        => o_adc_convst,
+    o_adc_data      => adc_data,
+    o_ready         => adc_ready
 );
 
 i_max2606_vco_driver : entity work.max2606_vco_driver
 port map (
     i_clk_60        => clk_60,
-    i_rst           => rst_pulse,
+    i_rst           => mmcm_reset,
     -- TODO: Add PWM value input to control the VCO frequency
     o_pwm_tune      => o_pwm_tune
 );
+
+-- Output assignments
+o_adc_data <= adc_data;
+o_adc_ready <= adc_ready;
 
 end rtl;
