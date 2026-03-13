@@ -43,7 +43,7 @@ begin
 
 i_clk_wiz_60 : clk_wiz_60
 port map ( 
-    clk_out_60      => clk_60,           
+    clk_out_60      => clk_60,
     locked          => mmcm_lock,
     clk_in_12       => i_clk_12
  );
