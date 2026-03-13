@@ -29,9 +29,24 @@ signal vol_up_pulse         : std_logic;
 signal vol_down_pulse       : std_logic;
 signal ch_up_pulse          : std_logic;
 signal ch_down_pulse        : std_logic;
+
+component clk_wiz_60
+port
+(
+    clk_out_60  : out   std_logic;
+    locked      : out   std_logic;
+    clk_in_12   : in    std_logic
+);
+end component;
+
 begin
 
--- TODO: Add MMCM here to generate 60 MHz clock from 12 MHz input clock
+i_clk_wiz_60 : clk_wiz_60
+   port map ( 
+   clk_out_60 => clk_60,           
+   locked => mmcm_lock,
+   clk_in_12 => i_clk_12
+ );
 
 -- Use inverted mmcm lock signal as a power on reset before the MMCM is ready
 mmcm_reset <= not mmcm_lock;
