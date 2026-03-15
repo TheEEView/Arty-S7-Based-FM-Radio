@@ -4,18 +4,25 @@ use ieee.numeric_std.all;
 
 entity toplevel is
 port (
-    i_clk_12        : in std_logic;     --! 12 MHz clock input to FPGA
-    i_btn_vol_up    : in std_logic;     --! Active high volume up button
-    i_btn_vol_down  : in std_logic;     --! Active high volume down button
-    i_btn_ch_up     : in std_logic;     --! Active high channel up button
-    i_btn_ch_down   : in std_logic;     --! Active high channel down button
-    o_adc_sdi       : out std_logic;    --! MCP33131 ADC SDI output to FPGA
-    o_adc_sclk      : out std_logic;    --! MCP33131 ADC SCLK output to FPGA
-    i_adc_sdo       : in std_logic;     --! MCP33131 ADC SDO input to FPGA
-    o_adc_convst    : out std_logic;    --! MCP33131 ADC CONVST output to FPGA
-    o_adc_data      : out std_logic_vector(15 downto 0); --! MCP33131 ADC parallel data output
-    o_adc_ready     : out std_logic;    --! MCP33131 ADC data ready pulse
-    o_pwm_tune      : out std_logic     --! MAX2606 VCO PWM TUNE output to FPGA
+    i_clk_12                : in std_logic;                         --! 12 MHz clock input to FPGA
+
+    i_btn_vol_up            : in std_logic;                         --! Active high volume up button
+    i_btn_vol_down          : in std_logic;                         --! Active high volume down button
+    i_btn_ch_up             : in std_logic;                         --! Active high channel up button
+    i_btn_ch_down           : in std_logic;                         --! Active high channel down button
+
+    o_adc_sdi               : out std_logic;                        --! MCP33131 ADC SDI output to FPGA
+    o_adc_sclk              : out std_logic;                        --! MCP33131 ADC SCLK output to FPGA
+    i_adc_sdo               : in std_logic;                         --! MCP33131 ADC SDO input to FPGA
+    o_adc_convst            : out std_logic;                        --! MCP33131 ADC CONVST output to FPGA
+    o_adc_data              : out std_logic_vector(15 downto 0);    --! MCP33131 ADC parallel data output
+    o_adc_ready             : out std_logic;                        --! MCP33131 ADC data ready pulse
+
+    o_vco_pwm_tune          : out std_logic;                        --! MAX2606 VCO PWM oscillator tune
+
+    o_monoaudio_pwm         : out std_logic;                        --! PMOD Amp2 Mono Audio PWM output
+    o_monoaudio_gain        : out std_logic;                        --! PMOD Amp2 Mono Audio gain control
+    o_monoaudio_nshutdown   : out std_logic                         --! PMOD Amp2 Mono Audio shutdown control (active low)
 );
 end entity;
 
@@ -116,6 +123,8 @@ port map (
     o_ready         => adc_ready
 );
 
+-- TODO: ADD FM Demodulation block here
+
 i_max2606_vco_driver : entity work.max2606_vco_driver
 port map (
     i_clk_60        => clk_60,
@@ -124,8 +133,21 @@ port map (
     o_pwm_tune      => o_pwm_tune
 );
 
+pmodamp2_ssm2377_audio_driver : entity work.pmodamp2_ssm2377_audio_driver
+generic map (
+    AUDIO_DW        => ADC_RESOLUTION_BITS
+)
+port map (
+    i_sysclk_40     => clk_60, -- We can use the 60
+    i_rst           => mmcm_reset,
+    i_audio         => open, -- TODO: Connect to demodulated FM mono audio data
+    o_audio_pwm     => open, -- TODO: Connect to an output pin for audio output
+    o_audio_gain    => open, -- TODO: Connect to an output pin for audio gain
+    o_nshutdown     => open  -- TODO: Connect to an output pin for amplifier shutdown control
+);
+
 -- Output assignments
-o_adc_data <= adc_data;
+o_adc_data  <= adc_data;
 o_adc_ready <= adc_ready;
 
 end rtl;
