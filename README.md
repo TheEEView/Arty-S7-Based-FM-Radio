@@ -1,5 +1,5 @@
 # Arty-S7-Based-FM-Radio
-FPGA Based FM Radio with custom RF frontend using an Arty S7 off the shelf development board spanning the 100MHz to 106MHz band with crisp high-end audio (16-bit stereo). This has been a WIP since Dec 2023.
+FPGA Based FM Radio with custom RF frontend using an Arty S7 off the shelf development board spanning the 88.5MHz to 108MHz passband with crisp high-end audio (16-bit stereo). This has been a WIP since Dec 2023.
 
 Please See docs/fm-radio-sysarch.png for a simple system block design.
 
