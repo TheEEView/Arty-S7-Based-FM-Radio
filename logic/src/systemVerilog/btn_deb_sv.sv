@@ -3,7 +3,7 @@ module btn_deb_sv #(
     parameter int DEB_CNT         = 1000000,  // Number of clock cycles the button needs to remain stable for without switch bouncing
     parameter bit ACTIVE_HIGH_BTN = 1'b1      // Button logic state to check for, high meaning a logic high refers to the button being stable once bouncing has finished
 ) (
-    input  logic i_sysclk_40,  // Clock input
+    input  logic i_sysclk,     // Clock input
     input  logic i_rst,        // Synchronous active high reset
     input  logic i_btn,        // Asynchronous button input
     output logic o_pulse       // Single clock cycle output pulse indicating a single button press after debouncing/filtering
@@ -11,7 +11,7 @@ module btn_deb_sv #(
 
 logic [$clog2(DEB_CNT+1)-1:0] db_cnt;
 
-always_ff @(posedge i_sysclk_40) begin
+always_ff @(posedge i_sysclk) begin
     // Clear counter and hold pulse low during reset
     if (i_rst) begin
         db_cnt  <= '0;
