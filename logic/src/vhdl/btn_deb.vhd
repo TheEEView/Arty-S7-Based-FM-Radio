@@ -9,7 +9,7 @@ generic (
     ACTIVE_HIGH_BTN : boolean := true       --! Button logic state to check for, high meaning a logic high refers to the button being stable once bouncing has finished
 );
 port (
-    i_sysclk_40     : in    std_logic;
+    i_sysclk        : in    std_logic;
     i_rst           : in    std_logic;      --! Synchronous active high reset
     i_btn           : in    std_logic;      --! Button input
     o_pulse         : out   std_logic       --! Single clock cycle output pulse indicating a single button press
@@ -20,9 +20,9 @@ architecture rtl of btn_deb is
 signal db_cnt : natural range 0 to DEB_CNT;
 begin
 
-process (i_sysclk_40)
+process (i_sysclk)
 begin
-    if rising_edge(i_sysclk_40) then
+    if rising_edge(i_sysclk) then
         -- Clear counter and hold pulse low during reset
         if i_rst = '1' then
             db_cnt  <= 0;
