@@ -41,6 +41,7 @@ signal ch_up_pulse              : std_logic;
 signal ch_down_pulse            : std_logic;
 signal adc_data                 : std_logic_vector(ADC_RESOLUTION_BITS-1 downto 0);
 signal adc_ready                : std_logic;
+signal fm_demod_audio_data      : std_logic;
 
 component clk_wiz_60
 port
@@ -54,10 +55,10 @@ end component;
 begin
 
 i_clk_wiz_60 : clk_wiz_60
-port map ( 
+port map (
+    clk_in_12       => i_clk_12,
     clk_out_60      => clk_60,
-    locked          => mmcm_lock,
-    clk_in_12       => i_clk_12
+    locked          => mmcm_lock
  );
 
 -- Use inverted mmcm lock signal as a power on reset before the MMCM is ready
@@ -113,7 +114,7 @@ port map (
 
 i_mpc33131_adc_driver : entity work.mpc33131_adc_driver
 port map (
-    i_clk_60        => clk_60,
+    i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
     o_sdi           => o_adc_sdi,
     o_sclk          => o_adc_sclk,
@@ -124,21 +125,29 @@ port map (
 );
 
 -- TODO: ADD FM Demodulation block here
+i_fm_demodulator : entity work.fm_demodulator
+port map (
+    i_sysclk        => clk_60,
+    i_rst           => mmcm_reset,
+    o_fm_audio      => fm_demod_audio_data
+);
+
 
 i_max2606_vco_driver : entity work.max2606_vco_driver
 port map (
-    i_clk_60        => clk_60,
+    i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
     -- TODO: Add PWM value input to control the VCO frequency
     o_pwm_tune      => o_pwm_tune
 );
 
+-- Note: This is a very basic audio driver which uses the GPIO interface to bit bang out audio at a sampling rate of 44.1kHz to prove the concept
 pmodamp2_ssm2377_audio_driver : entity work.pmodamp2_ssm2377_audio_driver
 generic map (
     AUDIO_DW        => ADC_RESOLUTION_BITS
 )
 port map (
-    i_sysclk_40     => clk_60, -- We can use the 60
+    i_sysclk     => clk_60, -- We can use the 60
     i_rst           => mmcm_reset,
     i_audio         => open, -- TODO: Connect to demodulated FM mono audio data
     o_audio_pwm     => open, -- TODO: Connect to an output pin for audio output
