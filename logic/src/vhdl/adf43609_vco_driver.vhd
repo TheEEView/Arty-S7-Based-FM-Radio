@@ -7,7 +7,7 @@ generic (
     INPUT_DW : integer := 24
 );
 port ( 
-    i_sysclk_40 : in  std_logic;
+    i_sysclk    : in  std_logic;
     i_rst       : in  std_logic;                               --! Synchronous active high reset
     i_start     : in  std_logic;                               --! Trigger send of data
     i_data      : in  std_logic_vector(INPUT_DW-1 downto 0);   --! 24-bit word to send
@@ -23,6 +23,7 @@ signal bit_counter : integer range 0 to INPUT_DW := 0;
 signal shift_reg   : std_logic_vector(INPUT_DW-1 downto 0) := (others => '0');
 
 -- Clock divider signals
+-- TODO: Update for 60 MHz input clock, currently set up for 40 MHz input clock to generate 5 MHz SPI clock
 signal clk_div_cnt : unsigned(2 downto 0) := (others => '0');  -- 3-bit counter for divide by 8
 signal old_spi_clk : std_logic := '0';
 signal spi_clk     : std_logic := '0';
@@ -33,10 +34,10 @@ signal data_reg    : std_logic := '0';
 
 begin
 
--- Divide 40 MHz clock by 8 to get 5 MHz SPI clock
-process(i_sysclk_40)
+-- TODO: Fix outdated comment Divide 40 MHz clock by 8 to get 5 MHz SPI clock
+process(i_sysclk)
 begin
-    if rising_edge(i_sysclk_40) then
+    if rising_edge(i_sysclk) then
         if i_rst = '1' then
             clk_div_cnt <= (others => '0');
             spi_clk     <= '0';
@@ -52,9 +53,9 @@ begin
     end if;
 end process;
 
-process(i_sysclk_40)
+process(i_sysclk)
 begin
-    if rising_edge(i_sysclk_40) then
+    if rising_edge(i_sysclk) then
         if i_rst = '1' then
             bit_counter <= 0;
             shift_reg   <= (others => '0');
@@ -71,6 +72,7 @@ begin
             elsif sending = '1' then
                 -- Send bits on spi_clk edges
                 if spi_clk = '1' and old_spi_clk = '0' then
+                    -- TODO: Logic must change with move to 60MHz clk from 40MHz
                     -- Output MSB on DATA line at rising edge of spi_clk
                     data_reg <= shift_reg(INPUT_DW-1);
                     -- Shift left
