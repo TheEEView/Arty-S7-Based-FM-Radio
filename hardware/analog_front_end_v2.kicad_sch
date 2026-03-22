@@ -17179,7 +17179,7 @@
 				)
 			)
 		)
-		(property "Value" "PMOD 2x6"
+		(property "Value" "PMOD 2x6 2.54mm pitch"
 			(at 509.27 54.61 0)
 			(effects
 				(font
@@ -17187,7 +17187,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_2x06_P1.00mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical"
 			(at 509.27 60.96 0)
 			(effects
 				(font
