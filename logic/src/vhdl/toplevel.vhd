@@ -30,6 +30,7 @@ architecture rtl of toplevel is
 constant SYSCLK_FREQ_HZ         : natural := 60000000;                      --! System clock frequency in Hz for debounce and ADC/VCO drivers
 constant DEB_CNT_50MS           : natural := (50*SYSCLK_FREQ_HZ) / 1000;    --! Number of clock cycles the button needs to remain stable without switch bouncing
 constant ADC_RESOLUTION_BITS    : natural := 16;                            --! ADC resolution in bits (MPC33131 is 16-bit)
+constant VCO_TUNE_DW            : natural := 12;                            --! MAX2606 VCO tuning PWM resolution in bits, 60 MHz / 2**12 = 14.65 kHz PWM carrier
 
 signal clk_60                   : std_logic;                                -- We use a 60 MHz clock for the 30 MHz ADC SCLK generation
 signal mmcm_lock                : std_logic;                                -- MMCM lock signal to indicate stable clock output also used for reset button debounce reset input
@@ -42,6 +43,7 @@ signal ch_down_pulse            : std_logic;
 signal adc_data                 : std_logic_vector(ADC_RESOLUTION_BITS-1 downto 0);
 signal adc_ready                : std_logic;
 signal fm_demod_audio_data      : std_logic;
+signal vco_tune                 : std_logic_vector(VCO_TUNE_DW-1 downto 0);
 
 component clk_wiz_60
 port
@@ -134,12 +136,19 @@ port map (
 
 
 i_max2606_vco_driver : entity work.max2606_vco_driver
+generic map (
+    TUNE_DW         => VCO_TUNE_DW
+)
 port map (
     i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
-    -- TODO: Add PWM value input to control the VCO frequency
-    o_pwm_tune      => o_pwm_tune
+    i_tune          => vco_tune,
+    o_pwm_tune      => o_vco_pwm_tune
 );
+
+-- TODO: Drive the VCO tuning value from the channel up/down buttons, for now the VCO is
+-- parked mid band by holding the PWM duty cycle at mid scale
+vco_tune <= std_logic_vector(to_unsigned(2**(VCO_TUNE_DW-1), VCO_TUNE_DW));
 
 -- Note: This is a very basic audio driver which uses the GPIO interface to bit bang out audio at a sampling rate of 44.1kHz to prove the concept
 pmodamp2_ssm2377_audio_driver : entity work.pmodamp2_ssm2377_audio_driver
