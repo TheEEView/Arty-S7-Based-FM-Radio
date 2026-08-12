@@ -27,12 +27,12 @@ port (
 end entity;
 
 architecture rtl of toplevel is
-constant SYSCLK_FREQ_HZ         : natural := 60000000; --! System clock frequency in Hz for debounce and ADC/VCO drivers
-constant DEB_CNT_50MS           : natural := (50*SYSCLK_FREQ_HZ) / 1000; --! Number of clock cycles the button needs to remain stable without switch bouncing
-constant ADC_RESOLUTION_BITS    : natural := 16; --! ADC resolution in bits (MPC33131 is 16-bit)
+constant SYSCLK_FREQ_HZ         : natural := 60000000;                      --! System clock frequency in Hz for debounce and ADC/VCO drivers
+constant DEB_CNT_50MS           : natural := (50*SYSCLK_FREQ_HZ) / 1000;    --! Number of clock cycles the button needs to remain stable without switch bouncing
+constant ADC_RESOLUTION_BITS    : natural := 16;                            --! ADC resolution in bits (MPC33131 is 16-bit)
 
-signal clk_60                   : std_logic; -- We use a 60 MHz clock for the 30 MHz ADC SCLK generation
-signal mmcm_lock                : std_logic; -- MMCM lock signal to indicate stable clock output also used for reset button debounce reset input
+signal clk_60                   : std_logic;                                -- We use a 60 MHz clock for the 30 MHz ADC SCLK generation
+signal mmcm_lock                : std_logic;                                -- MMCM lock signal to indicate stable clock output also used for reset button debounce reset input
 signal mmcm_reset               : std_logic;
 
 signal vol_up_pulse             : std_logic;
@@ -147,7 +147,7 @@ generic map (
     AUDIO_DW        => ADC_RESOLUTION_BITS
 )
 port map (
-    i_sysclk     => clk_60, -- We can use the 60
+    i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
     i_audio         => open, -- TODO: Connect to demodulated FM mono audio data
     o_audio_pwm     => open, -- TODO: Connect to an output pin for audio output
