@@ -4,25 +4,25 @@ use ieee.numeric_std.all;
 
 entity toplevel is
 port (
-    i_clk_12                : in std_logic;                         --! 12 MHz clock input to FPGA
+    i_clk_12                : in std_logic;                                 --! 12 MHz clock input to FPGA
 
-    i_btn_vol_up            : in std_logic;                         --! Active high volume up button
-    i_btn_vol_down          : in std_logic;                         --! Active high volume down button
-    i_btn_ch_up             : in std_logic;                         --! Active high channel up button
-    i_btn_ch_down           : in std_logic;                         --! Active high channel down button
+    i_btn_vol_up            : in std_logic;                                 --! Active high volume up button
+    i_btn_vol_down          : in std_logic;                                 --! Active high volume down button
+    i_btn_ch_up             : in std_logic;                                 --! Active high channel up button
+    i_btn_ch_down           : in std_logic;                                 --! Active high channel down button
 
-    o_adc_sdi               : out std_logic;                        --! MCP33131 ADC SDI output to FPGA
-    o_adc_sclk              : out std_logic;                        --! MCP33131 ADC SCLK output to FPGA
-    i_adc_sdo               : in std_logic;                         --! MCP33131 ADC SDO input to FPGA
-    o_adc_convst            : out std_logic;                        --! MCP33131 ADC CONVST output to FPGA
-    o_adc_data              : out std_logic_vector(15 downto 0);    --! MCP33131 ADC parallel data output
-    o_adc_ready             : out std_logic;                        --! MCP33131 ADC data ready pulse
+    o_adc_sdi               : out std_logic;                                --! MCP33131 ADC SDI output to FPGA
+    o_adc_sclk              : out std_logic;                                --! MCP33131 ADC SCLK output to FPGA
+    i_adc_sdo               : in std_logic;                                 --! MCP33131 ADC SDO input to FPGA
+    o_adc_convst            : out std_logic;                                --! MCP33131 ADC CONVST output to FPGA
+    o_adc_data              : out std_logic_vector(15 downto 0);            --! MCP33131 ADC parallel data output
+    o_adc_ready             : out std_logic;                                --! MCP33131 ADC data ready pulse
 
-    o_vco_pwm_tune          : out std_logic;                        --! MAX2606 VCO PWM oscillator tune
+    o_vco_pwm_tune          : out std_logic;                                --! MAX2606 VCO PWM oscillator tune
 
-    o_monoaudio_pwm         : out std_logic;                        --! PMOD Amp2 Mono Audio PWM output
-    o_monoaudio_gain        : out std_logic;                        --! PMOD Amp2 Mono Audio gain control
-    o_monoaudio_nshutdown   : out std_logic                         --! PMOD Amp2 Mono Audio shutdown control (active low)
+    o_monoaudio_pwm         : out std_logic;                                --! PMOD Amp2 Mono Audio PWM output
+    o_monoaudio_gain        : out std_logic;                                --! PMOD Amp2 Mono Audio gain control
+    o_monoaudio_nshutdown   : out std_logic                                 --! PMOD Amp2 Mono Audio shutdown control (active low)
 );
 end entity;
 
