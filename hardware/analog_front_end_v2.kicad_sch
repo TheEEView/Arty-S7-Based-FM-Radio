@@ -3561,7 +3561,7 @@
 		(uuid "a4454861-9db2-4dc5-833f-420a9f8e952c")
 	)
 	(rectangle
-		(start 16.51 46.99)
+		(start 11.43 46.99)
 		(end 82.55 74.93)
 		(stroke
 			(width 0)
@@ -3710,7 +3710,7 @@
 	)
 	(text "SMA Connector for FM antenna input"
 		(exclude_from_sim no)
-		(at 34.798 48.514 0)
+		(at 28.194 50.292 0)
 		(effects
 			(font
 				(size 0.762 0.762)
@@ -3740,7 +3740,7 @@
 	)
 	(text "-93dBm approx signal coming \ninto the office"
 		(exclude_from_sim no)
-		(at 33.782 51.308 0)
+		(at 27.178 53.086 0)
 		(effects
 			(font
 				(size 0.762 0.762)
@@ -3849,10 +3849,10 @@
 		(uuid "2f2fb6e3-4ff1-49b3-9717-17c334fe4799")
 	)
 	(junction
-		(at 78.74 59.69)
+		(at 21.59 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "36587448-e4a6-40e4-b04b-e8c5b8a25403")
+		(uuid "2f835bb7-566a-4789-a377-8d71992e321c")
 	)
 	(junction
 		(at 179.07 121.92)
@@ -3861,10 +3861,16 @@
 		(uuid "3a903199-e709-419e-99d0-0a6312573121")
 	)
 	(junction
-		(at 52.07 59.69)
+		(at 27.94 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "45604978-1698-497d-af68-c19313c805aa")
+		(uuid "47c0862a-1fac-4784-ad79-3158e3002ba0")
+	)
+	(junction
+		(at 50.8 59.69)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "48511bb2-8cd7-48a8-9c55-bc1fc0133ed8")
 	)
 	(junction
 		(at 179.07 171.45)
@@ -3897,12 +3903,6 @@
 		(uuid "51922eb1-3cd9-4232-a8f4-88f6c0e7191f")
 	)
 	(junction
-		(at 55.88 59.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "51dcc72c-db55-40fb-ab9d-8f19e62bfc34")
-	)
-	(junction
 		(at 347.98 41.91)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3927,10 +3927,10 @@
 		(uuid "5b2b5dfd-a067-4e68-9e16-0df9afa9af55")
 	)
 	(junction
-		(at 73.66 59.69)
+		(at 76.2 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "5e09f40d-d61b-445d-9c34-75e611401bc7")
+		(uuid "5f99d293-3d09-4d52-9632-38edb2aa4a2f")
 	)
 	(junction
 		(at 401.32 44.45)
@@ -4011,10 +4011,10 @@
 		(uuid "a09c49a1-4a18-4e53-a3a2-6f047df50f6f")
 	)
 	(junction
-		(at 33.02 59.69)
+		(at 46.99 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "b9dfc0ab-3ada-4b2d-aff6-e6e7d77a0c04")
+		(uuid "bcd5d66a-50e7-45a6-98a7-e79d796a2561")
 	)
 	(junction
 		(at 167.64 121.92)
@@ -4053,10 +4053,10 @@
 		(uuid "df97eacc-53f9-4ade-9140-01541cdffb2a")
 	)
 	(junction
-		(at 26.67 59.69)
+		(at 69.85 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "e011c5a3-657b-42f7-8c08-1d561d3e69ea")
+		(uuid "e38b747a-aed7-4f12-aca9-b9da2dfcfa86")
 	)
 	(junction
 		(at 264.16 105.41)
@@ -4234,7 +4234,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 59.69) (xy 73.66 59.69)
+			(xy 68.58 59.69) (xy 69.85 59.69)
 		)
 		(stroke
 			(width 0)
@@ -4324,17 +4324,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 59.69) (xy 35.56 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0d60ef3f-3cf2-438f-b0b7-6a9eb93d3986")
-	)
-	(wire
-		(pts
-			(xy 26.67 69.85) (xy 26.67 68.58)
+			(xy 21.59 69.85) (xy 21.59 68.58)
 		)
 		(stroke
 			(width 0)
@@ -4454,7 +4444,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 68.58) (xy 55.88 69.85)
+			(xy 50.8 68.58) (xy 50.8 69.85)
 		)
 		(stroke
 			(width 0)
@@ -4514,7 +4504,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 60.96) (xy 26.67 59.69)
+			(xy 21.59 60.96) (xy 21.59 59.69)
 		)
 		(stroke
 			(width 0)
@@ -4594,13 +4584,23 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 68.58) (xy 78.74 69.85)
+			(xy 76.2 68.58) (xy 76.2 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "238a037a-5b5e-4cae-8467-77d6292013b2")
+	)
+	(wire
+		(pts
+			(xy 21.59 59.69) (xy 27.94 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "243cb7f2-5feb-4b65-a61b-82d4acf0f1bd")
 	)
 	(wire
 		(pts
@@ -4994,6 +4994,16 @@
 	)
 	(wire
 		(pts
+			(xy 76.2 59.69) (xy 85.09 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4bb8119d-1f71-447a-81c5-bcc13610ae2a")
+	)
+	(wire
+		(pts
 			(xy 264.16 110.49) (xy 265.43 110.49)
 		)
 		(stroke
@@ -5011,16 +5021,6 @@
 			(type default)
 		)
 		(uuid "4eba0bd3-f3a9-453e-ab6f-296dfabafaef")
-	)
-	(wire
-		(pts
-			(xy 55.88 59.69) (xy 57.15 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4f798d33-84c0-4953-9330-d5ce12722b23")
 	)
 	(wire
 		(pts
@@ -5114,23 +5114,13 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 60.96) (xy 33.02 59.69)
+			(xy 27.94 60.96) (xy 27.94 59.69)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "5d3020a1-e12d-41e6-a107-cbfdb69cbad5")
-	)
-	(wire
-		(pts
-			(xy 52.07 59.69) (xy 55.88 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5d339dae-79c3-4ef6-bcb4-be45c93cfb63")
 	)
 	(wire
 		(pts
@@ -5254,16 +5244,6 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 59.69) (xy 85.09 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "65b1ed1a-0327-4d9f-9c0f-2f9f333f36ab")
-	)
-	(wire
-		(pts
 			(xy 401.32 43.18) (xy 401.32 44.45)
 		)
 		(stroke
@@ -5354,7 +5334,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 60.96) (xy 52.07 59.69)
+			(xy 46.99 60.96) (xy 46.99 59.69)
 		)
 		(stroke
 			(width 0)
@@ -5404,6 +5384,16 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 59.69) (xy 60.96 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75f642ac-edac-43da-8284-3633b1878769")
+	)
+	(wire
+		(pts
 			(xy 134.62 121.92) (xy 135.89 121.92)
 		)
 		(stroke
@@ -5414,7 +5404,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 69.85) (xy 52.07 68.58)
+			(xy 46.99 69.85) (xy 46.99 68.58)
 		)
 		(stroke
 			(width 0)
@@ -5534,6 +5524,16 @@
 	)
 	(wire
 		(pts
+			(xy 27.94 59.69) (xy 30.48 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83eecf7a-4c12-4198-abc3-8daeae60e597")
+	)
+	(wire
+		(pts
 			(xy 274.32 107.95) (xy 276.86 107.95)
 		)
 		(stroke
@@ -5544,7 +5544,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 60.96) (xy 55.88 59.69)
+			(xy 50.8 60.96) (xy 50.8 59.69)
 		)
 		(stroke
 			(width 0)
@@ -5554,7 +5554,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 69.85) (xy 73.66 68.58)
+			(xy 69.85 69.85) (xy 69.85 68.58)
 		)
 		(stroke
 			(width 0)
@@ -5604,7 +5604,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 60.96) (xy 73.66 59.69)
+			(xy 69.85 60.96) (xy 69.85 59.69)
 		)
 		(stroke
 			(width 0)
@@ -5644,7 +5644,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 59.69) (xy 52.07 59.69)
+			(xy 45.72 59.69) (xy 46.99 59.69)
 		)
 		(stroke
 			(width 0)
@@ -5774,16 +5774,6 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 59.69) (xy 78.74 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "972e37d8-ebb9-43a9-a355-6d7751391b39")
-	)
-	(wire
-		(pts
 			(xy 167.64 148.59) (xy 156.21 148.59)
 		)
 		(stroke
@@ -5834,7 +5824,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 59.69) (xy 26.67 59.69)
+			(xy 20.32 59.69) (xy 21.59 59.69)
 		)
 		(stroke
 			(width 0)
@@ -5844,7 +5834,7 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 60.96) (xy 78.74 59.69)
+			(xy 76.2 60.96) (xy 76.2 59.69)
 		)
 		(stroke
 			(width 0)
@@ -6304,6 +6294,16 @@
 	)
 	(wire
 		(pts
+			(xy 69.85 59.69) (xy 76.2 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c287677f-6c7f-4c66-829d-95ebfb708e7b")
+	)
+	(wire
+		(pts
 			(xy 176.53 121.92) (xy 179.07 121.92)
 		)
 		(stroke
@@ -6494,16 +6494,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 59.69) (xy 33.02 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d036de96-b041-4807-82f3-9ef5f7b98b11")
-	)
-	(wire
-		(pts
 			(xy 448.31 43.18) (xy 435.61 43.18)
 		)
 		(stroke
@@ -6634,6 +6624,16 @@
 	)
 	(wire
 		(pts
+			(xy 46.99 59.69) (xy 50.8 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1d33ee0-839e-4c0f-b910-7436b287ac47")
+	)
+	(wire
+		(pts
 			(xy 238.76 118.11) (xy 246.38 118.11)
 		)
 		(stroke
@@ -6654,7 +6654,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 68.58) (xy 33.02 69.85)
+			(xy 27.94 68.58) (xy 27.94 69.85)
 		)
 		(stroke
 			(width 0)
@@ -6851,6 +6851,16 @@
 			(type default)
 		)
 		(uuid "f666bff9-8123-424e-9fcf-be1c9862997b")
+	)
+	(wire
+		(pts
+			(xy 50.8 59.69) (xy 52.07 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7ec7839-13d2-4594-bf47-0a1300a27dc2")
 	)
 	(wire
 		(pts
@@ -7918,7 +7928,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 33.02 64.77 0)
+		(at 27.94 64.77 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7928,7 +7938,7 @@
 		(dnp yes)
 		(uuid "02065dd6-f1c7-42ee-b83f-e8eae966b3a0")
 		(property "Reference" "C1"
-			(at 35.56 63.246 0)
+			(at 30.48 63.246 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7939,7 +7949,7 @@
 			)
 		)
 		(property "Value" "75p_50V"
-			(at 35.56 64.77 0)
+			(at 30.48 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7950,7 +7960,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 33.9852 68.58 0)
+			(at 28.9052 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7961,7 +7971,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7972,7 +7982,7 @@
 			)
 		)
 		(property "Description" "0402 75pF 50V Unpolarized capacitor"
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7983,7 +7993,7 @@
 			)
 		)
 		(property "Size" "0402"
-			(at 34.544 66.802 0)
+			(at 29.464 66.802 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7993,7 +8003,7 @@
 			)
 		)
 		(property "MOC" "GCM1555C1H750FA16J"
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8004,7 +8014,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 34.036 67.818 0)
+			(at 28.956 67.818 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8014,7 +8024,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8025,7 +8035,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8036,7 +8046,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8047,7 +8057,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8058,7 +8068,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8069,7 +8079,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8080,7 +8090,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8091,7 +8101,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8102,7 +8112,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8113,7 +8123,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8124,7 +8134,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8135,7 +8145,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8146,7 +8156,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8157,7 +8167,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8168,7 +8178,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8179,7 +8189,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8190,7 +8200,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8201,7 +8211,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8212,7 +8222,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8223,7 +8233,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8234,7 +8244,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8245,7 +8255,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 33.02 64.77 0)
+			(at 27.94 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8626,7 +8636,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 33.02 69.85 0)
+		(at 27.94 69.85 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8636,7 +8646,7 @@
 		(dnp no)
 		(uuid "025933b0-fca0-4ea2-a5db-b549c6878a13")
 		(property "Reference" "#PWR02"
-			(at 33.02 76.2 0)
+			(at 27.94 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8647,7 +8657,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 33.02 73.152 0)
+			(at 27.94 73.152 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8657,7 +8667,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 33.02 69.85 0)
+			(at 27.94 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8668,7 +8678,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 33.02 69.85 0)
+			(at 27.94 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8679,7 +8689,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 33.02 69.85 0)
+			(at 27.94 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9895,7 +9905,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 39.37 59.69 270)
+		(at 34.29 59.69 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9905,7 +9915,7 @@
 		(dnp no)
 		(uuid "0f9bcd7c-0158-414c-838c-b24cbe91873a")
 		(property "Reference" "C2"
-			(at 39.624 55.118 90)
+			(at 34.544 55.118 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9915,7 +9925,7 @@
 			)
 		)
 		(property "Value" "5p1_50V"
-			(at 39.878 56.388 90)
+			(at 34.798 56.388 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9925,7 +9935,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 35.56 60.6552 0)
+			(at 30.48 60.6552 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9936,7 +9946,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 39.37 59.69 0)
+			(at 34.29 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9947,7 +9957,7 @@
 			)
 		)
 		(property "Description" "0402 5.1pF 50V Unpolarized capacitor"
-			(at 39.37 59.69 0)
+			(at 34.29 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9958,7 +9968,7 @@
 			)
 		)
 		(property "Size" "0402"
-			(at 39.37 62.738 90)
+			(at 34.29 62.738 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9968,7 +9978,7 @@
 			)
 		)
 		(property "MOC" "GCM1555C1H5R1FA16D"
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9979,7 +9989,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 39.37 63.754 90)
+			(at 34.29 63.754 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9989,7 +9999,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10000,7 +10010,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10011,7 +10021,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10022,7 +10032,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10033,7 +10043,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10044,7 +10054,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10055,7 +10065,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10066,7 +10076,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10077,7 +10087,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10088,7 +10098,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10099,7 +10109,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10110,7 +10120,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10121,7 +10131,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10132,7 +10142,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10143,7 +10153,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10154,7 +10164,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10165,7 +10175,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10176,7 +10186,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10187,7 +10197,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10198,7 +10208,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10209,7 +10219,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10220,7 +10230,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 39.37 59.69 90)
+			(at 34.29 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10324,7 +10334,7 @@
 	)
 	(symbol
 		(lib_id "Device:L")
-		(at 46.99 59.69 90)
+		(at 41.91 59.69 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10334,7 +10344,7 @@
 		(dnp no)
 		(uuid "0fce1e30-4e2a-49a1-be13-7632b79dbff4")
 		(property "Reference" "L2"
-			(at 46.99 56.134 90)
+			(at 41.91 56.134 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10344,7 +10354,7 @@
 			)
 		)
 		(property "Value" "500n"
-			(at 46.99 57.404 90)
+			(at 41.91 57.404 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10354,7 +10364,7 @@
 			)
 		)
 		(property "Footprint" "TheEEView_Footprint_Lib:2929SQ-501GEC"
-			(at 46.99 59.69 0)
+			(at 41.91 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10365,7 +10375,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.coilcraft.com/getmedia/a4eed406-a97e-4630-9d8e-771bb470867f/1515sq.pdf"
-			(at 46.99 59.69 0)
+			(at 41.91 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10376,7 +10386,7 @@
 			)
 		)
 		(property "Description" "500nH Inductor"
-			(at 46.99 59.69 0)
+			(at 41.91 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10387,7 +10397,7 @@
 			)
 		)
 		(property "Size" "2929"
-			(at 46.99 60.706 90)
+			(at 41.91 60.706 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10397,7 +10407,7 @@
 			)
 		)
 		(property "MOC" "2929SQ-501"
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10408,7 +10418,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10419,7 +10429,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10430,7 +10440,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10441,7 +10451,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10452,7 +10462,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10463,7 +10473,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10474,7 +10484,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10485,7 +10495,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10496,7 +10506,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10507,7 +10517,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10518,7 +10528,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10529,7 +10539,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10540,7 +10550,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10551,7 +10561,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10562,7 +10572,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10573,7 +10583,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10584,7 +10594,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10595,7 +10605,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10606,7 +10616,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10617,7 +10627,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10628,7 +10638,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10639,7 +10649,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 46.99 59.69 90)
+			(at 41.91 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12868,7 +12878,7 @@
 	)
 	(symbol
 		(lib_id "Device:L")
-		(at 68.58 59.69 90)
+		(at 64.77 59.69 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12878,7 +12888,7 @@
 		(dnp no)
 		(uuid "1ee7d72d-fb03-45e9-aba6-538b5a11b65a")
 		(property "Reference" "L4"
-			(at 68.326 56.642 90)
+			(at 64.516 56.642 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12888,7 +12898,7 @@
 			)
 		)
 		(property "Value" "500n"
-			(at 68.58 58.166 90)
+			(at 64.77 58.166 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12898,7 +12908,7 @@
 			)
 		)
 		(property "Footprint" "TheEEView_Footprint_Lib:2929SQ-501GEC"
-			(at 68.58 59.69 0)
+			(at 64.77 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12909,7 +12919,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.coilcraft.com/getmedia/a4eed406-a97e-4630-9d8e-771bb470867f/1515sq.pdf"
-			(at 68.58 59.69 0)
+			(at 64.77 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12920,7 +12930,7 @@
 			)
 		)
 		(property "Description" "500nH Inductor"
-			(at 68.58 59.69 0)
+			(at 64.77 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12931,7 +12941,7 @@
 			)
 		)
 		(property "Size" "2929"
-			(at 68.58 60.706 90)
+			(at 64.77 60.706 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12941,7 +12951,7 @@
 			)
 		)
 		(property "MOC" "2929SQ-501"
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12952,7 +12962,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12963,7 +12973,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12974,7 +12984,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12985,7 +12995,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12996,7 +13006,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13007,7 +13017,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13018,7 +13028,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13029,7 +13039,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13040,7 +13050,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13051,7 +13061,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13062,7 +13072,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13073,7 +13083,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13084,7 +13094,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13095,7 +13105,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13106,7 +13116,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13117,7 +13127,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13128,7 +13138,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13139,7 +13149,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13150,7 +13160,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13161,7 +13171,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13172,7 +13182,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13183,7 +13193,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 68.58 59.69 90)
+			(at 64.77 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13287,7 +13297,7 @@
 	)
 	(symbol
 		(lib_id "Device:L")
-		(at 55.88 64.77 0)
+		(at 50.8 64.77 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13297,7 +13307,7 @@
 		(dnp no)
 		(uuid "29a495dd-5d5a-4b33-918c-a624c2962329")
 		(property "Reference" "L3"
-			(at 56.896 63.5 0)
+			(at 51.816 63.5 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13308,7 +13318,7 @@
 			)
 		)
 		(property "Value" "11n2"
-			(at 56.896 65.278 0)
+			(at 51.816 65.278 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13319,7 +13329,7 @@
 			)
 		)
 		(property "Footprint" "TheEEView_Footprint_Lib:0807SQ-11N"
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13330,7 +13340,7 @@
 			)
 		)
 		(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/COLC/COLC-S-A0013895765/COLC-S-A0013956366-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0"
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13341,7 +13351,7 @@
 			)
 		)
 		(property "Description" "11.2nH Inductor"
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13352,7 +13362,7 @@
 			)
 		)
 		(property "Size" "0807"
-			(at 58.166 66.802 0)
+			(at 53.086 66.802 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13362,7 +13372,7 @@
 			)
 		)
 		(property "MOC" "0807SQ-11N"
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13373,7 +13383,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13384,7 +13394,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13395,7 +13405,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13406,7 +13416,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13417,7 +13427,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13428,7 +13438,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13439,7 +13449,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13450,7 +13460,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13461,7 +13471,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13472,7 +13482,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13483,7 +13493,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13494,7 +13504,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13505,7 +13515,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13516,7 +13526,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13527,7 +13537,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13538,7 +13548,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13549,7 +13559,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13560,7 +13570,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13571,7 +13581,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13582,7 +13592,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13593,7 +13603,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13604,7 +13614,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 55.88 64.77 0)
+			(at 50.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21228,7 +21238,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 52.07 64.77 0)
+		(at 46.99 64.77 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21238,7 +21248,7 @@
 		(dnp no)
 		(uuid "597f465b-7d2e-427f-bc52-438c21c22974")
 		(property "Reference" "C3"
-			(at 48.006 62.738 0)
+			(at 42.926 62.738 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21249,7 +21259,7 @@
 			)
 		)
 		(property "Value" "240p_50V"
-			(at 43.688 64.77 0)
+			(at 38.608 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21260,7 +21270,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 53.0352 68.58 0)
+			(at 47.9552 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21271,7 +21281,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21282,7 +21292,7 @@
 			)
 		)
 		(property "Description" "0402 240pF 50V Unpolarized capacitor"
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21293,7 +21303,7 @@
 			)
 		)
 		(property "Size" "0402"
-			(at 50.546 66.802 0)
+			(at 45.466 66.802 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21303,7 +21313,7 @@
 			)
 		)
 		(property "MOC" "GRT1555C1H241FA02D"
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21314,7 +21324,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 50.8 67.818 0)
+			(at 45.72 67.818 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21324,7 +21334,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21335,7 +21345,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21346,7 +21356,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21357,7 +21367,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21368,7 +21378,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21379,7 +21389,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21390,7 +21400,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21401,7 +21411,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21412,7 +21422,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21423,7 +21433,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21434,7 +21444,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21445,7 +21455,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21456,7 +21466,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21467,7 +21477,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21478,7 +21488,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21489,7 +21499,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21500,7 +21510,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21511,7 +21521,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21522,7 +21532,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21533,7 +21543,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21544,7 +21554,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21555,7 +21565,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 52.07 64.77 0)
+			(at 46.99 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22013,7 +22023,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 73.66 69.85 0)
+		(at 69.85 69.85 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22023,7 +22033,7 @@
 		(dnp no)
 		(uuid "65519604-e10a-436a-ba94-8b08f6a1336b")
 		(property "Reference" "#PWR05"
-			(at 73.66 76.2 0)
+			(at 69.85 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22034,7 +22044,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 73.66 73.152 0)
+			(at 69.85 73.152 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22044,7 +22054,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 69.85 0)
+			(at 69.85 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22055,7 +22065,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 69.85 0)
+			(at 69.85 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22066,7 +22076,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 73.66 69.85 0)
+			(at 69.85 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23836,7 +23846,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 20.32 54.61 180)
+		(at 15.24 54.61 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23847,7 +23857,7 @@
 		(fields_autoplaced yes)
 		(uuid "6a1ea6d9-4b78-425e-bd88-74d8ea1ef85d")
 		(property "Reference" "#PWR07"
-			(at 20.32 48.26 0)
+			(at 15.24 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23858,7 +23868,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 20.32 50.8 0)
+			(at 15.24 50.8 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23868,7 +23878,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 20.32 54.61 0)
+			(at 15.24 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23879,7 +23889,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 20.32 54.61 0)
+			(at 15.24 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23890,7 +23900,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 20.32 54.61 0)
+			(at 15.24 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25561,7 +25571,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 52.07 69.85 0)
+		(at 46.99 69.85 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -25571,7 +25581,7 @@
 		(dnp no)
 		(uuid "705b1ef5-050c-4fe1-9599-325b9bf16559")
 		(property "Reference" "#PWR03"
-			(at 52.07 76.2 0)
+			(at 46.99 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25582,7 +25592,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 52.07 73.152 0)
+			(at 46.99 73.152 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25592,7 +25602,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 52.07 69.85 0)
+			(at 46.99 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25603,7 +25613,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 52.07 69.85 0)
+			(at 46.99 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25614,7 +25624,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 52.07 69.85 0)
+			(at 46.99 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26394,7 +26404,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial")
-		(at 20.32 59.69 180)
+		(at 15.24 59.69 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -26404,7 +26414,7 @@
 		(dnp no)
 		(uuid "760a88a3-a882-436e-996d-03a94a647c8d")
 		(property "Reference" "J1"
-			(at 18.034 59.69 0)
+			(at 12.954 59.69 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -26415,7 +26425,7 @@
 			)
 		)
 		(property "Value" "Conn_Coaxial"
-			(at 25.908 62.738 0)
+			(at 20.828 62.738 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -26426,7 +26436,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Coaxial:SMA_Samtec_SMA-J-P-H-ST-EM1_EdgeMount"
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26437,7 +26447,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26448,7 +26458,7 @@
 			)
 		)
 		(property "Description" "coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26459,7 +26469,7 @@
 			)
 		)
 		(property "MOC" "EMPCB.SMAFSTJ.C.HT"
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26470,7 +26480,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26481,7 +26491,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26492,7 +26502,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26503,7 +26513,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26514,7 +26524,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26525,7 +26535,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26536,7 +26546,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26547,7 +26557,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26558,7 +26568,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26569,7 +26579,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26580,7 +26590,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26591,7 +26601,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26602,7 +26612,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26613,7 +26623,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26624,7 +26634,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26635,7 +26645,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26646,7 +26656,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26657,7 +26667,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26668,7 +26678,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26679,7 +26689,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26690,7 +26700,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -26701,7 +26711,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 20.32 59.69 0)
+			(at 15.24 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -27954,7 +27964,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 73.66 64.77 0)
+		(at 69.85 64.77 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -27964,7 +27974,7 @@
 		(dnp yes)
 		(uuid "7be4828c-b323-4e35-b4cf-059b000d0961")
 		(property "Reference" "C5"
-			(at 68.326 63.5 0)
+			(at 64.516 63.5 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -27975,7 +27985,7 @@
 			)
 		)
 		(property "Value" "75p_50V"
-			(at 66.294 64.77 0)
+			(at 62.484 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -27986,7 +27996,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 74.6252 68.58 0)
+			(at 70.8152 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -27997,7 +28007,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28008,7 +28018,7 @@
 			)
 		)
 		(property "Description" "0402 75pF 50V Unpolarized capacitor"
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28019,7 +28029,7 @@
 			)
 		)
 		(property "Size" "0402"
-			(at 75.438 67.056 0)
+			(at 71.628 67.056 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -28029,7 +28039,7 @@
 			)
 		)
 		(property "MOC" "GCM1555C1H750FA16J"
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28040,7 +28050,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 74.93 68.072 0)
+			(at 71.12 68.072 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -28050,7 +28060,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28061,7 +28071,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28072,7 +28082,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28083,7 +28093,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28094,7 +28104,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28105,7 +28115,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28116,7 +28126,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28127,7 +28137,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28138,7 +28148,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28149,7 +28159,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28160,7 +28170,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28171,7 +28181,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28182,7 +28192,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28193,7 +28203,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28204,7 +28214,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28215,7 +28225,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28226,7 +28236,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28237,7 +28247,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28248,7 +28258,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28259,7 +28269,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28270,7 +28280,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28281,7 +28291,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 73.66 64.77 0)
+			(at 69.85 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -32796,7 +32806,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 55.88 69.85 0)
+		(at 50.8 69.85 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -32806,7 +32816,7 @@
 		(dnp no)
 		(uuid "90370bd2-a2a2-4f6e-aba7-095227344f21")
 		(property "Reference" "#PWR04"
-			(at 55.88 76.2 0)
+			(at 50.8 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -32817,7 +32827,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 55.88 73.152 0)
+			(at 50.8 73.152 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -32827,7 +32837,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 55.88 69.85 0)
+			(at 50.8 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -32838,7 +32848,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 69.85 0)
+			(at 50.8 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -32849,7 +32859,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 55.88 69.85 0)
+			(at 50.8 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34012,7 +34022,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 60.96 59.69 90)
+		(at 55.88 59.69 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -34022,7 +34032,7 @@
 		(dnp no)
 		(uuid "9cfff5bd-5c72-4899-bc23-bff57d5c7e55")
 		(property "Reference" "C4"
-			(at 60.96 54.864 90)
+			(at 55.88 54.864 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -34032,7 +34042,7 @@
 			)
 		)
 		(property "Value" "5p1_50V"
-			(at 61.468 56.388 90)
+			(at 56.388 56.388 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -34042,7 +34052,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 64.77 58.7248 0)
+			(at 59.69 58.7248 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34053,7 +34063,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 60.96 59.69 0)
+			(at 55.88 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34064,7 +34074,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 60.96 59.69 0)
+			(at 55.88 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34075,7 +34085,7 @@
 			)
 		)
 		(property "Size" "0402"
-			(at 60.96 62.738 90)
+			(at 55.88 62.738 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -34085,7 +34095,7 @@
 			)
 		)
 		(property "MOC" "GCM1555C1H5R1FA16D"
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34096,7 +34106,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 60.96 63.754 90)
+			(at 55.88 63.754 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -34106,7 +34116,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34117,7 +34127,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34128,7 +34138,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34139,7 +34149,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34150,7 +34160,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34161,7 +34171,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34172,7 +34182,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34183,7 +34193,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34194,7 +34204,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34205,7 +34215,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34216,7 +34226,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34227,7 +34237,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34238,7 +34248,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34249,7 +34259,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34260,7 +34270,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34271,7 +34281,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34282,7 +34292,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34293,7 +34303,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34304,7 +34314,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34315,7 +34325,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34326,7 +34336,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -34337,7 +34347,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 60.96 59.69 90)
+			(at 55.88 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -35120,7 +35130,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 26.67 69.85 0)
+		(at 21.59 69.85 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -35130,7 +35140,7 @@
 		(dnp no)
 		(uuid "a0f3d6d0-9b79-4f3f-b5d5-4d37b67477b6")
 		(property "Reference" "#PWR01"
-			(at 26.67 76.2 0)
+			(at 21.59 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -35141,7 +35151,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 26.67 73.152 0)
+			(at 21.59 73.152 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -35151,7 +35161,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 26.67 69.85 0)
+			(at 21.59 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -35162,7 +35172,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 26.67 69.85 0)
+			(at 21.59 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -35173,7 +35183,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 26.67 69.85 0)
+			(at 21.59 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39049,7 +39059,7 @@
 	)
 	(symbol
 		(lib_id "Device:L")
-		(at 78.74 64.77 0)
+		(at 76.2 64.77 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -39059,7 +39069,7 @@
 		(dnp yes)
 		(uuid "b6c74679-d666-4bb1-98ee-0200affd03f7")
 		(property "Reference" "L5"
-			(at 80.01 62.484 0)
+			(at 77.47 62.484 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -39070,7 +39080,7 @@
 			)
 		)
 		(property "Value" "36n"
-			(at 80.01 65.024 0)
+			(at 77.47 65.024 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -39081,7 +39091,7 @@
 			)
 		)
 		(property "Footprint" "TheEEView_Footprint_Lib:1111SQ-36N"
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39092,7 +39102,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.coilcraft.com/getmedia/be7200b7-709f-4b1d-a768-f9dab467c51e/1111sq.pdf"
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39103,7 +39113,7 @@
 			)
 		)
 		(property "Description" "36nH Inductor"
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39114,7 +39124,7 @@
 			)
 		)
 		(property "Size" "1111"
-			(at 80.772 67.056 0)
+			(at 78.232 67.056 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -39124,7 +39134,7 @@
 			)
 		)
 		(property "MOC" "1111SQ-36N"
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39135,7 +39145,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39146,7 +39156,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39157,7 +39167,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39168,7 +39178,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39179,7 +39189,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39190,7 +39200,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39201,7 +39211,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39212,7 +39222,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39223,7 +39233,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39234,7 +39244,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39245,7 +39255,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39256,7 +39266,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39267,7 +39277,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39278,7 +39288,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39289,7 +39299,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39300,7 +39310,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39311,7 +39321,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39322,7 +39332,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39333,7 +39343,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39344,7 +39354,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39355,7 +39365,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39366,7 +39376,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 78.74 64.77 0)
+			(at 76.2 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -43558,7 +43568,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 78.74 69.85 0)
+		(at 76.2 69.85 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -43568,7 +43578,7 @@
 		(dnp no)
 		(uuid "d5deaa44-5aaa-49e9-a62d-34930e5ab00a")
 		(property "Reference" "#PWR06"
-			(at 78.74 76.2 0)
+			(at 76.2 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -43579,7 +43589,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 78.74 73.152 0)
+			(at 76.2 73.152 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -43589,7 +43599,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 78.74 69.85 0)
+			(at 76.2 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -43600,7 +43610,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 78.74 69.85 0)
+			(at 76.2 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -43611,7 +43621,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 78.74 69.85 0)
+			(at 76.2 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -45972,7 +45982,7 @@
 	)
 	(symbol
 		(lib_id "Device:L")
-		(at 26.67 64.77 0)
+		(at 21.59 64.77 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -45982,7 +45992,7 @@
 		(dnp yes)
 		(uuid "e7153285-1703-4560-ba0a-0a2bb4197bc0")
 		(property "Reference" "L1"
-			(at 27.94 63.4999 0)
+			(at 22.86 63.4999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -45993,7 +46003,7 @@
 			)
 		)
 		(property "Value" "36n"
-			(at 27.686 65.024 0)
+			(at 22.606 65.024 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -46004,7 +46014,7 @@
 			)
 		)
 		(property "Footprint" "TheEEView_Footprint_Lib:1111SQ-36N"
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46015,7 +46025,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.coilcraft.com/getmedia/be7200b7-709f-4b1d-a768-f9dab467c51e/1111sq.pdf"
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46026,7 +46036,7 @@
 			)
 		)
 		(property "Description" "36nH Inductor"
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46037,7 +46047,7 @@
 			)
 		)
 		(property "Size" "1111"
-			(at 28.702 67.564 0)
+			(at 23.622 67.564 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -46047,7 +46057,7 @@
 			)
 		)
 		(property "MOC" "1111SQ-36N"
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46058,7 +46068,7 @@
 			)
 		)
 		(property "Arrow_Part_Number" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46069,7 +46079,7 @@
 			)
 		)
 		(property "Arrow_Price-Stock" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46080,7 +46090,7 @@
 			)
 		)
 		(property "Availability" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46091,7 +46101,7 @@
 			)
 		)
 		(property "Check_prices" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46102,7 +46112,7 @@
 			)
 		)
 		(property "Description_1" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46113,7 +46123,7 @@
 			)
 		)
 		(property "Height" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46124,7 +46134,7 @@
 			)
 		)
 		(property "MF" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46135,7 +46145,7 @@
 			)
 		)
 		(property "MP" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46146,7 +46156,7 @@
 			)
 		)
 		(property "MPN" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46157,7 +46167,7 @@
 			)
 		)
 		(property "Manufacturer_Name" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46168,7 +46178,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46179,7 +46189,7 @@
 			)
 		)
 		(property "Mouser_Part_Number" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46190,7 +46200,7 @@
 			)
 		)
 		(property "Mouser_Price-Stock" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46201,7 +46211,7 @@
 			)
 		)
 		(property "OC_FARNELL" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46212,7 +46222,7 @@
 			)
 		)
 		(property "OC_NEWARK" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46223,7 +46233,7 @@
 			)
 		)
 		(property "PACKAGE" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46234,7 +46244,7 @@
 			)
 		)
 		(property "Package" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46245,7 +46255,7 @@
 			)
 		)
 		(property "Price" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46256,7 +46266,7 @@
 			)
 		)
 		(property "Purchase-URL" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46267,7 +46277,7 @@
 			)
 		)
 		(property "SUPPLIER" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46278,7 +46288,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46289,7 +46299,7 @@
 			)
 		)
 		(property "SnapEDA_Link" ""
-			(at 26.67 64.77 0)
+			(at 21.59 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
