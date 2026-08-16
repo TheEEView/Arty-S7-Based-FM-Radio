@@ -15,8 +15,6 @@ port (
     o_adc_sclk              : out std_logic;                                --! MCP33131 ADC SCLK output to FPGA
     i_adc_sdo               : in std_logic;                                 --! MCP33131 ADC SDO input to FPGA
     o_adc_convst            : out std_logic;                                --! MCP33131 ADC CONVST output to FPGA
-    o_adc_data              : out std_logic_vector(15 downto 0);            --! MCP33131 ADC parallel data output
-    o_adc_ready             : out std_logic;                                --! MCP33131 ADC data ready pulse
 
     o_vco_pwm_tune          : out std_logic;                                --! MAX2606 VCO PWM oscillator tune
 
@@ -31,6 +29,8 @@ constant SYSCLK_FREQ_HZ         : natural := 60000000;                      --! 
 constant DEB_CNT_50MS           : natural := (50*SYSCLK_FREQ_HZ) / 1000;    --! Number of clock cycles the button needs to remain stable without switch bouncing
 constant ADC_RESOLUTION_BITS    : natural := 16;                            --! ADC resolution in bits (MPC33131 is 16-bit)
 constant VCO_TUNE_DW            : natural := 12;                            --! MAX2606 VCO tuning PWM resolution in bits, 60 MHz / 2**12 = 14.65 kHz PWM carrier
+constant AUDIO_DW               : natural := 16;                            --! Demodulated mono audio sample resolution in bits
+constant AUDIO_DECIM            : natural := 16;                            --! ADC to audio decimation, the ADC driver samples every 77 clocks so 60 MHz / 77 / 16 = 48.70 kHz audio
 
 signal clk_60                   : std_logic;                                -- We use a 60 MHz clock for the 30 MHz ADC SCLK generation
 signal mmcm_lock                : std_logic;                                -- MMCM lock signal to indicate stable clock output also used for reset button debounce reset input
@@ -42,7 +42,8 @@ signal ch_up_pulse              : std_logic;
 signal ch_down_pulse            : std_logic;
 signal adc_data                 : std_logic_vector(ADC_RESOLUTION_BITS-1 downto 0);
 signal adc_ready                : std_logic;
-signal fm_demod_audio_data      : std_logic;
+signal fm_demod_audio_data      : std_logic_vector(AUDIO_DW-1 downto 0);
+signal fm_demod_audio_valid     : std_logic;
 signal vco_tune                 : std_logic_vector(VCO_TUNE_DW-1 downto 0);
 
 component clk_wiz_60
@@ -66,7 +67,7 @@ port map (
 -- Use inverted mmcm lock signal as a power on reset before the MMCM is ready
 mmcm_reset <= not mmcm_lock;
 
-i_btn_vol_up_deb : btn_deb
+i_btn_vol_up_deb : entity work.btn_deb
 generic map (
     DEB_CNT         => DEB_CNT_50MS,
     ACTIVE_HIGH_BTN => true
@@ -78,7 +79,7 @@ port map (
     o_pulse         => vol_up_pulse
 );
 
-i_btn_vol_down_deb : btn_deb
+i_btn_vol_down_deb : entity work.btn_deb
 generic map (
     DEB_CNT         => DEB_CNT_50MS,
     ACTIVE_HIGH_BTN => true
@@ -90,7 +91,7 @@ port map (
     o_pulse         => vol_down_pulse
 );
 
-i_btn_ch_up_deb : btn_deb
+i_btn_ch_up_deb : entity work.btn_deb
 generic map (
     DEB_CNT         => DEB_CNT_50MS,
     ACTIVE_HIGH_BTN => true
@@ -102,7 +103,7 @@ port map (
     o_pulse         => ch_up_pulse
 );
 
-i_btn_ch_down_deb : btn_deb
+i_btn_ch_down_deb : entity work.btn_deb
 generic map (
     DEB_CNT         => DEB_CNT_50MS,
     ACTIVE_HIGH_BTN => true
@@ -115,6 +116,10 @@ port map (
 );
 
 i_mpc33131_adc_driver : entity work.mpc33131_adc_driver
+generic map (
+    SYSCLK_FREQ_HZ  => SYSCLK_FREQ_HZ,
+    DATA_DW         => ADC_RESOLUTION_BITS
+)
 port map (
     i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
@@ -126,14 +131,23 @@ port map (
     o_ready         => adc_ready
 );
 
--- TODO: ADD FM Demodulation block here
+-- Slope detector based mono demodulator, it consumes the ADC stream directly and hands back
+-- audio samples at 1/AUDIO_DECIM of the ADC sample rate. It assumes the VCO has already put
+-- the wanted station at the front end low IF, see the notes in fm_demodulator.vhd
 i_fm_demodulator : entity work.fm_demodulator
+generic map (
+    ADC_DW          => ADC_RESOLUTION_BITS,
+    AUDIO_DW        => AUDIO_DW,
+    DECIM_FACTOR    => AUDIO_DECIM
+)
 port map (
     i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
-    o_fm_audio      => fm_demod_audio_data
+    i_adc_data      => adc_data,
+    i_adc_ready     => adc_ready,
+    o_audio         => fm_demod_audio_data,
+    o_audio_valid   => fm_demod_audio_valid
 );
-
 
 i_max2606_vco_driver : entity work.max2606_vco_driver
 generic map (
@@ -150,22 +164,20 @@ port map (
 -- parked mid band by holding the PWM duty cycle at mid scale
 vco_tune <= std_logic_vector(to_unsigned(2**(VCO_TUNE_DW-1), VCO_TUNE_DW));
 
--- Note: This is a very basic audio driver which uses the GPIO interface to bit bang out audio at a sampling rate of 44.1kHz to prove the concept
-pmodamp2_ssm2377_audio_driver : entity work.pmodamp2_ssm2377_audio_driver
+-- The audio samples are carried to the PmodAMP2 as a one bit sigma delta stream rather than a
+-- plain PWM, see the notes in pmodamp2_ssm2377_audio_driver.vhd
+i_pmodamp2_ssm2377_audio_driver : entity work.pmodamp2_ssm2377_audio_driver
 generic map (
-    AUDIO_DW        => ADC_RESOLUTION_BITS
+    AUDIO_DW        => AUDIO_DW
 )
 port map (
     i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
-    i_audio         => open, -- TODO: Connect to demodulated FM mono audio data
-    o_audio_pwm     => open, -- TODO: Connect to an output pin for audio output
-    o_audio_gain    => open, -- TODO: Connect to an output pin for audio gain
-    o_nshutdown     => open  -- TODO: Connect to an output pin for amplifier shutdown control
+    i_audio         => fm_demod_audio_data,
+    i_audio_valid   => fm_demod_audio_valid,
+    o_audio_pwm     => o_monoaudio_pwm,
+    o_audio_gain    => o_monoaudio_gain,
+    o_nshutdown     => o_monoaudio_nshutdown
 );
-
--- Output assignments
-o_adc_data  <= adc_data;
-o_adc_ready <= adc_ready;
 
 end rtl;
