@@ -2,8 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- MCP33131 ADC controller.
---
 -- The MCP33131 is driven with a conversion strobe on CONVST and a 30 MHz serial clock
 -- when the 60 MHz system clock is used.  The ADC output data is sampled on the serial
 -- data input (SDO) while the clock is high, shifted into a 16-bit register, and made

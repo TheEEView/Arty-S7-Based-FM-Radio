@@ -2,8 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- MAX2606 VCO tuning driver
---
 -- The MAX2606 is tuned by the analog voltage on its TUNE pin, so this driver generates a
 -- single bit PWM stream which is turned back into a DC tuning voltage by the RC low pass
 -- filter on the analog front end board. The tuning voltage is therefore
@@ -15,8 +13,8 @@ use ieee.numeric_std.all;
 -- easier for the RC filter to remove.
 entity max2606_vco_driver is
 generic (
-    TUNE_DW     : natural := 12;                --! PWM duty cycle resolution in bits
-    TUNE_RST    : natural := 2**(TUNE_DW-1)     --! Duty cycle held during reset, defaults to mid scale so the VCO starts mid band
+    TUNE_DW     : natural := 12;                                --! PWM duty cycle resolution in bits
+    TUNE_RST    : natural := 2**(TUNE_DW-1)                     --! Duty cycle held during reset, defaults to mid scale so the VCO starts mid band
 );
 port (
     i_sysclk    : in    std_logic;
@@ -27,10 +25,10 @@ port (
 end max2606_vco_driver;
 
 architecture rtl of max2606_vco_driver is
-constant PWM_CNT_MAX : unsigned(TUNE_DW-1 downto 0) := (others => '1');
+constant PWM_CNT_MAX    : unsigned(TUNE_DW-1 downto 0) := (others => '1');
 
-signal pwm_cnt  : unsigned(TUNE_DW-1 downto 0);  -- Free running PWM period counter
-signal duty     : unsigned(TUNE_DW-1 downto 0);  -- Duty cycle in use for the current PWM period
+signal pwm_cnt          : unsigned(TUNE_DW-1 downto 0);  -- Free running PWM period counter
+signal duty             : unsigned(TUNE_DW-1 downto 0);  -- Duty cycle in use for the current PWM period
 begin
 
 process (i_sysclk)
