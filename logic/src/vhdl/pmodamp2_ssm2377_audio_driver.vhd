@@ -32,6 +32,7 @@ port (
     i_rst           : in    std_logic;                              --! Synchronous active high reset
     i_audio         : in    std_logic_vector(AUDIO_DW-1 downto 0);  --! Signed mono audio sample
     i_audio_valid   : in    std_logic;                              --! Single cycle strobe qualifying i_audio
+    i_mute          : in    std_logic;                              --! Hold the output silent, used while the LO PLL is unlocked
     o_audio_pwm     : out   std_logic;                              --! One bit sigma delta stream to the PmodAMP2 audio input
     o_audio_gain    : out   std_logic;                              --! PmodAMP2 gain select
     o_nshutdown     : out   std_logic                               --! PmodAMP2 active low shutdown
@@ -97,8 +98,12 @@ begin
                 o_nshutdown <= '0';
             end if;
 
-            -- Hold the most recent audio sample for the modulator to chew on
-            if i_audio_valid = '1' then
+            -- Hold the most recent audio sample for the modulator to chew on. Muting zeroes the
+            -- sample rather than pulling shutdown, because toggling the amplifier down and back
+            -- up on every channel change would click.
+            if i_mute = '1' then
+                audio_hold <= (others => '0');
+            elsif i_audio_valid = '1' then
                 audio_hold <= signed(i_audio);
             end if;
 
