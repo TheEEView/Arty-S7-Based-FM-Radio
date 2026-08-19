@@ -2,11 +2,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- Driver for the ADF4351 wideband synthesiser used as the receiver local oscillator, replacing
--- the MAX2606 varactor VCO. Register field positions follow the ADF4351 data sheet as encoded in
+-- Driver for the ADF4351 wideband synthesiser used as the receiver local oscillator
+-- Register field positions follow the ADF4351 data sheet as encoded in
 -- the Analog Devices no-OS and Linux IIO drivers (adf4350.h).
 --
--- Frequency plan, chosen so the part runs in integer-N mode and produces no fractional spurs:
+-- Frequency plan, chosen so the part runs in integer-N mode:
 --
 --   REFIN / R_COUNTER = 3.2 MHz phase detector frequency
 --   f_VCO             = 3.2 MHz * INT              (3196.8 to 3360.0 MHz)
@@ -17,7 +17,7 @@ use ieee.numeric_std.all;
 --
 --   INT = INT_BASE + channel,  INT_BASE = 999  ->  LO 99.9 MHz  ->  station 100.0 MHz
 --
--- Every channel in the 100.0 to 105.1 MHz band is therefore an exact integer N. There is no
+-- Every channel in the 100.0 to 105.1 MHz band is an exact integer N. There is no
 -- fractional modulus, no calibration table, and the IF stays pinned at 100 kHz instead of
 -- drifting with temperature the way an open loop varactor does, which matters because the slope
 -- detector in fm_demodulator is sensitive to where the IF actually sits.
@@ -32,20 +32,20 @@ use ieee.numeric_std.all;
 -- microseconds and avoids reasoning about which registers are double buffered.
 entity adf4351_driver is
 generic (
-    SYSCLK_FREQ_HZ  : natural := 60000000;  --! System clock frequency in Hz
-    CH_DW           : natural := 6;         --! Channel index width
-    INT_BASE        : natural := 999;       --! Feedback divider for channel 0, LO in units of 100 kHz
-    R_COUNTER       : natural := 4;         --! Reference divider, REFIN/R gives the 3.2 MHz phase detector frequency (12.8 MHz reference)
-    RF_DIV_SEL      : natural := 5;         --! Output divider select, 5 means divide by 32
-    BAND_SEL_DIV    : natural := 32;        --! Band select clock divider, keeps PFD/this at or below 125 kHz
-    MOD_VALUE       : natural := 2;         --! Modulus, unused in integer-N but must be a legal value
-    FRAC_VALUE      : natural := 0;         --! Fractional word, zero for integer-N
-    PHASE_VALUE     : natural := 1;         --! Phase word, the data sheet recommends 1
-    CP_CURRENT_SEL  : natural := 7;         --! Charge pump current select, 7 is 2.50 mA with a 5.1 k resistor
-    OUTPUT_POWER    : natural := 0;         --! RF output power, 0 = -4 dBm through 3 = +5 dBm
-    MUXOUT_SEL      : natural := 6;         --! MUXOUT function, 6 is digital lock detect
-    SPI_HALF_CYCLES : natural := 8;         --! System clock cycles per SPI half period, 8 gives 3.75 MHz (ADF4351 limit is 20 MHz)
-    STARTUP_CYCLES  : natural := 600000     --! Settling delay before the first programming, 10 ms at 60 MHz
+    SYSCLK_FREQ_HZ  : natural := 60000000;                      --! System clock frequency in Hz
+    CH_DW           : natural := 6;                             --! Channel index width
+    INT_BASE        : natural := 999;                           --! Feedback divider for channel 0, LO in units of 100 kHz
+    R_COUNTER       : natural := 4;                             --! Reference divider, REFIN/R gives the 3.2 MHz phase detector frequency (12.8 MHz reference)
+    RF_DIV_SEL      : natural := 5;                             --! Output divider select, 5 means divide by 32
+    BAND_SEL_DIV    : natural := 32;                            --! Band select clock divider, keeps PFD/this at or below 125 kHz
+    MOD_VALUE       : natural := 2;                             --! Modulus, unused in integer-N but must be a legal value
+    FRAC_VALUE      : natural := 0;                             --! Fractional word, zero for integer-N
+    PHASE_VALUE     : natural := 1;                             --! Phase word, the data sheet recommends 1
+    CP_CURRENT_SEL  : natural := 7;                             --! Charge pump current select, 7 is 2.50 mA with a 5.1 k resistor
+    OUTPUT_POWER    : natural := 0;                             --! RF output power, 0 = -4 dBm through 3 = +5 dBm
+    MUXOUT_SEL      : natural := 6;                             --! MUXOUT function, 6 is digital lock detect
+    SPI_HALF_CYCLES : natural := 8;                             --! System clock cycles per SPI half period, 8 gives 3.75 MHz (ADF4351 limit is 20 MHz)
+    STARTUP_CYCLES  : natural := 600000                         --! Settling delay before the first programming, 10 ms at 60 MHz
 );
 port (
     i_sysclk        : in    std_logic;
