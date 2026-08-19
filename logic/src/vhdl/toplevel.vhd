@@ -16,7 +16,10 @@ port (
     i_adc_sdo               : in std_logic;                                 --! MCP33131 ADC SDO input to FPGA
     o_adc_convst            : out std_logic;                                --! MCP33131 ADC CONVST output to FPGA
 
-    o_vco_pwm_tune          : out std_logic;                                --! MAX2606 VCO PWM oscillator tune
+    o_pll_clk               : out std_logic;                                --! ADF4351 LO synthesiser SPI clock
+    o_pll_data              : out std_logic;                                --! ADF4351 LO synthesiser SPI data
+    o_pll_le                : out std_logic;                                --! ADF4351 LO synthesiser latch enable
+    i_pll_lock              : in  std_logic;                                --! ADF4351 MUXOUT, configured as digital lock detect
 
     o_monoaudio_pwm         : out std_logic;                                --! PMOD Amp2 Mono Audio PWM output
     o_monoaudio_gain        : out std_logic;                                --! PMOD Amp2 Mono Audio gain control
@@ -28,7 +31,9 @@ architecture rtl of toplevel is
 constant SYSCLK_FREQ_HZ         : natural := 60000000;                      --! System clock frequency in Hz for debounce and ADC/VCO drivers
 constant DEB_CNT_50MS           : natural := (50*SYSCLK_FREQ_HZ) / 1000;    --! Number of clock cycles the button needs to remain stable without switch bouncing
 constant ADC_RESOLUTION_BITS    : natural := 16;                            --! ADC resolution in bits (MPC33131 is 16-bit)
-constant VCO_TUNE_DW            : natural := 12;                            --! MAX2606 VCO tuning PWM resolution in bits, 60 MHz / 2**12 = 14.65 kHz PWM carrier
+constant CH_DW                  : natural := 6;                             --! Channel index width
+constant N_CHANNELS             : natural := 52;                            --! 100.0 to 105.1 MHz inclusive on a 100 kHz raster
+constant PLL_INT_BASE           : natural := 999;                           --! ADF4351 feedback divider for channel 0, the LO in units of 100 kHz
 constant AUDIO_DW               : natural := 16;                            --! Demodulated mono audio sample resolution in bits
 constant AUDIO_DECIM            : natural := 16;                            --! ADC to audio decimation, the ADC driver samples every 77 clocks so 60 MHz / 77 / 16 = 48.70 kHz audio
 
@@ -44,7 +49,10 @@ signal adc_data                 : std_logic_vector(ADC_RESOLUTION_BITS-1 downto 
 signal adc_ready                : std_logic;
 signal fm_demod_audio_data      : std_logic_vector(AUDIO_DW-1 downto 0);
 signal fm_demod_audio_valid     : std_logic;
-signal vco_tune                 : std_logic_vector(VCO_TUNE_DW-1 downto 0);
+signal pll_channel              : std_logic_vector(CH_DW-1 downto 0);
+signal pll_channel_changed      : std_logic;
+signal pll_locked               : std_logic;
+signal pll_unlocked             : std_logic;
 
 component clk_wiz_60
 port
@@ -66,6 +74,9 @@ port map (
 
 -- Use inverted mmcm lock signal as a power on reset before the MMCM is ready
 mmcm_reset <= not mmcm_lock;
+
+-- Keep the audio silent until the LO synthesiser has locked, so retuning cannot burst noise
+pll_unlocked <= not pll_locked;
 
 i_btn_vol_up_deb : entity work.btn_deb
 generic map (
@@ -149,20 +160,44 @@ port map (
     o_audio_valid   => fm_demod_audio_valid
 );
 
-i_max2606_vco_driver : entity work.max2606_vco_driver
+-- Channel up/down walk a 100 kHz raster across the 100.0 to 105.1 MHz band. With the ADF4351
+-- the channel index is the whole story: it maps straight onto the PLL feedback divider, so a
+-- press is exactly one channel with nothing to calibrate.
+i_channel_selector : entity work.channel_selector
 generic map (
-    TUNE_DW         => VCO_TUNE_DW
+    CH_DW           => CH_DW,
+    N_CHANNELS      => N_CHANNELS,
+    CH_RST          => 0
 )
 port map (
     i_sysclk        => clk_60,
     i_rst           => mmcm_reset,
-    i_tune          => vco_tune,
-    o_pwm_tune      => o_vco_pwm_tune
+    i_ch_up         => ch_up_pulse,
+    i_ch_down       => ch_down_pulse,
+    o_channel       => pll_channel,
+    o_changed       => pll_channel_changed
 );
 
--- TODO: Drive the VCO tuning value from the channel up/down buttons, for now the VCO is
--- parked mid band by holding the PWM duty cycle at mid scale
-vco_tune <= std_logic_vector(to_unsigned(2**(VCO_TUNE_DW-1), VCO_TUNE_DW));
+-- ADF4351 local oscillator, programmed over its three wire SPI port. Runs integer-N so there
+-- are no fractional spurs, and holds the IF at exactly 100 kHz, see adf4351_driver.vhd
+i_adf4351_driver : entity work.adf4351_driver
+generic map (
+    SYSCLK_FREQ_HZ  => SYSCLK_FREQ_HZ,
+    CH_DW           => CH_DW,
+    INT_BASE        => PLL_INT_BASE
+)
+port map (
+    i_sysclk        => clk_60,
+    i_rst           => mmcm_reset,
+    i_channel       => pll_channel,
+    i_update        => pll_channel_changed,
+    i_lock          => i_pll_lock,
+    o_pll_clk       => o_pll_clk,
+    o_pll_data      => o_pll_data,
+    o_pll_le        => o_pll_le,
+    o_locked        => pll_locked,
+    o_busy          => open
+);
 
 -- The audio samples are carried to the PmodAMP2 as a one bit sigma delta stream rather than a
 -- plain PWM, see the notes in pmodamp2_ssm2377_audio_driver.vhd
@@ -175,6 +210,7 @@ port map (
     i_rst           => mmcm_reset,
     i_audio         => fm_demod_audio_data,
     i_audio_valid   => fm_demod_audio_valid,
+    i_mute          => pll_unlocked,
     o_audio_pwm     => o_monoaudio_pwm,
     o_audio_gain    => o_monoaudio_gain,
     o_nshutdown     => o_monoaudio_nshutdown
