@@ -2,9 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- Channel selection for a synthesiser based local oscillator. Each debounced channel button
--- press moves one channel along a fixed raster, clamped at the ends of the band, and a change
--- pulse tells the PLL driver to reprogram.
+-- Channel selection for a synthesiser based local oscillator. 
+-- A change pulse tells the PLL driver to reprogram.
 --
 -- With the ADF4351 frequency plan there is nothing to calibrate here: the channel index maps
 -- straight onto the PLL feedback divider, so a channel is exactly one raster step and never

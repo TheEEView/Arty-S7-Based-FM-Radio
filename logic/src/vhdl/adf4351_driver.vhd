@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- Driver for the ADF4351 wideband synthesiser used as the receiver local oscillator
+-- Driver for the ADF4351 VCO used as the receiver local oscillator
 -- Register field positions follow the ADF4351 data sheet as encoded in
 -- the Analog Devices no-OS and Linux IIO drivers (adf4350.h).
 --

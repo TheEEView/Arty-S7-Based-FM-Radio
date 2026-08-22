@@ -4,9 +4,9 @@ use ieee.numeric_std.all;
 
 -- Mono FM demodulator working straight off the MCP33131 ADC sample stream.
 --
--- The analog front end mixes the wanted station down against the MAX2606 VCO and band limits
--- the result with a 320 kHz anti aliasing filter, so the ADC sees a single real valued low IF
--- copy of the station. This block turns that into mono audio with a slope detector:
+-- The analog front end mixes the wanted station down against the ADF4351 synthesiser and band
+-- limits the result with a 320 kHz anti aliasing filter, so the ADC sees a single real valued
+-- low IF copy of the station. This block turns that into mono audio with a slope detector:
 --
 --     ADC -> d/dt -> |x| -> CIC decimator -> DC block -> droop compensator -> de-emphasis
 --
@@ -27,19 +27,25 @@ use ieee.numeric_std.all;
 --   6. A single pole IIR applies the broadcast de-emphasis time constant, which doubles as the
 --      final audio band limiting by rolling off the 19 kHz stereo pilot and everything above it.
 --
--- Note on VCO placement. A slope detector needs the instantaneous frequency to stay above zero
--- across the whole modulation cycle, so the VCO has to sit an IF away from the station carrier
--- rather than exactly on top of it. Park the LO on the carrier and the deviation folds through
--- zero, which full wave rectifies the audio, a 1 kHz tone comes back out at 2 kHz.
+-- Note on LO placement. A slope detector needs the instantaneous frequency to stay above zero
+-- across the whole modulation cycle, so the LO has to sit an IF away from the station carrier
+-- rather than exactly on top of it. Park it on the carrier and the deviation folds through zero,
+-- which full wave rectifies the audio, a 1 kHz tone comes back out at 2 kHz.
+--
+-- Since the LO became a synthesiser this is no longer something to arrange and hope holds. The
+-- ADF4351 frequency plan puts the LO exactly one IF below the station on every channel and holds
+-- it there, so the operating point below is a fixed property of the design rather than something
+-- that drifts with temperature the way the varactor tuned part it replaced did.
 --
 -- Note on sample rate. The ADC runs at 779 ksps, so a +/-75 kHz deviation swings the
 -- instantaneous frequency across a large fraction of Nyquist and no short differentiator stays
 -- linear over that span. This is what drives the choice of kernel, the five point difference
 -- tracks the ideal jw response roughly four times further up the band than a two tap difference
 -- and cuts distortion by three to five times. The IF then wants to be as low as it can go while
--- still clearing the deviation: 100 to 110 kHz keeps the instantaneous frequency in the 25 to
--- 185 kHz range and models at 5 to 6 % distortion at full deviation, falling to about 2 % at the
--- deviation typical programme material runs. Pushing the IF up to 150 kHz triples that.
+-- still clearing the deviation, which is why the synthesiser plan pins it at 100 kHz: that keeps
+-- the instantaneous frequency in the 25 to 175 kHz range and models at just under 5 % distortion
+-- at full deviation, falling to about 1.6 % at the deviation typical programme material runs.
+-- Pushing the IF up to 150 kHz triples that.
 --
 -- If better than that is wanted, the fix is architectural rather than a tuning change: mix to
 -- complex baseband at fs/4 (where the LO reduces to the multiplier free sequence 1, 0, -1, 0)
