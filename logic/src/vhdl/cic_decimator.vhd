@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- Cascaded integrator comb (CIC) decimating low pass filter. STAGES integrator sections run at
+-- Cascaded Integrator Comb (CIC) Decimating Low Pass Filter. STAGES integrator sections run at
 -- the input sample rate, the sample rate is then dropped by DECIM_FACTOR and STAGES comb
 -- sections run at the decimated rate. A CIC needs no multipliers and no coefficient storage
 -- which makes it the cheapest way to take the large rate reduction from the ADC sample rate
@@ -19,18 +19,18 @@ use ieee.numeric_std.all;
 -- compensating filter running at the decimated rate.
 entity cic_decimator is
 generic (
-    DATA_IN_DW      : natural := 18;                                --! Input sample width
-    DATA_OUT_DW     : natural := 18;                                --! Output sample width, taken from the top of the last comb register
-    STAGES          : natural := 3;                                 --! Number of integrator and comb stages, more stages give a steeper roll off and more droop
-    DECIM_FACTOR    : natural := 40                                 --! Input to output sample rate ratio
+    DATA_IN_DW      : natural := 18;                                    --! Input sample width
+    DATA_OUT_DW     : natural := 18;                                    --! Output sample width, taken from the top of the last comb register
+    STAGES          : natural := 3;                                     --! Number of integrator and comb stages, more stages give a steeper roll off and more droop
+    DECIM_FACTOR    : natural := 40                                     --! Input to output sample rate ratio
 );
 port (
     i_sysclk        : in    std_logic;
-    i_rst           : in    std_logic;                              --! Synchronous active high reset
-    i_data          : in    std_logic_vector(DATA_IN_DW-1 downto 0);--! Signed input sample
-    i_valid         : in    std_logic;                              --! Single cycle strobe qualifying i_data
-    o_data          : out   std_logic_vector(DATA_OUT_DW-1 downto 0);--! Signed decimated output sample
-    o_valid         : out   std_logic                               --! Single cycle strobe qualifying o_data
+    i_rst           : in    std_logic;                                  --! Synchronous active high reset
+    i_data          : in    std_logic_vector(DATA_IN_DW-1 downto 0);    --! Signed input sample
+    i_valid         : in    std_logic;                                  --! Single cycle strobe qualifying i_data
+    o_data          : out   std_logic_vector(DATA_OUT_DW-1 downto 0);   --! Signed decimated output sample
+    o_valid         : out   std_logic                                   --! Single cycle strobe qualifying o_data
 );
 end cic_decimator;
 
