@@ -4220,16 +4220,6 @@
 		)
 		(uuid "194ce443-6b20-4d48-8062-980e03229fc9")
 	)
-	(text "TODO: Change to 100MHz to 106MHz"
-		(exclude_from_sim no)
-		(at 43.18 41.656 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "264bc991-9d13-42d3-918a-ddcf41b7a838")
-	)
 	(text "Arty S7 JA Connector"
 		(exclude_from_sim no)
 		(at 688.34 35.306 0)
