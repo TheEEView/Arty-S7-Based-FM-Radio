@@ -839,7 +839,7 @@
         "uuid": "6d1f935e-d802-4e58-92ff-681b892e6136"
       }
     ],
-    "used_designators": "U12,U23-24,R11,#PWR61,#PWR67-68,#PWR72-78,#PWR80-82,#PWR123,C55-58",
+    "used_designators": "U12,U23-24,R11,#PWR61,#PWR67-68,#PWR72-78,#PWR80-82,#PWR101,#PWR123,C22,C50-51,C55-58,C87-88,C92-94",
     "variants": []
   },
   "sheets": [
