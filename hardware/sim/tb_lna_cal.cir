@@ -1,0 +1,33 @@
+* tb_lna_cal.cir -- calibration bench for the ADL5531 behavioural model.
+* Run this after changing av/rnf/vsat.  Targets from the datasheet:
+*   gain 20.0 dB, NF 2.6 dB, OP1dB +19.5 dBm  (all typ, 100 MHz, 5 V)
+.title ADL5531 model calibration
+.include models/behavioral.lib
+.options TEMP=16.85 TNOM=16.85     $ 290 K, the reference temperature for NF
+
+Vs  src 0 DC 0 AC 1 SIN(0 0.4 100meg)
+Rs  src in 50
+X1  in out ADL5531
+Rl  out 0 50
+
+.control
+set filetype=ascii
+
+ac lin 3 100meg 100.002meg
+let gdb = db(v(out)/0.5)
+meas ac gain find gdb at=100meg
+echo "small-signal gain ........ $&gain dB   (target 20.0)"
+
+noise v(out) Vs lin 3 100meg 100.002meg
+setplot previous
+let nfv = db(inoise_spectrum) - 10*log10(4*1.380649e-23*290*50)
+let nf = nfv[0]
+echo "noise figure ............ $&nf dB   (target 2.6)"
+
+setplot new
+tran 20p 300n 100n
+* 0.4 V source amplitude = +0.05 dBm available; read the 1 dB point off
+* the gain-vs-drive table printed by sweep_p1db.sh instead of here.
+fourier 100meg v(out)
+.endc
+.end

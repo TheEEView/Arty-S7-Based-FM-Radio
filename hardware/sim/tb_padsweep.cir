@@ -1,0 +1,78 @@
+* tb_padsweep.cir -- what the U18 input pad costs.
+* The PAT1220 footprints are populated with 5 dB parts (BOM MPN
+* PAT1220-C-5DB-T5).  Everything ahead of U1 adds to the cascade noise
+* figure dB for dB, so this sweeps the input pad only and reports gain
+* and NF at 103 MHz.  The other three pads sit behind 20 dB of gain and
+* barely move the NF -- change PAD_12/23/34 in common.inc to check.
+.title Input pad vs cascade noise figure
+.include common.inc
+.include models/behavioral.lib
+.options TEMP=16.85 TNOM=16.85
+
+Vin src 0 DC 0 AC 1
+Rs  src ant 50
+.include bpf.inc
+
+* input pad U18, built from discrete resistors so the sweep can alter them
+Rpser bpo  a1in 30.4
+Rpsh1 bpo  0    178.5
+Rpsh2 a1in 0    178.5
+
+XU1  a1in a1o     ADL5531_LIN
+L8   a1o 0 {L8}
+C12  a1o a2p {C12}
+XU19 a2p a2in 0 PAD atten={PAD_12}
+XU2  a2in a2o     ADL5531_LIN
+L9   a2o 0 {L9}
+C14  a2o a3p {C14}
+XU20 a3p a3in 0 PAD atten={PAD_23}
+XU3  a3in a3o     ADL5531_LIN
+L10  a3o 0 {L10}
+C18  a3o a4p {C18}
+XU21 a4p a4in 0 PAD atten={PAD_34}
+XU4  a4in a4o     ADL5531_LIN
+L11  a4o 0 {L11}
+C8   a4o a5p {C8}
+XU7  a5p tpri 0 PAD atten={PAD_OUT}
+XT1  tpri 0 tsa tsc tsb WBC1_1TL
+R31  tsc 0 {R31}
+C60  tsc 0 {C60}
+C59 tsa tsb {C59}
+L14 tsa mxn {L14}
+L13 tsb mxp {L13}
+Lmx  mxp imxp 0.9n
+Lmx2 mxn imxn 0.9n
+Rmix imxp imxn 28.5
+
+.control
+set filetype=ascii
+echo ""
+echo "=== U18 input pad sweep, 103 MHz ==="
+echo " pad_dB   chain_gain_dB   cascade_NF_dB"
+let a = 0
+dowhile a <= 10
+  setplot const
+  if a = 0
+    alter rpser = 1e-6
+    alter rpsh1 = 1e9
+    alter rpsh2 = 1e9
+  else
+    let nn = 10^(a/10)
+    alter rpser = 50*(nn-1)/(2*sqrt(nn))
+    alter rpsh1 = 50*(sqrt(nn)+1)/(sqrt(nn)-1)
+    alter rpsh2 = 50*(sqrt(nn)+1)/(sqrt(nn)-1)
+  end
+  ac lin 3 103meg 103.002meg
+  let gv = db(v(mxp,mxn)/0.5)
+  meas ac g find gv at=103meg
+  set gs = "$&g"
+  noise v(mxp,mxn) Vin lin 3 103meg 103.002meg
+  setplot previous
+  let nfv = db(inoise_spectrum) - 10*log10(4*1.380649e-23*290*50)
+  let nf = nfv[0]
+  echo "    $&a          $gs          $&nf"
+  let a = a + 1
+end
+echo ""
+.endc
+.end

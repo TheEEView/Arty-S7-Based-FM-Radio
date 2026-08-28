@@ -1,0 +1,73 @@
+* tb_rf_chain.cir -- antenna (J1) through to the LT5560 RF input.
+*   J1 -> BPF -> U18 pad -> U1 -> U19 pad -> U2 -> U20 pad -> U3
+*      -> U21 pad -> U4 -> U7 pad -> T1 balun -> C59/L13/L14 match -> mixer
+* Gives cascade gain, cascade noise figure and input-referred compression.
+.title RF front end, antenna to mixer
+.include common.inc
+.include models/behavioral.lib
+.options TEMP=16.85 TNOM=16.85       $ 290 K, the NF reference temperature
+
+Vin src 0 DC 0 AC 1 SIN(0 {vamp} 103meg)
+.param vamp = 1u
+Rs  src ant 50
+
+* --- input bandpass (finite-Q inductors, see bpf.inc) ---
+.include bpf.inc
+
+* --- pad / LNA cascade.  Chokes L8..L11 return to the 5 V rail = AC ground ---
+XU18 bpo a1in 0 PAD atten={PAD_IN}
+XU1  a1in a1o     ADL5531_LIN
+L8   a1o 0 {L8}
+C12  a1o a2p {C12}
+XU19 a2p a2in 0 PAD atten={PAD_12}
+XU2  a2in a2o     ADL5531_LIN
+L9   a2o 0 {L9}
+C14  a2o a3p {C14}
+XU20 a3p a3in 0 PAD atten={PAD_23}
+XU3  a3in a3o     ADL5531_LIN
+L10  a3o 0 {L10}
+C18  a3o a4p {C18}
+XU21 a4p a4in 0 PAD atten={PAD_34}
+XU4  a4in a4o     ADL5531_LIN
+L11  a4o 0 {L11}
+C8   a4o a5p {C8}
+XU7  a5p tpri 0 PAD atten={PAD_OUT}
+
+* --- T1 WBC1-1TL balun, centre tap biased through R31 ---
+XT1  tpri 0 tsa tsc tsb WBC1_1TL
+R31  tsc 0 {R31}
+C60  tsc 0 {C60}
+
+* --- LT5560 RF input match ---
+C59 tsa tsb {C59}
+L14 tsa mxn {L14}
+L13 tsb mxp {L13}
+Lmx  mxp imxp 0.9n
+Lmx2 mxn imxn 0.9n
+Rmix imxp imxn 28.5      $ LT5560 diff RF input, datasheet Table 2
+
+.control
+set filetype=ascii
+ac lin 4001 20meg 220meg
+let g = db(v(mxp,mxn)/0.5)     $ referred to the available source voltage
+meas ac g100 find g at=100meg
+meas ac g103 find g at=103meg
+meas ac g106 find g at=106meg
+meas ac gpp  pp  g from=100meg to=106meg
+echo ""
+echo "=== RF chain, antenna to mixer RF port ==="
+echo "gain 100 MHz ............. $&g100 dB"
+echo "gain 103 MHz ............. $&g103 dB"
+echo "gain 106 MHz ............. $&g106 dB"
+echo "gain flatness 100-106 .... $&gpp dB"
+wrdata out/rfchain_ac.csv g
+
+noise v(mxp,mxn) Vin lin 3 103meg 103.002meg
+setplot previous
+let nfv = db(inoise_spectrum) - 10*log10(4*1.380649e-23*290*50)
+let nf = nfv[0]
+echo "cascade noise figure ..... $&nf dB  @103 MHz"
+echo "  (BPF loss + the U18 pad sit ahead of U1 and set this floor -- see tb_padsweep.cir)"
+echo ""
+.endc
+.end

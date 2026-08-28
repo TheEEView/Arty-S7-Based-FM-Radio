@@ -1,0 +1,96 @@
+* mc_if_chain.cir -- Monte Carlo of the IF anti-alias chain.
+*
+* Emits one "MC,..." CSV line per trial on stdout; run.sh redirects those
+* into out/mc_if_chain.csv for mcstat.py.
+*
+* Metrics follow the real operating point from logic/src/vhdl:
+* fs = 779.2 ksps, IF = 100 kHz, instantaneous IF swings 25..175 kHz.
+* "fold_worst_db" is the worst response over 604.2..754.2 kHz -- the band
+* that aliases straight onto the wanted IF.  It is the number to hold.
+.title IF chain Monte Carlo
+.include common.inc
+.include models/behavioral.lib
+
+Vcm  vcm 0 DC {VCM}
+Vif  ifd 0 DC 0 AC 1
+XMIX ifd mxop mxon LT5560_IFSRC gm=8m
+.include ifchain.inc
+
+.control
+set filetype=ascii
+
+* ---- knobs -------------------------------------------------------------
+let trials = 500
+let tolr   = 0.01       $ E96 1 % thin film
+let tolc   = 0.02       $ C0G/NP0 filter capacitors
+let dist   = 0          $ 0 = gaussian truncated at 3 sigma, 1 = uniform
+* ------------------------------------------------------------------------
+
+setseed 20260829
+
+let r35n = 1000
+let r37n = 1000
+let r39n = 4020
+let r41n = 1000
+let r43n = 1000
+let r45n = 4020
+let r47n = 22
+let c70n = 390e-12
+let c71n = 130e-12
+let c73n = 910e-12
+let c74n = 56e-12
+let c76n = 1.8e-9
+let c64n = 1e-9
+
+define dev(t) (dist eq 0) * (t/3 * sgauss(0)) + (dist ne 0) * (t * sunif(0))
+define clip(x,t) (x > t)*t + (x < -t)*(-t) + (x <= t)*(x >= -t)*x
+define pick(nom,t) nom * (1 + clip(dev(t),t))
+
+echo "MC,run,gain_dbohm,f3db_hz,fhp_hz,tilt175_db,swing_pp_db,fold_worst_db,nyq_db"
+
+let run = 0
+dowhile run < trials
+  setplot const
+  * each half of the differential pair is drawn independently -- that is
+  * what actually happens on the board, and it is what creates the CMRR
+  * and gain-mismatch spread
+  alter r35 = pick(r35n,tolr)
+  alter r36 = pick(r35n,tolr)
+  alter r37 = pick(r37n,tolr)
+  alter r38 = pick(r37n,tolr)
+  alter r39 = pick(r39n,tolr)
+  alter r40 = pick(r39n,tolr)
+  alter r41 = pick(r41n,tolr)
+  alter r42 = pick(r41n,tolr)
+  alter r43 = pick(r43n,tolr)
+  alter r44 = pick(r43n,tolr)
+  alter r45 = pick(r45n,tolr)
+  alter r46 = pick(r45n,tolr)
+  alter r47 = pick(r47n,tolr)
+  alter r48 = pick(r47n,tolr)
+  alter c64 = pick(c64n,tolc)
+  alter c70 = pick(c70n,tolc)
+  alter c71 = pick(c71n,tolc)
+  alter c72 = pick(c71n,tolc)
+  alter c73 = pick(c73n,tolc)
+  alter c74 = pick(c74n,tolc)
+  alter c75 = pick(c74n,tolc)
+  alter c76 = pick(c76n,tolc)
+  alter c77 = pick(c76n,tolc)
+
+  ac dec 500 500 2meg
+  let h = db(v(adcp,adcn))
+  meas ac gp find h at=100k
+  let hn = h - gp
+  meas ac f3   when hn=-3 fall=1
+  meas ac fhp  when hn=-3 rise=1
+  meas ac t175 find hn at=175k
+  meas ac rip  pp  hn from=25k to=175k
+  meas ac fold max hn from=604.2k to=754.2k
+  meas ac nyq  find hn at=389.6k
+  echo "MC,$&run,$&gp,$&f3,$&fhp,$&t175,$&rip,$&fold,$&nyq"
+  destroy $curplot
+  let run = run + 1
+end
+.endc
+.end

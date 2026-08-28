@@ -1,0 +1,649 @@
+<title>MCP33131 Frame Timing</title>
+<style>
+:root {
+  --paper:   #eef1f5;
+  --surface: #fafbfc;
+  --panel:   #f4f6f9;
+  --ink:     #131c26;
+  --ink-2:   #4c5b69;
+  --ink-3:   #7a8896;
+  --rule:    #c3ccd6;
+  --grid:    #dde3ea;
+  --hot:     #a8500c;
+  --hot-bg:  rgba(168, 80, 12, 0.10);
+  --warn:    #9c2f2a;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:   #0c1218;
+    --surface: #131b23;
+    --panel:   #18222b;
+    --ink:     #e2e9f0;
+    --ink-2:   #9aa9b7;
+    --ink-3:   #6f7f8d;
+    --rule:    #2b3843;
+    --grid:    #1f2a34;
+    --hot:     #e6964f;
+    --hot-bg:  rgba(230, 150, 79, 0.13);
+    --warn:    #e0817a;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:   #0c1218;
+  --surface: #131b23;
+  --panel:   #18222b;
+  --ink:     #e2e9f0;
+  --ink-2:   #9aa9b7;
+  --ink-3:   #6f7f8d;
+  --rule:    #2b3843;
+  --grid:    #1f2a34;
+  --hot:     #e6964f;
+  --hot-bg:  rgba(230, 150, 79, 0.13);
+  --warn:    #e0817a;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.62;
+  margin: 0;
+  padding: 0 20px 96px;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1240px; margin: 0 auto; }
+.col  { max-width: 66ch; }
+
+header { padding: 64px 0 40px; border-bottom: 1px solid var(--rule); margin-bottom: 44px; }
+.eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-3); margin: 0 0 18px;
+}
+h1 {
+  font-family: var(--mono); font-size: clamp(26px, 4.2vw, 40px); font-weight: 600;
+  letter-spacing: -0.02em; line-height: 1.12; margin: 0 0 20px; text-wrap: balance;
+}
+h2 {
+  font-family: var(--mono); font-size: 19px; font-weight: 600; letter-spacing: -0.01em;
+  margin: 0 0 14px; padding-top: 4px; text-wrap: balance;
+}
+h2 .num { color: var(--hot); margin-right: 12px; font-weight: 500; }
+h3 { font-family: var(--mono); font-size: 15px; font-weight: 600; margin: 0 0 8px; }
+p { margin: 0 0 16px; }
+section { margin-bottom: 56px; }
+.lede { font-size: 19px; color: var(--ink-2); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--panel);
+        padding: 1px 5px; border-radius: 2px; }
+strong { font-weight: 600; }
+.hot-text { color: var(--hot); }
+
+figure { margin: 30px 0 0; }
+.plate {
+  background: var(--surface); border: 1px solid var(--rule);
+  padding: 22px 24px 18px; overflow-x: auto;
+}
+.plate svg { display: block; min-width: 900px; width: 100%; height: auto; color: var(--ink); }
+figcaption {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: var(--ink-2);
+  margin-top: 14px; max-width: 92ch;
+}
+figcaption b { color: var(--ink); font-weight: 600; }
+
+/* ---- svg primitives ---- */
+.wave      { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: miter; }
+.lane      { stroke: var(--grid); stroke-width: 1; }
+.grid      { stroke: var(--grid); stroke-width: 1; }
+.axis      { stroke: var(--rule); stroke-width: 1; }
+.axis.dashed { stroke-dasharray: 3 4; }
+.bus       { fill: var(--panel); stroke: currentColor; stroke-width: 1.4; }
+.bus-data  { fill: var(--panel); }
+.bus-idle  { fill: none; stroke: var(--ink-3); stroke-dasharray: 4 3; }
+.bus-hot   { fill: var(--hot-bg); stroke: var(--hot); stroke-width: 1.8; }
+.st        { fill: var(--panel); }
+.st-act    { fill: var(--panel); stroke-width: 1.8; }
+.sine      { fill: none; stroke: var(--hot); stroke-width: 2.2; stroke-linejoin: round; }
+.stem      { stroke: var(--hot); stroke-width: 1; opacity: 0.5; }
+.samp      { fill: var(--hot); stroke: var(--surface); stroke-width: 1.2; }
+.burst     { fill: var(--panel); stroke: currentColor; stroke-width: 1.2; }
+.capt      { stroke: var(--hot); stroke-width: 1; stroke-dasharray: 2 3; opacity: 0.85; }
+.capt-dot  { fill: var(--hot); }
+.tdel      { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 2 3; }
+.tdel-arr  { stroke: var(--ink-3); stroke-width: 1; }
+.shade     { fill: var(--panel); opacity: 0.55; }
+.brace     { fill: none; stroke: var(--ink-3); stroke-width: 1.2; }
+.brace.hot-stroke { stroke: var(--hot); stroke-width: 1.6; }
+
+text { font-family: var(--mono); fill: currentColor; }
+.sig      { font-size: 12.5px; font-weight: 600; }
+.val      { font-size: 12px; }
+.code     { font-size: 10px; }
+.bitlab   { font-size: 9.5px; fill: var(--ink-3); }
+.tick-lab { font-size: 10.5px; fill: var(--ink-3); }
+.tiny     { font-size: 10.5px; }
+.note     { font-size: 12px; }
+.capt-lab { font-size: 10.5px; fill: var(--hot); }
+.hot      { fill: var(--hot); }
+.dim      { fill: var(--ink-3); }
+
+/* ---- spec table ---- */
+table { border-collapse: collapse; width: 100%; max-width: 720px; margin: 8px 0 0;
+         font-family: var(--mono); font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 9px 14px 9px 0; border-bottom: 1px solid var(--grid); }
+th { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink-3); font-weight: 500; border-bottom-color: var(--rule); }
+td.n { text-align: right; padding-right: 26px; white-space: nowrap; }
+td.src { color: var(--ink-3); font-size: 12px; }
+
+/* ---- flags ---- */
+.flag { border-left: 2px solid var(--warn); padding: 2px 0 2px 20px; margin: 0 0 26px; }
+.flag h3 { color: var(--warn); }
+.flag p { margin: 0; color: var(--ink-2); font-size: 16px; }
+.flag p + p { margin-top: 10px; }
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">fm-radio &#183; logic/src/vhdl/mpc33131_adc_driver.vhd</p>
+  <h1>MCP33131 Frame Timing</h1>
+  <p class="lede col">What the driver actually puts on the wire for one conversion &#8212; and
+  what a 100&nbsp;kHz sine from the mixer looks like coming back through it.</p>
+</header>
+
+<section class="col">
+  <p>The driver is a three-state machine clocked at 60&nbsp;MHz. Every frame is the same
+  length regardless of the data: <code>IDLE</code> for one cycle, <code>CONVST</code> for one
+  cycle, then <code>READ_DATA</code> for 31 cycles &#8212; 33 cycles, 550&nbsp;ns, repeating
+  forever with no gap. There is no start signal and no throttle; the machine falls straight
+  from <code>IDLE</code> back into the next conversion.</p>
+  <p>Everything below is read off that structure, so the diagrams are exact cycle counts
+  rather than sketches.</p>
+</section>
+
+<section>
+  <h2><span class="num">01</span>One acquisition frame</h2>
+  <div class="col">
+    <p>The single-cycle <code>CONVST</code> pulse and the first <code>SCLK</code> rising edge
+    are produced by the same clock edge, so the serial burst starts the instant the
+    conversion is asked for.</p>
+  </div>
+  <figure>
+    <div class="plate">
+<svg viewBox="0 0 1200 470" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="One MCP33131 acquisition frame: a single 16.7 ns CONVST pulse followed immediately by sixteen 30 MHz SCLK pulses that shift D15 down to D0 into the shift register, ending with a one-cycle o_ready pulse and the code 0x4145 on o_adc_data, 33 cycles in total."><line class="lane" x1="150" y1="74.0" x2="1170.0" y2="74.0"/>
+<text class="sig" x="138" y="60.0" text-anchor="end">i_sysclk</text>
+<line class="lane" x1="150" y1="112.0" x2="1170.0" y2="112.0"/>
+<text class="sig" x="138" y="98.0" text-anchor="end">state</text>
+<line class="lane" x1="150" y1="154.0" x2="1170.0" y2="154.0"/>
+<text class="sig" x="138" y="140.0" text-anchor="end">o_convst</text>
+<line class="lane" x1="150" y1="196.0" x2="1170.0" y2="196.0"/>
+<text class="sig" x="138" y="182.0" text-anchor="end">o_sclk</text>
+<line class="lane" x1="150" y1="234.0" x2="1170.0" y2="234.0"/>
+<text class="sig" x="138" y="220.0" text-anchor="end">i_sdo</text>
+<line class="lane" x1="150" y1="276.0" x2="1170.0" y2="276.0"/>
+<text class="sig" x="138" y="262.0" text-anchor="end">bit_count</text>
+<line class="lane" x1="150" y1="318.0" x2="1170.0" y2="318.0"/>
+<text class="sig" x="138" y="304.0" text-anchor="end">o_adc_data</text>
+<line class="lane" x1="150" y1="360.0" x2="1170.0" y2="360.0"/>
+<text class="sig" x="138" y="346.0" text-anchor="end">o_ready</text>
+<path class="wave" d="M 150.0 68.0 L 150.0 44.0 L 165.0 44.0 L 165.0 68.0 L 180.0 68.0 L 180.0 44.0 L 195.0 44.0 L 195.0 68.0 L 210.0 68.0 L 210.0 44.0 L 225.0 44.0 L 225.0 68.0 L 240.0 68.0 L 240.0 44.0 L 255.0 44.0 L 255.0 68.0 L 270.0 68.0 L 270.0 44.0 L 285.0 44.0 L 285.0 68.0 L 300.0 68.0 L 300.0 44.0 L 315.0 44.0 L 315.0 68.0 L 330.0 68.0 L 330.0 44.0 L 345.0 44.0 L 345.0 68.0 L 360.0 68.0 L 360.0 44.0 L 375.0 44.0 L 375.0 68.0 L 390.0 68.0 L 390.0 44.0 L 405.0 44.0 L 405.0 68.0 L 420.0 68.0 L 420.0 44.0 L 435.0 44.0 L 435.0 68.0 L 450.0 68.0 L 450.0 44.0 L 465.0 44.0 L 465.0 68.0 L 480.0 68.0 L 480.0 44.0 L 495.0 44.0 L 495.0 68.0 L 510.0 68.0 L 510.0 44.0 L 525.0 44.0 L 525.0 68.0 L 540.0 68.0 L 540.0 44.0 L 555.0 44.0 L 555.0 68.0 L 570.0 68.0 L 570.0 44.0 L 585.0 44.0 L 585.0 68.0 L 600.0 68.0 L 600.0 44.0 L 615.0 44.0 L 615.0 68.0 L 630.0 68.0 L 630.0 44.0 L 645.0 44.0 L 645.0 68.0 L 660.0 68.0 L 660.0 44.0 L 675.0 44.0 L 675.0 68.0 L 690.0 68.0 L 690.0 44.0 L 705.0 44.0 L 705.0 68.0 L 720.0 68.0 L 720.0 44.0 L 735.0 44.0 L 735.0 68.0 L 750.0 68.0 L 750.0 44.0 L 765.0 44.0 L 765.0 68.0 L 780.0 68.0 L 780.0 44.0 L 795.0 44.0 L 795.0 68.0 L 810.0 68.0 L 810.0 44.0 L 825.0 44.0 L 825.0 68.0 L 840.0 68.0 L 840.0 44.0 L 855.0 44.0 L 855.0 68.0 L 870.0 68.0 L 870.0 44.0 L 885.0 44.0 L 885.0 68.0 L 900.0 68.0 L 900.0 44.0 L 915.0 44.0 L 915.0 68.0 L 930.0 68.0 L 930.0 44.0 L 945.0 44.0 L 945.0 68.0 L 960.0 68.0 L 960.0 44.0 L 975.0 44.0 L 975.0 68.0 L 990.0 68.0 L 990.0 44.0 L 1005.0 44.0 L 1005.0 68.0 L 1020.0 68.0 L 1020.0 44.0 L 1035.0 44.0 L 1035.0 68.0 L 1050.0 68.0 L 1050.0 44.0 L 1065.0 44.0 L 1065.0 68.0 L 1080.0 68.0 L 1080.0 44.0 L 1095.0 44.0 L 1095.0 68.0 L 1110.0 68.0 L 1110.0 44.0 L 1125.0 44.0 L 1125.0 68.0 L 1140.0 68.0 L 1140.0 44.0 L 1155.0 44.0 L 1155.0 68.0 L 1170.0 68.0"/>
+<polygon class="bus st" points="150.0,94.0 155.0,82.0 175.0,82.0 180.0,94.0 175.0,106.0 155.0,106.0"/>
+<text class="val" x="165.0" y="99.0" text-anchor="middle">IDLE</text>
+<polygon class="bus st" points="180.0,94.0 185.0,82.0 205.0,82.0 210.0,94.0 205.0,106.0 185.0,106.0"/>
+<text class="val" x="195.0" y="99.0" text-anchor="middle">CONVST</text>
+<polygon class="bus st-act" points="210.0,94.0 215.0,82.0 1135.0,82.0 1140.0,94.0 1135.0,106.0 215.0,106.0"/>
+<text class="val" x="675.0" y="99.0" text-anchor="middle">READ_DATA</text>
+<polygon class="bus st" points="1140.0,94.0 1145.0,82.0 1165.0,82.0 1170.0,94.0 1165.0,106.0 1145.0,106.0"/>
+<text class="val" x="1155.0" y="99.0" text-anchor="middle">IDLE</text>
+<path class="wave" d="M 150.0 148.0 L 210.0 148.0 L 210.0 124.0 L 240.0 124.0 L 240.0 148.0 L 1170.0 148.0"/>
+<text class="tick-lab" x="225.0" y="116.0" text-anchor="middle">16.7 ns</text>
+<path class="wave" d="M 150.0 190.0 L 150.0 190.0 L 180.0 190.0 L 180.0 190.0 L 210.0 190.0 L 210.0 190.0 L 240.0 190.0 L 240.0 166.0 L 270.0 166.0 L 270.0 190.0 L 300.0 190.0 L 300.0 166.0 L 330.0 166.0 L 330.0 190.0 L 360.0 190.0 L 360.0 166.0 L 390.0 166.0 L 390.0 190.0 L 420.0 190.0 L 420.0 166.0 L 450.0 166.0 L 450.0 190.0 L 480.0 190.0 L 480.0 166.0 L 510.0 166.0 L 510.0 190.0 L 540.0 190.0 L 540.0 166.0 L 570.0 166.0 L 570.0 190.0 L 600.0 190.0 L 600.0 166.0 L 630.0 166.0 L 630.0 190.0 L 660.0 190.0 L 660.0 166.0 L 690.0 166.0 L 690.0 190.0 L 720.0 190.0 L 720.0 166.0 L 750.0 166.0 L 750.0 190.0 L 780.0 190.0 L 780.0 166.0 L 810.0 166.0 L 810.0 190.0 L 840.0 190.0 L 840.0 166.0 L 870.0 166.0 L 870.0 190.0 L 900.0 190.0 L 900.0 166.0 L 930.0 166.0 L 930.0 190.0 L 960.0 190.0 L 960.0 166.0 L 990.0 166.0 L 990.0 190.0 L 1020.0 190.0 L 1020.0 166.0 L 1050.0 166.0 L 1050.0 190.0 L 1080.0 190.0 L 1080.0 166.0 L 1110.0 166.0 L 1110.0 190.0 L 1140.0 190.0 L 1140.0 166.0 L 1170.0 166.0 L 1170.0 190.0"/>
+<text class="tick-lab" x="690.0" y="158.0" text-anchor="middle">30 MHz &#183; 16 pulses</text>
+<polygon class="bus bus-idle" points="150.0,216.0 155.0,204.0 205.0,204.0 210.0,216.0 205.0,228.0 155.0,228.0"/>
+<text class="val dim" x="180.0" y="221.0" text-anchor="middle">prev</text>
+<polygon class="bus bus-data" points="210.0,216.0 215.0,204.0 265.0,204.0 270.0,216.0 265.0,228.0 215.0,228.0"/>
+<text class="val" x="240.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="240.0" y="198.0" text-anchor="middle">D15</text>
+<polygon class="bus bus-data" points="270.0,216.0 275.0,204.0 325.0,204.0 330.0,216.0 325.0,228.0 275.0,228.0"/>
+<text class="val" x="300.0" y="221.0" text-anchor="middle">1</text>
+<text class="bitlab" x="300.0" y="198.0" text-anchor="middle">D14</text>
+<polygon class="bus bus-data" points="330.0,216.0 335.0,204.0 385.0,204.0 390.0,216.0 385.0,228.0 335.0,228.0"/>
+<text class="val" x="360.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="360.0" y="198.0" text-anchor="middle">D13</text>
+<polygon class="bus bus-data" points="390.0,216.0 395.0,204.0 445.0,204.0 450.0,216.0 445.0,228.0 395.0,228.0"/>
+<text class="val" x="420.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="420.0" y="198.0" text-anchor="middle">D12</text>
+<polygon class="bus bus-data" points="450.0,216.0 455.0,204.0 505.0,204.0 510.0,216.0 505.0,228.0 455.0,228.0"/>
+<text class="val" x="480.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="480.0" y="198.0" text-anchor="middle">D11</text>
+<polygon class="bus bus-data" points="510.0,216.0 515.0,204.0 565.0,204.0 570.0,216.0 565.0,228.0 515.0,228.0"/>
+<text class="val" x="540.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="540.0" y="198.0" text-anchor="middle">D10</text>
+<polygon class="bus bus-data" points="570.0,216.0 575.0,204.0 625.0,204.0 630.0,216.0 625.0,228.0 575.0,228.0"/>
+<text class="val" x="600.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="600.0" y="198.0" text-anchor="middle">D9</text>
+<polygon class="bus bus-data" points="630.0,216.0 635.0,204.0 685.0,204.0 690.0,216.0 685.0,228.0 635.0,228.0"/>
+<text class="val" x="660.0" y="221.0" text-anchor="middle">1</text>
+<text class="bitlab" x="660.0" y="198.0" text-anchor="middle">D8</text>
+<polygon class="bus bus-data" points="690.0,216.0 695.0,204.0 745.0,204.0 750.0,216.0 745.0,228.0 695.0,228.0"/>
+<text class="val" x="720.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="720.0" y="198.0" text-anchor="middle">D7</text>
+<polygon class="bus bus-data" points="750.0,216.0 755.0,204.0 805.0,204.0 810.0,216.0 805.0,228.0 755.0,228.0"/>
+<text class="val" x="780.0" y="221.0" text-anchor="middle">1</text>
+<text class="bitlab" x="780.0" y="198.0" text-anchor="middle">D6</text>
+<polygon class="bus bus-data" points="810.0,216.0 815.0,204.0 865.0,204.0 870.0,216.0 865.0,228.0 815.0,228.0"/>
+<text class="val" x="840.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="840.0" y="198.0" text-anchor="middle">D5</text>
+<polygon class="bus bus-data" points="870.0,216.0 875.0,204.0 925.0,204.0 930.0,216.0 925.0,228.0 875.0,228.0"/>
+<text class="val" x="900.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="900.0" y="198.0" text-anchor="middle">D4</text>
+<polygon class="bus bus-data" points="930.0,216.0 935.0,204.0 985.0,204.0 990.0,216.0 985.0,228.0 935.0,228.0"/>
+<text class="val" x="960.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="960.0" y="198.0" text-anchor="middle">D3</text>
+<polygon class="bus bus-data" points="990.0,216.0 995.0,204.0 1045.0,204.0 1050.0,216.0 1045.0,228.0 995.0,228.0"/>
+<text class="val" x="1020.0" y="221.0" text-anchor="middle">1</text>
+<text class="bitlab" x="1020.0" y="198.0" text-anchor="middle">D2</text>
+<polygon class="bus bus-data" points="1050.0,216.0 1055.0,204.0 1105.0,204.0 1110.0,216.0 1105.0,228.0 1055.0,228.0"/>
+<text class="val" x="1080.0" y="221.0" text-anchor="middle">0</text>
+<text class="bitlab" x="1080.0" y="198.0" text-anchor="middle">D1</text>
+<polygon class="bus bus-data" points="1110.0,216.0 1115.0,204.0 1165.0,204.0 1170.0,216.0 1165.0,228.0 1115.0,228.0"/>
+<text class="val" x="1140.0" y="221.0" text-anchor="middle">1</text>
+<text class="bitlab" x="1140.0" y="198.0" text-anchor="middle">D0</text>
+<line class="capt" x1="240.0" y1="30.0" x2="240.0" y2="232.0"/>
+<line class="capt" x1="300.0" y1="30.0" x2="300.0" y2="232.0"/>
+<line class="capt" x1="360.0" y1="30.0" x2="360.0" y2="232.0"/>
+<line class="capt" x1="420.0" y1="30.0" x2="420.0" y2="232.0"/>
+<line class="capt" x1="480.0" y1="30.0" x2="480.0" y2="232.0"/>
+<line class="capt" x1="540.0" y1="30.0" x2="540.0" y2="232.0"/>
+<line class="capt" x1="600.0" y1="30.0" x2="600.0" y2="232.0"/>
+<line class="capt" x1="660.0" y1="30.0" x2="660.0" y2="232.0"/>
+<line class="capt" x1="720.0" y1="30.0" x2="720.0" y2="232.0"/>
+<line class="capt" x1="780.0" y1="30.0" x2="780.0" y2="232.0"/>
+<line class="capt" x1="840.0" y1="30.0" x2="840.0" y2="232.0"/>
+<line class="capt" x1="900.0" y1="30.0" x2="900.0" y2="232.0"/>
+<line class="capt" x1="960.0" y1="30.0" x2="960.0" y2="232.0"/>
+<line class="capt" x1="1020.0" y1="30.0" x2="1020.0" y2="232.0"/>
+<line class="capt" x1="1080.0" y1="30.0" x2="1080.0" y2="232.0"/>
+<line class="capt" x1="1140.0" y1="30.0" x2="1140.0" y2="232.0"/>
+<text class="capt-lab" x="690.0" y="24" text-anchor="middle">shift_reg &#8592; i_sdo (16 captures)</text>
+<polygon class="bus" points="150.0,258.0 155.0,246.0 235.0,246.0 240.0,258.0 235.0,270.0 155.0,270.0"/>
+<text class="val" x="195.0" y="263.0" text-anchor="middle">0</text>
+<polygon class="bus" points="240.0,258.0 245.0,246.0 295.0,246.0 300.0,258.0 295.0,270.0 245.0,270.0"/>
+<text class="val" x="270.0" y="263.0" text-anchor="middle">1</text>
+<polygon class="bus" points="300.0,258.0 305.0,246.0 355.0,246.0 360.0,258.0 355.0,270.0 305.0,270.0"/>
+<text class="val" x="330.0" y="263.0" text-anchor="middle">2</text>
+<polygon class="bus" points="360.0,258.0 365.0,246.0 415.0,246.0 420.0,258.0 415.0,270.0 365.0,270.0"/>
+<text class="val" x="390.0" y="263.0" text-anchor="middle">3</text>
+<polygon class="bus" points="420.0,258.0 425.0,246.0 475.0,246.0 480.0,258.0 475.0,270.0 425.0,270.0"/>
+<text class="val" x="450.0" y="263.0" text-anchor="middle">4</text>
+<polygon class="bus" points="480.0,258.0 485.0,246.0 535.0,246.0 540.0,258.0 535.0,270.0 485.0,270.0"/>
+<text class="val" x="510.0" y="263.0" text-anchor="middle">5</text>
+<polygon class="bus" points="540.0,258.0 545.0,246.0 595.0,246.0 600.0,258.0 595.0,270.0 545.0,270.0"/>
+<text class="val" x="570.0" y="263.0" text-anchor="middle">6</text>
+<polygon class="bus" points="600.0,258.0 605.0,246.0 655.0,246.0 660.0,258.0 655.0,270.0 605.0,270.0"/>
+<text class="val" x="630.0" y="263.0" text-anchor="middle">7</text>
+<polygon class="bus" points="660.0,258.0 665.0,246.0 715.0,246.0 720.0,258.0 715.0,270.0 665.0,270.0"/>
+<text class="val" x="690.0" y="263.0" text-anchor="middle">8</text>
+<polygon class="bus" points="720.0,258.0 725.0,246.0 775.0,246.0 780.0,258.0 775.0,270.0 725.0,270.0"/>
+<text class="val" x="750.0" y="263.0" text-anchor="middle">9</text>
+<polygon class="bus" points="780.0,258.0 785.0,246.0 835.0,246.0 840.0,258.0 835.0,270.0 785.0,270.0"/>
+<text class="val" x="810.0" y="263.0" text-anchor="middle">10</text>
+<polygon class="bus" points="840.0,258.0 845.0,246.0 895.0,246.0 900.0,258.0 895.0,270.0 845.0,270.0"/>
+<text class="val" x="870.0" y="263.0" text-anchor="middle">11</text>
+<polygon class="bus" points="900.0,258.0 905.0,246.0 955.0,246.0 960.0,258.0 955.0,270.0 905.0,270.0"/>
+<text class="val" x="930.0" y="263.0" text-anchor="middle">12</text>
+<polygon class="bus" points="960.0,258.0 965.0,246.0 1015.0,246.0 1020.0,258.0 1015.0,270.0 965.0,270.0"/>
+<text class="val" x="990.0" y="263.0" text-anchor="middle">13</text>
+<polygon class="bus" points="1020.0,258.0 1025.0,246.0 1075.0,246.0 1080.0,258.0 1075.0,270.0 1025.0,270.0"/>
+<text class="val" x="1050.0" y="263.0" text-anchor="middle">14</text>
+<polygon class="bus" points="1080.0,258.0 1085.0,246.0 1165.0,246.0 1170.0,258.0 1165.0,270.0 1085.0,270.0"/>
+<text class="val" x="1125.0" y="263.0" text-anchor="middle">15</text>
+<polygon class="bus bus-idle" points="150.0,300.0 155.0,288.0 1135.0,288.0 1140.0,300.0 1135.0,312.0 155.0,312.0"/>
+<text class="val dim" x="645.0" y="305.0" text-anchor="middle">previous sample</text>
+<polygon class="bus bus-hot" points="1140.0,300.0 1145.0,288.0 1165.0,288.0 1170.0,300.0 1165.0,312.0 1145.0,312.0"/>
+<text class="val hot" x="1155.0" y="305.0" text-anchor="middle">0x4145</text>
+<path class="wave" d="M 150.0 354.0 L 1140.0 354.0 L 1140.0 330.0 L 1170.0 330.0 L 1170.0 354.0"/>
+<line class="axis" x1="150" y1="392" x2="1170.0" y2="392"/>
+<line class="axis" x1="150.0" y1="392" x2="150.0" y2="397"/>
+<text class="tick-lab" x="150.0" y="410" text-anchor="middle">0</text>
+<line class="axis" x1="270.0" y1="392" x2="270.0" y2="397"/>
+<text class="tick-lab" x="270.0" y="410" text-anchor="middle">67</text>
+<line class="axis" x1="390.0" y1="392" x2="390.0" y2="397"/>
+<text class="tick-lab" x="390.0" y="410" text-anchor="middle">133</text>
+<line class="axis" x1="510.0" y1="392" x2="510.0" y2="397"/>
+<text class="tick-lab" x="510.0" y="410" text-anchor="middle">200</text>
+<line class="axis" x1="630.0" y1="392" x2="630.0" y2="397"/>
+<text class="tick-lab" x="630.0" y="410" text-anchor="middle">267</text>
+<line class="axis" x1="750.0" y1="392" x2="750.0" y2="397"/>
+<text class="tick-lab" x="750.0" y="410" text-anchor="middle">333</text>
+<line class="axis" x1="870.0" y1="392" x2="870.0" y2="397"/>
+<text class="tick-lab" x="870.0" y="410" text-anchor="middle">400</text>
+<line class="axis" x1="990.0" y1="392" x2="990.0" y2="397"/>
+<text class="tick-lab" x="990.0" y="410" text-anchor="middle">467</text>
+<line class="axis" x1="1110.0" y1="392" x2="1110.0" y2="397"/>
+<text class="tick-lab" x="1110.0" y="410" text-anchor="middle">533</text>
+<text class="tick-lab" x="138" y="410" text-anchor="end">ns</text>
+<path class="brace" d="M 180.0 428 L 180.0 437 L 1140.0 437 L 1140.0 428"/>
+<text class="note" x="660.0" y="454" text-anchor="middle">one acquisition frame &#8212; 33 sysclk cycles = 550 ns &#8594; 1.818 MSPS</text></svg>
+    </div>
+    <figcaption><b>Fig. 1</b> &#8212; one frame, drawn cycle-accurate from the RTL. The
+    <span class="hot-text">dashed markers</span> are the 16 clock edges where
+    <code>shift_reg &#8592; i_sdo</code>. Sixteen 30&nbsp;MHz <code>SCLK</code> pulses shift
+    D15&#8230;D0 in MSB-first; on the sixteenth, <code>o_adc_data</code> takes the assembled
+    word and <code>o_ready</code> goes high for exactly one 16.7&nbsp;ns cycle. The word shown,
+    <code>0x4145</code>, is sample&nbsp;2 of the sine in Fig.&nbsp;3.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="num">02</span>Where the bit gets captured</h2>
+  <div class="col">
+    <p>The capture happens in the <code>sclk_half = '0'</code> branch &#8212; the same branch
+    that drives <code>SCLK</code> high. Both are registered off the same edge, so the flip-flop
+    latches the value <em>before</em> that edge: the bit launched by the previous falling edge,
+    one 60&nbsp;MHz cycle earlier.</p>
+  </div>
+  <figure>
+    <div class="plate">
+<svg viewBox="0 0 1180 380" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Zoom on the SDO capture: each data bit is launched by an SCLK falling edge and sampled one 60 MHz cycle later, giving only 16.7 ns for the ADC output delay, board delay and FPGA setup time."><line class="lane" x1="150" y1="92.0" x2="1110.0" y2="92.0"/>
+<text class="sig" x="138" y="76.0" text-anchor="end">i_sysclk</text>
+<line class="lane" x1="150" y1="162.0" x2="1110.0" y2="162.0"/>
+<text class="sig" x="138" y="146.0" text-anchor="end">o_sclk (at pin)</text>
+<line class="lane" x1="150" y1="230.0" x2="1110.0" y2="230.0"/>
+<text class="sig" x="138" y="214.0" text-anchor="end">i_sdo</text>
+<rect class="shade" x="150.0" y="34" width="160.0" height="200"/>
+<text class="tick-lab" x="230.0" y="28" text-anchor="middle">cycle 2</text>
+<text class="tick-lab" x="390.0" y="28" text-anchor="middle">cycle 3</text>
+<rect class="shade" x="470.0" y="34" width="160.0" height="200"/>
+<text class="tick-lab" x="550.0" y="28" text-anchor="middle">cycle 4</text>
+<text class="tick-lab" x="710.0" y="28" text-anchor="middle">cycle 5</text>
+<rect class="shade" x="790.0" y="34" width="160.0" height="200"/>
+<text class="tick-lab" x="870.0" y="28" text-anchor="middle">cycle 6</text>
+<text class="tick-lab" x="1030.0" y="28" text-anchor="middle">cycle 7</text>
+<path class="wave" d="M 150.0 86.0 L 150.0 58.0 L 230.0 58.0 L 230.0 86.0 L 310.0 86.0 L 310.0 58.0 L 390.0 58.0 L 390.0 86.0 L 470.0 86.0 L 470.0 58.0 L 550.0 58.0 L 550.0 86.0 L 630.0 86.0 L 630.0 58.0 L 710.0 58.0 L 710.0 86.0 L 790.0 86.0 L 790.0 58.0 L 870.0 58.0 L 870.0 86.0 L 950.0 86.0 L 950.0 58.0 L 1030.0 58.0 L 1030.0 86.0 L 1110.0 86.0"/>
+<path class="wave" d="M 150.0 156.0 L 150.0 156.0 L 310.0 156.0 L 310.0 128.0 L 470.0 128.0 L 470.0 156.0 L 630.0 156.0 L 630.0 128.0 L 790.0 128.0 L 790.0 156.0 L 950.0 156.0 L 950.0 128.0 L 1110.0 128.0"/>
+<polygon class="bus bus-data" points="150.0,210.0 157.0,196.0 509.0,196.0 516.0,210.0 509.0,224.0 157.0,224.0"/>
+<text class="val" x="333.0" y="216.0" text-anchor="middle">D15</text>
+<polygon class="bus bus-data" points="516.0,210.0 523.0,196.0 829.0,196.0 836.0,210.0 829.0,224.0 523.0,224.0"/>
+<text class="val" x="676.0" y="216.0" text-anchor="middle">D14</text>
+<polygon class="bus bus-data" points="836.0,210.0 843.0,196.0 1103.0,196.0 1110.0,210.0 1103.0,224.0 843.0,224.0"/>
+<text class="val" x="973.0" y="216.0" text-anchor="middle">D13</text>
+<line class="tdel" x1="470.0" y1="156.0" x2="470.0" y2="214.0"/>
+<path class="tdel-arr" d="M 470.0 214 L 516.0 214"/>
+<text class="tiny" x="493.0" y="242" text-anchor="middle">t&#8202;SDO</text>
+<line class="tdel" x1="790.0" y1="156.0" x2="790.0" y2="214.0"/>
+<path class="tdel-arr" d="M 790.0 214 L 836.0 214"/>
+<text class="tiny" x="813.0" y="242" text-anchor="middle">t&#8202;SDO</text>
+<line class="capt" x1="310.0" y1="40" x2="310.0" y2="272"/>
+<circle class="capt-dot" cx="310.0" cy="210.0" r="4.5"/>
+<text class="capt-lab" x="310.0" y="288" text-anchor="middle">capture</text>
+<line class="capt" x1="630.0" y1="40" x2="630.0" y2="272"/>
+<circle class="capt-dot" cx="630.0" cy="210.0" r="4.5"/>
+<text class="capt-lab" x="630.0" y="288" text-anchor="middle">capture</text>
+<line class="capt" x1="950.0" y1="40" x2="950.0" y2="272"/>
+<circle class="capt-dot" cx="950.0" cy="210.0" r="4.5"/>
+<text class="capt-lab" x="950.0" y="288" text-anchor="middle">capture</text>
+<path class="brace hot-stroke" d="M 470.0 310 L 470.0 318 L 630.0 318 L 630.0 310"/>
+<text class="note hot" x="550.0" y="336" text-anchor="middle">16.7 ns &#8212; the whole budget for t&#8202;SDO + board delay + FPGA setup</text>
+<text class="note dim" x="550.0" y="354" text-anchor="middle">capturing in the sclk_half = &#39;1&#39; branch instead would make this 33.3 ns</text></svg>
+    </div>
+    <figcaption><b>Fig. 2</b> &#8212; the same frame, five cycles wide. Each bit is launched by
+    an <code>SCLK</code> falling edge and sampled at the next rising edge, so the ADC's output
+    delay, the board round trip and the FPGA setup requirement all have to fit inside
+    <span class="hot-text">16.7&nbsp;ns</span>. Moving the capture into the
+    <code>sclk_half = '1'</code> branch samples on the falling edge instead and doubles the
+    budget to 33.3&nbsp;ns without changing anything else.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="num">03</span>A sine coming in</h2>
+  <div class="col">
+    <p>With the MAX2606 as the local oscillator, what reaches the ADC is the mixer output, not
+    RF. Take a 100&nbsp;kHz tone at 0.8&nbsp;of full scale as a stand-in. At 1.818&nbsp;MSPS
+    that is 18.2 samples per cycle, and the 16-bit two's-complement codes on
+    <code>o_adc_data</code> trace it directly.</p>
+  </div>
+  <figure>
+    <div class="plate">
+<svg viewBox="0 0 1200 470" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="A 100 kHz sine at the ADC input sampled at 1.818 mega-samples per second: 18.2 samples per cycle, each CONVST pulse starting a frame whose 16 SCLK pulses clock out a 16-bit two-s-complement code that traces the sine, with the code appearing on o_adc_data one frame after the sample instant."><line class="axis dashed" x1="130" y1="118.0" x2="1170.0" y2="118.0"/>
+<line class="grid" x1="130" y1="58.0" x2="1170.0" y2="58.0"/>
+<text class="tiny dim" x="122" y="62.0" text-anchor="end">+0.8 FS</text>
+<line class="grid" x1="130" y1="178.0" x2="1170.0" y2="178.0"/>
+<text class="tiny dim" x="122" y="182.0" text-anchor="end">&#8722;0.8 FS</text>
+<text class="tiny dim" x="122" y="122.0" text-anchor="end">0x0000</text>
+<polyline class="sine" points="130.0,118.0 134.0,116.4 138.0,114.8 142.0,113.2 146.0,111.6 150.0,110.0 154.0,108.5 158.0,106.9 162.0,105.3 166.0,103.8 170.0,102.2 174.0,100.7 178.0,99.2 182.0,97.7 186.0,96.2 190.0,94.7 194.0,93.2 198.0,91.8 202.0,90.4 206.0,89.0 210.0,87.6 214.0,86.2 218.0,84.9 222.0,83.6 226.0,82.3 230.0,81.0 234.0,79.8 238.0,78.5 242.0,77.4 246.0,76.2 250.0,75.1 254.0,74.0 258.0,72.9 262.0,71.9 266.0,70.9 270.0,69.9 274.0,69.0 278.0,68.1 282.0,67.2 286.0,66.4 290.0,65.6 294.0,64.8 298.0,64.1 302.0,63.4 306.0,62.8 310.0,62.2 314.0,61.6 318.0,61.1 322.0,60.6 326.0,60.1 330.0,59.7 334.0,59.4 338.0,59.1 342.0,58.8 346.0,58.5 350.0,58.4 354.0,58.2 358.0,58.1 362.0,58.0 366.0,58.0 370.0,58.0 374.0,58.1 378.0,58.2 382.0,58.3 386.0,58.5 390.0,58.7 394.0,59.0 398.0,59.3 402.0,59.7 406.0,60.1 410.0,60.5 414.0,61.0 418.0,61.5 422.0,62.1 426.0,62.7 430.0,63.3 434.0,64.0 438.0,64.7 442.0,65.4 446.0,66.2 450.0,67.0 454.0,67.9 458.0,68.8 462.0,69.7 466.0,70.7 470.0,71.7 474.0,72.7 478.0,73.8 482.0,74.9 486.0,76.0 490.0,77.1 494.0,78.3 498.0,79.5 502.0,80.8 506.0,82.0 510.0,83.3 514.0,84.6 518.0,86.0 522.0,87.3 526.0,88.7 530.0,90.1 534.0,91.5 538.0,93.0 542.0,94.4 546.0,95.9 550.0,97.4 554.0,98.9 558.0,100.4 562.0,102.0 566.0,103.5 570.0,105.1 574.0,106.6 578.0,108.2 582.0,109.8 586.0,111.3 590.0,112.9 594.0,114.5 598.0,116.1 602.0,117.7 606.0,119.3 610.0,120.9 614.0,122.5 618.0,124.1 622.0,125.7 626.0,127.2 630.0,128.8 634.0,130.4 638.0,131.9 642.0,133.5 646.0,135.0 650.0,136.5 654.0,138.1 658.0,139.5 662.0,141.0 666.0,142.5 670.0,143.9 674.0,145.4 678.0,146.8 682.0,148.2 686.0,149.5 690.0,150.9 694.0,152.2 698.0,153.5 702.0,154.8 706.0,156.0 710.0,157.2 714.0,158.4 718.0,159.6 722.0,160.7 726.0,161.8 730.0,162.9 734.0,164.0 738.0,165.0 742.0,165.9 746.0,166.9 750.0,167.8 754.0,168.7 758.0,169.5 762.0,170.3 766.0,171.1 770.0,171.8 774.0,172.5 778.0,173.1 782.0,173.7 786.0,174.3 790.0,174.8 794.0,175.3 798.0,175.8 802.0,176.2 806.0,176.6 810.0,176.9 814.0,177.2 818.0,177.4 822.0,177.6 826.0,177.8 830.0,177.9 834.0,178.0 838.0,178.0 842.0,178.0 846.0,177.9 850.0,177.8 854.0,177.7 858.0,177.5 862.0,177.3 866.0,177.0 870.0,176.7 874.0,176.4 878.0,176.0 882.0,175.6 886.0,175.1 890.0,174.6 894.0,174.0 898.0,173.5 902.0,172.8 906.0,172.2 910.0,171.5 914.0,170.7 918.0,169.9 922.0,169.1 926.0,168.3 930.0,167.4 934.0,166.5 938.0,165.5 942.0,164.5 946.0,163.5 950.0,162.4 954.0,161.3 958.0,160.2 962.0,159.1 966.0,157.9 970.0,156.7 974.0,155.5 978.0,154.2 982.0,152.9 986.0,151.6 990.0,150.3 994.0,148.9 998.0,147.5 1002.0,146.1 1006.0,144.7 1010.0,143.3 1014.0,141.8 1018.0,140.4 1022.0,138.9 1026.0,137.4 1030.0,135.9 1034.0,134.3 1038.0,132.8 1042.0,131.2 1046.0,129.7 1050.0,128.1 1054.0,126.5 1058.0,124.9 1062.0,123.4 1066.0,121.8 1070.0,120.2 1074.0,118.6 1078.0,117.0 1082.0,115.4 1086.0,113.8 1090.0,112.2 1094.0,110.6 1098.0,109.0 1102.0,107.5 1106.0,105.9 1110.0,104.3 1114.0,102.8 1118.0,101.3 1122.0,99.7 1126.0,98.2 1130.0,96.7 1134.0,95.2 1138.0,93.8 1142.0,92.3 1146.0,90.9 1150.0,89.5 1154.0,88.1 1158.0,86.7 1162.0,85.4 1166.0,84.0 1170.0,82.7"/>
+<text class="sig hot" x="122" y="46" text-anchor="end">i_sdo analog</text>
+<text class="tiny dim" x="122" y="62" text-anchor="end">(mixer output)</text>
+<line class="stem" x1="130.0" y1="118.0" x2="130.0" y2="118.0"/>
+<circle class="samp" cx="130.0" cy="118.0" r="4"/>
+<line class="stem" x1="182.0" y1="118.0" x2="182.0" y2="97.7"/>
+<circle class="samp" cx="182.0" cy="97.7" r="4"/>
+<line class="stem" x1="234.0" y1="118.0" x2="234.0" y2="79.8"/>
+<circle class="samp" cx="234.0" cy="79.8" r="4"/>
+<line class="stem" x1="286.0" y1="118.0" x2="286.0" y2="66.4"/>
+<circle class="samp" cx="286.0" cy="66.4" r="4"/>
+<line class="stem" x1="338.0" y1="118.0" x2="338.0" y2="59.1"/>
+<circle class="samp" cx="338.0" cy="59.1" r="4"/>
+<line class="stem" x1="390.0" y1="118.0" x2="390.0" y2="58.7"/>
+<circle class="samp" cx="390.0" cy="58.7" r="4"/>
+<line class="stem" x1="442.0" y1="118.0" x2="442.0" y2="65.4"/>
+<circle class="samp" cx="442.0" cy="65.4" r="4"/>
+<line class="stem" x1="494.0" y1="118.0" x2="494.0" y2="78.3"/>
+<circle class="samp" cx="494.0" cy="78.3" r="4"/>
+<line class="stem" x1="546.0" y1="118.0" x2="546.0" y2="95.9"/>
+<circle class="samp" cx="546.0" cy="95.9" r="4"/>
+<line class="stem" x1="598.0" y1="118.0" x2="598.0" y2="116.1"/>
+<circle class="samp" cx="598.0" cy="116.1" r="4"/>
+<line class="stem" x1="650.0" y1="118.0" x2="650.0" y2="136.5"/>
+<circle class="samp" cx="650.0" cy="136.5" r="4"/>
+<line class="stem" x1="702.0" y1="118.0" x2="702.0" y2="154.8"/>
+<circle class="samp" cx="702.0" cy="154.8" r="4"/>
+<line class="stem" x1="754.0" y1="118.0" x2="754.0" y2="168.7"/>
+<circle class="samp" cx="754.0" cy="168.7" r="4"/>
+<line class="stem" x1="806.0" y1="118.0" x2="806.0" y2="176.6"/>
+<circle class="samp" cx="806.0" cy="176.6" r="4"/>
+<line class="stem" x1="858.0" y1="118.0" x2="858.0" y2="177.5"/>
+<circle class="samp" cx="858.0" cy="177.5" r="4"/>
+<line class="stem" x1="910.0" y1="118.0" x2="910.0" y2="171.5"/>
+<circle class="samp" cx="910.0" cy="171.5" r="4"/>
+<line class="stem" x1="962.0" y1="118.0" x2="962.0" y2="159.1"/>
+<circle class="samp" cx="962.0" cy="159.1" r="4"/>
+<line class="stem" x1="1014.0" y1="118.0" x2="1014.0" y2="141.8"/>
+<circle class="samp" cx="1014.0" cy="141.8" r="4"/>
+<line class="stem" x1="1066.0" y1="118.0" x2="1066.0" y2="121.8"/>
+<circle class="samp" cx="1066.0" cy="121.8" r="4"/>
+<line class="stem" x1="1118.0" y1="118.0" x2="1118.0" y2="101.3"/>
+<circle class="samp" cx="1118.0" cy="101.3" r="4"/>
+<line class="lane" x1="130" y1="238.0" x2="1170.0" y2="238.0"/>
+<text class="sig" x="122" y="232.0" text-anchor="end">o_convst</text>
+<path class="wave" d="M 130.0 238.0 L 130.0 212.0 L 134.0 212.0 L 134.0 238.0"/>
+<path class="wave" d="M 182.0 238.0 L 182.0 212.0 L 186.0 212.0 L 186.0 238.0"/>
+<path class="wave" d="M 234.0 238.0 L 234.0 212.0 L 238.0 212.0 L 238.0 238.0"/>
+<path class="wave" d="M 286.0 238.0 L 286.0 212.0 L 290.0 212.0 L 290.0 238.0"/>
+<path class="wave" d="M 338.0 238.0 L 338.0 212.0 L 342.0 212.0 L 342.0 238.0"/>
+<path class="wave" d="M 390.0 238.0 L 390.0 212.0 L 394.0 212.0 L 394.0 238.0"/>
+<path class="wave" d="M 442.0 238.0 L 442.0 212.0 L 446.0 212.0 L 446.0 238.0"/>
+<path class="wave" d="M 494.0 238.0 L 494.0 212.0 L 498.0 212.0 L 498.0 238.0"/>
+<path class="wave" d="M 546.0 238.0 L 546.0 212.0 L 550.0 212.0 L 550.0 238.0"/>
+<path class="wave" d="M 598.0 238.0 L 598.0 212.0 L 602.0 212.0 L 602.0 238.0"/>
+<path class="wave" d="M 650.0 238.0 L 650.0 212.0 L 654.0 212.0 L 654.0 238.0"/>
+<path class="wave" d="M 702.0 238.0 L 702.0 212.0 L 706.0 212.0 L 706.0 238.0"/>
+<path class="wave" d="M 754.0 238.0 L 754.0 212.0 L 758.0 212.0 L 758.0 238.0"/>
+<path class="wave" d="M 806.0 238.0 L 806.0 212.0 L 810.0 212.0 L 810.0 238.0"/>
+<path class="wave" d="M 858.0 238.0 L 858.0 212.0 L 862.0 212.0 L 862.0 238.0"/>
+<path class="wave" d="M 910.0 238.0 L 910.0 212.0 L 914.0 212.0 L 914.0 238.0"/>
+<path class="wave" d="M 962.0 238.0 L 962.0 212.0 L 966.0 212.0 L 966.0 238.0"/>
+<path class="wave" d="M 1014.0 238.0 L 1014.0 212.0 L 1018.0 212.0 L 1018.0 238.0"/>
+<path class="wave" d="M 1066.0 238.0 L 1066.0 212.0 L 1070.0 212.0 L 1070.0 238.0"/>
+<path class="wave" d="M 1118.0 238.0 L 1118.0 212.0 L 1122.0 212.0 L 1122.0 238.0"/>
+<text class="tiny dim" x="650.0" y="256" text-anchor="middle">one 16.7 ns pulse every 550 ns &#8212; pulse width exaggerated</text>
+<line class="lane" x1="130" y1="300" x2="1170.0" y2="300"/>
+<text class="sig" x="122" y="294" text-anchor="end">o_sclk</text>
+<rect class="burst" x="134.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="186.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="238.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="290.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="342.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="394.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="446.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="498.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="550.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="602.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="654.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="706.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="758.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="810.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="862.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="914.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="966.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="1018.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="1070.0" y="278" width="44.0" height="22"/>
+<rect class="burst" x="1122.0" y="278" width="44.0" height="22"/>
+<text class="tiny dim" x="650.0" y="318" text-anchor="middle">16 pulses at 30 MHz fill 533 ns of every 550 ns frame</text>
+<line class="lane" x1="130" y1="356.0" x2="1170.0" y2="356.0"/>
+<text class="sig" x="122" y="350.0" text-anchor="end">o_ready</text>
+<path class="wave" d="M 182.0 356.0 L 182.0 334.0 L 186.0 334.0 L 186.0 356.0"/>
+<path class="wave" d="M 234.0 356.0 L 234.0 334.0 L 238.0 334.0 L 238.0 356.0"/>
+<path class="wave" d="M 286.0 356.0 L 286.0 334.0 L 290.0 334.0 L 290.0 356.0"/>
+<path class="wave" d="M 338.0 356.0 L 338.0 334.0 L 342.0 334.0 L 342.0 356.0"/>
+<path class="wave" d="M 390.0 356.0 L 390.0 334.0 L 394.0 334.0 L 394.0 356.0"/>
+<path class="wave" d="M 442.0 356.0 L 442.0 334.0 L 446.0 334.0 L 446.0 356.0"/>
+<path class="wave" d="M 494.0 356.0 L 494.0 334.0 L 498.0 334.0 L 498.0 356.0"/>
+<path class="wave" d="M 546.0 356.0 L 546.0 334.0 L 550.0 334.0 L 550.0 356.0"/>
+<path class="wave" d="M 598.0 356.0 L 598.0 334.0 L 602.0 334.0 L 602.0 356.0"/>
+<path class="wave" d="M 650.0 356.0 L 650.0 334.0 L 654.0 334.0 L 654.0 356.0"/>
+<path class="wave" d="M 702.0 356.0 L 702.0 334.0 L 706.0 334.0 L 706.0 356.0"/>
+<path class="wave" d="M 754.0 356.0 L 754.0 334.0 L 758.0 334.0 L 758.0 356.0"/>
+<path class="wave" d="M 806.0 356.0 L 806.0 334.0 L 810.0 334.0 L 810.0 356.0"/>
+<path class="wave" d="M 858.0 356.0 L 858.0 334.0 L 862.0 334.0 L 862.0 356.0"/>
+<path class="wave" d="M 910.0 356.0 L 910.0 334.0 L 914.0 334.0 L 914.0 356.0"/>
+<path class="wave" d="M 962.0 356.0 L 962.0 334.0 L 966.0 334.0 L 966.0 356.0"/>
+<path class="wave" d="M 1014.0 356.0 L 1014.0 334.0 L 1018.0 334.0 L 1018.0 356.0"/>
+<path class="wave" d="M 1066.0 356.0 L 1066.0 334.0 L 1070.0 334.0 L 1070.0 356.0"/>
+<path class="wave" d="M 1118.0 356.0 L 1118.0 334.0 L 1122.0 334.0 L 1122.0 356.0"/>
+<path class="wave" d="M 1170.0 356.0 L 1170.0 334.0 L 1174.0 334.0 L 1174.0 356.0"/>
+<text class="sig" x="122" y="396.0" text-anchor="end">o_adc_data</text>
+<polygon class="bus bus-data" points="130.0,392.0 134.0,380.0 178.0,380.0 182.0,392.0 178.0,404.0 134.0,404.0"/>
+<text class="code" x="156.0" y="397.0" text-anchor="middle">0x0000</text>
+<polygon class="bus bus-data" points="182.0,392.0 186.0,380.0 230.0,380.0 234.0,392.0 230.0,404.0 186.0,404.0"/>
+<text class="code" x="208.0" y="397.0" text-anchor="middle">0x22B0</text>
+<polygon class="bus bus-hot" points="234.0,392.0 238.0,380.0 282.0,380.0 286.0,392.0 282.0,404.0 238.0,404.0"/>
+<text class="code hot" x="260.0" y="397.0" text-anchor="middle">0x4145</text>
+<polygon class="bus bus-data" points="286.0,392.0 290.0,380.0 334.0,380.0 338.0,392.0 334.0,404.0 290.0,404.0"/>
+<text class="code" x="312.0" y="397.0" text-anchor="middle">0x5823</text>
+<polygon class="bus bus-data" points="338.0,392.0 342.0,380.0 386.0,380.0 390.0,392.0 386.0,404.0 342.0,404.0"/>
+<text class="code" x="364.0" y="397.0" text-anchor="middle">0x6496</text>
+<polygon class="bus bus-data" points="390.0,392.0 394.0,380.0 438.0,380.0 442.0,392.0 438.0,404.0 394.0,404.0"/>
+<text class="code" x="416.0" y="397.0" text-anchor="middle">0x6523</text>
+<polygon class="bus bus-data" points="442.0,392.0 446.0,380.0 490.0,380.0 494.0,392.0 490.0,404.0 446.0,404.0"/>
+<text class="code" x="468.0" y="397.0" text-anchor="middle">0x59BC</text>
+<polygon class="bus bus-data" points="494.0,392.0 498.0,380.0 542.0,380.0 546.0,392.0 542.0,404.0 498.0,404.0"/>
+<text class="code" x="520.0" y="397.0" text-anchor="middle">0x43B8</text>
+<polygon class="bus bus-data" points="546.0,392.0 550.0,380.0 594.0,380.0 598.0,392.0 594.0,404.0 550.0,404.0"/>
+<text class="code" x="572.0" y="397.0" text-anchor="middle">0x25B2</text>
+<polygon class="bus bus-data" points="598.0,392.0 602.0,380.0 646.0,380.0 650.0,392.0 646.0,404.0 602.0,404.0"/>
+<text class="code" x="624.0" y="397.0" text-anchor="middle">0x0337</text>
+<polygon class="bus bus-data" points="650.0,392.0 654.0,380.0 698.0,380.0 702.0,392.0 698.0,404.0 654.0,404.0"/>
+<text class="code" x="676.0" y="397.0" text-anchor="middle">0xE05B</text>
+<polygon class="bus bus-data" points="702.0,392.0 706.0,380.0 750.0,380.0 754.0,392.0 750.0,404.0 706.0,404.0"/>
+<text class="code" x="728.0" y="397.0" text-anchor="middle">0xC13D</text>
+<polygon class="bus bus-data" points="754.0,392.0 758.0,380.0 802.0,380.0 806.0,392.0 802.0,404.0 758.0,404.0"/>
+<text class="code" x="780.0" y="397.0" text-anchor="middle">0xA98B</text>
+<polygon class="bus bus-data" points="806.0,392.0 810.0,380.0 854.0,380.0 858.0,392.0 854.0,404.0 810.0,404.0"/>
+<text class="code" x="832.0" y="397.0" text-anchor="middle">0x9C11</text>
+<polygon class="bus bus-data" points="858.0,392.0 862.0,380.0 906.0,380.0 910.0,392.0 906.0,404.0 862.0,404.0"/>
+<text class="code" x="884.0" y="397.0" text-anchor="middle">0x9A69</text>
+<polygon class="bus bus-data" points="910.0,392.0 914.0,380.0 958.0,380.0 962.0,392.0 958.0,404.0 914.0,404.0"/>
+<text class="code" x="936.0" y="397.0" text-anchor="middle">0xA4C3</text>
+<polygon class="bus bus-data" points="962.0,392.0 966.0,380.0 1010.0,380.0 1014.0,392.0 1010.0,404.0 966.0,404.0"/>
+<text class="code" x="988.0" y="397.0" text-anchor="middle">0xB9E7</text>
+<polygon class="bus bus-data" points="1014.0,392.0 1018.0,380.0 1062.0,380.0 1066.0,392.0 1062.0,404.0 1018.0,404.0"/>
+<text class="code" x="1040.0" y="397.0" text-anchor="middle">0xD755</text>
+<polygon class="bus bus-data" points="1066.0,392.0 1070.0,380.0 1114.0,380.0 1118.0,392.0 1114.0,404.0 1070.0,404.0"/>
+<text class="code" x="1092.0" y="397.0" text-anchor="middle">0xF992</text>
+<polygon class="bus bus-data" points="1118.0,392.0 1122.0,380.0 1166.0,380.0 1170.0,392.0 1166.0,404.0 1122.0,404.0"/>
+<text class="code" x="1144.0" y="397.0" text-anchor="middle">0x1C91</text>
+<line class="axis" x1="130" y1="432" x2="1170.0" y2="432"/>
+<line class="axis" x1="130.0" y1="432" x2="130.0" y2="437"/>
+<text class="tick-lab" x="130.0" y="450" text-anchor="middle">0.00</text>
+<line class="axis" x1="234.0" y1="432" x2="234.0" y2="437"/>
+<text class="tick-lab" x="234.0" y="450" text-anchor="middle">1.10</text>
+<line class="axis" x1="338.0" y1="432" x2="338.0" y2="437"/>
+<text class="tick-lab" x="338.0" y="450" text-anchor="middle">2.20</text>
+<line class="axis" x1="442.0" y1="432" x2="442.0" y2="437"/>
+<text class="tick-lab" x="442.0" y="450" text-anchor="middle">3.30</text>
+<line class="axis" x1="546.0" y1="432" x2="546.0" y2="437"/>
+<text class="tick-lab" x="546.0" y="450" text-anchor="middle">4.40</text>
+<line class="axis" x1="650.0" y1="432" x2="650.0" y2="437"/>
+<text class="tick-lab" x="650.0" y="450" text-anchor="middle">5.50</text>
+<line class="axis" x1="754.0" y1="432" x2="754.0" y2="437"/>
+<text class="tick-lab" x="754.0" y="450" text-anchor="middle">6.60</text>
+<line class="axis" x1="858.0" y1="432" x2="858.0" y2="437"/>
+<text class="tick-lab" x="858.0" y="450" text-anchor="middle">7.70</text>
+<line class="axis" x1="962.0" y1="432" x2="962.0" y2="437"/>
+<text class="tick-lab" x="962.0" y="450" text-anchor="middle">8.80</text>
+<line class="axis" x1="1066.0" y1="432" x2="1066.0" y2="437"/>
+<text class="tick-lab" x="1066.0" y="450" text-anchor="middle">9.90</text>
+<line class="axis" x1="1170.0" y1="432" x2="1170.0" y2="437"/>
+<text class="tick-lab" x="1170.0" y="450" text-anchor="middle">11.00</text>
+<text class="tick-lab" x="122" y="450" text-anchor="end">&#181;s</text></svg>
+    </div>
+    <figcaption><b>Fig. 3</b> &#8212; 20 consecutive frames, 11&nbsp;&#181;s of signal. Each
+    <code>o_convst</code> tick freezes the input; 533&nbsp;ns of <code>SCLK</code> burst clocks
+    the result out; <code>o_ready</code> marks the word landing on the bus. Note the one-frame
+    latency &#8212; the code for the sample taken at <em>t</em> is only readable from
+    <em>t</em>&nbsp;+&nbsp;550&nbsp;ns, so each bus segment is drawn shifted one frame right of
+    its dot. <code>0x4145</code> is the frame drawn in full in Fig.&nbsp;1.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="num">04</span>The numbers</h2>
+  <table>
+    <thead><tr><th>Quantity</th><th class="n">Value</th><th class="src">Where it comes from</th></tr></thead>
+    <tbody>
+      <tr><td>System clock</td><td class="n">60 MHz / 16.67 ns</td><td class="src">clk_wiz_60 in toplevel</td></tr>
+      <tr><td>SCLK</td><td class="n">30 MHz / 33.3 ns</td><td class="src">sclk_half toggle</td></tr>
+      <tr><td>CONVST pulse width</td><td class="n">16.67 ns</td><td class="src">one cycle in CONVST state</td></tr>
+      <tr><td>Frame length</td><td class="n">33 cycles / 550 ns</td><td class="src">1 + 1 + 31 states</td></tr>
+      <tr><td>Throughput</td><td class="n">1.818 MSPS</td><td class="src">1 / 550 ns</td></tr>
+      <tr><td>Nyquist limit</td><td class="n">909 kHz</td><td class="src">fs / 2</td></tr>
+      <tr><td>CONVST &#8594; o_ready</td><td class="n">533 ns</td><td class="src">32 cycles</td></tr>
+      <tr><td>o_ready width</td><td class="n">16.67 ns</td><td class="src">ready_i cleared each cycle</td></tr>
+      <tr><td>SDO capture budget</td><td class="n">16.67 ns</td><td class="src">launch edge to capture edge</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="col">
+  <h2><span class="num">05</span>Three things the diagram exposes</h2>
+
+  <div class="flag">
+    <h3>Nothing waits for the conversion</h3>
+    <p>SCLK's first edge lands 16.7&nbsp;ns after CONVST rises. The MCP33131 needs its
+    conversion time before the result exists, and the driver never waits for it &#8212; there is
+    no timer and no end-of-conversion check. The first bit sampled is whatever SDO happens to
+    hold at that moment.</p>
+  </div>
+
+  <div class="flag">
+    <h3>1.818 MSPS against a 500 kSPS part</h3>
+    <p>The schematic BOM calls out <code>MCP33131-05-E/MS</code>, the 500&nbsp;kSPS grade. The
+    frame rate here is about 3.6&#215; that. Either the frame needs idle cycles added to slow it
+    down, or the design wants the 1&nbsp;MSPS grade &#8212; and even that is short of 1.818.</p>
+  </div>
+
+  <div class="flag">
+    <h3>The capture edge has no margin to give</h3>
+    <p>Fig.&nbsp;2's 16.7&nbsp;ns has to cover the ADC's SDO delay, the board round trip and the
+    FPGA's setup time. Sampling on the falling edge instead is a one-line change and buys the
+    other half of the SCLK period.</p>
+  </div>
+
+  <p style="color: var(--ink-3); font-size: 15px; margin-top: 30px;">Minor: the file and entity
+  are spelled <code>mpc33131</code>, the part is MCP33131. Worth fixing before the name spreads
+  into constraints and testbenches.</p>
+</section>
+</div>

@@ -1,0 +1,127 @@
+* mc_rf_chain.cir -- Monte Carlo of the RF chain: cascade gain and NF.
+*
+* Varies the bandpass components, the inductor Q, and the gain of each
+* ADL5531.  Emits "MC,..." CSV lines on stdout for mcstat.py.
+*
+* Pad tolerance is not varied here (the PAT1220 laser-trimmed pads are the
+* best controlled thing in the chain); add alters on @r.xu18.rs[resistance]
+* and friends if you want it.
+.title RF chain Monte Carlo
+.include common.inc
+.include models/behavioral.lib
+.options TEMP=16.85 TNOM=16.85
+
+Vin src 0 DC 0 AC 1
+Rs  src ant 50
+.include bpf.inc
+
+XU18 bpo a1in 0 PAD atten={PAD_IN}
+XU1  a1in a1o     ADL5531_LIN
+L8   a1o 0 {L8}
+C12  a1o a2p {C12}
+XU19 a2p a2in 0 PAD atten={PAD_12}
+XU2  a2in a2o     ADL5531_LIN
+L9   a2o 0 {L9}
+C14  a2o a3p {C14}
+XU20 a3p a3in 0 PAD atten={PAD_23}
+XU3  a3in a3o     ADL5531_LIN
+L10  a3o 0 {L10}
+C18  a3o a4p {C18}
+XU21 a4p a4in 0 PAD atten={PAD_34}
+XU4  a4in a4o     ADL5531_LIN
+L11  a4o 0 {L11}
+C8   a4o a5p {C8}
+XU7  a5p tpri 0 PAD atten={PAD_OUT}
+XT1  tpri 0 tsa tsc tsb WBC1_1TL
+R31  tsc 0 {R31}
+C60  tsc 0 {C60}
+C59  tsa tsb {C59}
+L14  tsa mxn {L14}
+L13  tsb mxp {L13}
+Lmx  mxp imxp 0.9n
+Lmx2 mxn imxn 0.9n
+Rmix imxp imxn 28.5
+
+.control
+set filetype=ascii
+
+* ---- knobs -------------------------------------------------------------
+let trials = 300
+let tolc   = 0.02      $ bandpass capacitors
+let toll   = 0.03      $ bandpass inductors
+let tolq   = 0.30      $ inductor Q
+let tolg   = 0.06      $ ADL5531 gain, +-0.5 dB
+let qnom   = 40
+let dist   = 0
+* ------------------------------------------------------------------------
+
+setseed 20260829
+
+let c1n = 75e-12
+let c2n = 4.8e-12
+let c3n = 220e-12
+let c4n = 4.8e-12
+let c5n = 75e-12
+let l1n = 36e-9
+let l2n = 500e-9
+let l3n = 11.2e-9
+let l4n = 500e-9
+let l5n = 36e-9
+let avn = 10
+
+define dev(t) (dist eq 0) * (t/3 * sgauss(0)) + (dist ne 0) * (t * sunif(0))
+define clip(x,t) (x > t)*t + (x < -t)*(-t) + (x <= t)*(x >= -t)*x
+define pick(nom,t) nom * (1 + clip(dev(t),t))
+
+echo "MC,run,gain100_db,gain103_db,gain106_db,flatness_db,nf103_db,q_eff"
+
+let run = 0
+dowhile run < trials
+  setplot const
+  let qe  = qnom * (1 + clip(dev(tolq),tolq))
+  let kes = 2*3.14159265*103e6/qe
+  let w1 = pick(l1n,toll)
+  let w2 = pick(l2n,toll)
+  let w3 = pick(l3n,toll)
+  let w4 = pick(l4n,toll)
+  let w5 = pick(l5n,toll)
+  alter c1 = pick(c1n,tolc)
+  alter c2 = pick(c2n,tolc)
+  alter c3 = pick(c3n,tolc)
+  alter c4 = pick(c4n,tolc)
+  alter c5 = pick(c5n,tolc)
+  alter l1 = w1
+  alter l2 = w2
+  alter l3 = w3
+  alter l4 = w4
+  alter l5 = w5
+  alter rl1 = kes*w1
+  alter rl2 = kes*w2
+  alter rl3 = kes*w3
+  alter rl4 = kes*w4
+  alter rl5 = kes*w5
+  alter @e.xu1.egain[gain] = 2*pick(avn,tolg)
+  alter @e.xu2.egain[gain] = 2*pick(avn,tolg)
+  alter @e.xu3.egain[gain] = 2*pick(avn,tolg)
+  alter @e.xu4.egain[gain] = 2*pick(avn,tolg)
+
+  ac lin 601 95meg 111meg
+  let gv = db(v(mxp,mxn)/0.5)
+  meas ac g100 find gv at=100meg
+  meas ac g103 find gv at=103meg
+  meas ac g106 find gv at=106meg
+  meas ac gpp  pp   gv from=100meg to=106meg
+  set s100 = "$&g100"
+  set s103 = "$&g103"
+  set s106 = "$&g106"
+  set spp  = "$&gpp"
+
+  noise v(mxp,mxn) Vin lin 3 103meg 103.002meg
+  setplot previous
+  let nfv = db(inoise_spectrum) - 10*log10(4*1.380649e-23*290*50)
+  let nf = nfv[0]
+  echo "MC,$&run,$s100,$s103,$s106,$spp,$&nf,$&qe"
+  let run = run + 1
+end
+.endc
+.end

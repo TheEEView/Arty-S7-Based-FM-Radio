@@ -1,0 +1,46 @@
+* tb_bpf.cir -- RF input bandpass filter, nominal response.
+* Source = 50 ohm antenna feed at J1, load = 50 ohm looking into the U18 pad.
+.title RF input bandpass filter
+.include common.inc
+
+Vin src 0 DC 0 AC 2      $ AC 2 so 0 dB = lossless matched transfer
+Rs  src ant 50
+.include bpf.inc
+Rl  bpo 0  50
+
+.control
+set filetype=ascii
+ac lin 8001 20meg 220meg
+let s21 = db(v(bpo))
+meas ac gmax max s21 from=60meg to=160meg
+let sn = s21 - gmax
+
+meas ac g100  find s21 at=100meg
+meas ac g103  find s21 at=103meg
+meas ac g106  find s21 at=106meg
+meas ac ilmax min s21 from=100meg to=106meg
+meas ac ripple pp s21 from=100meg to=106meg
+meas ac flo   when sn=-3 rise=1
+meas ac fhi   when sn=-3 fall=1
+meas ac rej88  find s21 at=88meg
+meas ac rej120 find s21 at=120meg
+meas ac rej144 find s21 at=144meg
+meas ac rej200 find s21 at=200meg
+
+echo ""
+echo "=== RF bandpass, nominal (QL from bpf.inc) ==="
+echo "insertion loss 100 MHz ... $&g100 dB"
+echo "insertion loss 103 MHz ... $&g103 dB"
+echo "insertion loss 106 MHz ... $&g106 dB"
+echo "worst IL over 100-106 .... $&ilmax dB"
+echo "ripple over 100-106 ...... $&ripple dB"
+echo "peak response ............ $&gmax dB"
+echo "-3 dB band ............... $&flo Hz .. $&fhi Hz"
+echo "response  88 MHz ......... $&rej88 dB   (bottom of the FM band)"
+echo "response 120 MHz ......... $&rej120 dB"
+echo "response 144 MHz ......... $&rej144 dB   (2 m amateur)"
+echo "response 200 MHz ......... $&rej200 dB"
+echo ""
+wrdata out/bpf_ac.csv s21
+.endc
+.end

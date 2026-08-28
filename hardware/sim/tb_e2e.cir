@@ -1,0 +1,93 @@
+* tb_e2e.cir -- antenna to ADC, level plan.
+* Full chain in the time domain: BPF -> 4x (pad + ADL5531) -> pad -> T1
+* -> C59/L13/L14 match -> LT5560 -> R33/R34 -> MFB x2 -> ADC pins.
+* RF at 103.0 MHz, LO at 102.9 MHz -> 100 kHz IF, matching the ADF4351
+* frequency plan in logic/src/vhdl/adf4351_driver.vhd (LO one IF below
+* the station, INT counted in 100 kHz steps).
+*
+* Sweeps antenna power and prints the differential ADC swing against the
+* MCP33131 full scale of +-Vref = +-2.5 V.
+.title End to end level plan
+.include common.inc
+.include models/behavioral.lib
+
+.param frf  = 103.0meg
+.param flo  = 102.9meg
+.param pant = -60                       $ antenna power, dBm (overridden below)
+.param vant = {2*sqrt(2*50*pow(10,pant/10)*1e-3)}   $ open-circuit source volts
+
+Vin src 0 DC 0 SIN(0 {vant} frf)
+Rs  src ant 50
+.include bpf.inc
+
+XU18 bpo a1in 0 PAD atten={PAD_IN}
+XU1  a1in a1o     ADL5531
+L8   a1o 0 {L8}
+C12  a1o a2p {C12}
+XU19 a2p a2in 0 PAD atten={PAD_12}
+XU2  a2in a2o     ADL5531
+L9   a2o 0 {L9}
+C14  a2o a3p {C14}
+XU20 a3p a3in 0 PAD atten={PAD_23}
+XU3  a3in a3o     ADL5531
+L10  a3o 0 {L10}
+C18  a3o a4p {C18}
+XU21 a4p a4in 0 PAD atten={PAD_34}
+XU4  a4in a4o     ADL5531
+L11  a4o 0 {L11}
+C8   a4o a5p {C8}
+XU7  a5p tpri 0 PAD atten={PAD_OUT}
+
+XT1  tpri 0 tsa tsc tsb WBC1_1TL
+R31  tsc 0 {R31}
+C60  tsc 0 {C60}
+C59  tsa tsb {C59}
+L14  tsa mxn {L14}
+L13  tsb mxp {L13}
+
+* --- local oscillator: ADF4351 RFOUTA+ through R51/C63/R32, C62 into LO- ---
+* RFOUTA+ is an open collector biased by R51 = 50 R, so a 50 R source.
+.param plo = 5                                       $ ADF4351 output, dBm
+.param vlo = {2*sqrt(2*50*pow(10,plo/10)*1e-3)}
+Vlo  losrc 0 DC 0 SIN(0 {vlo} flo)
+R51  losrc lo1 50
+C63  lo1 lo2 100p
+R32  lo2 0 162
+C62  lo2 lon 10n
+C61  lop 0 10n
+XMIX mxp mxn lop lon mxop mxon LT5560
+
+Vcm  vcm 0 DC {VCM}
+.include ifchain.inc
+
+.control
+set filetype=ascii
+echo ""
+echo "=== end to end: 103.0 MHz RF, 102.9 MHz LO -> 100 kHz IF ==="
+echo "MCP33131 full scale is +-Vref = +-2.5 V differential."
+echo ""
+echo " Pant_dBm   IF_pk_V    pct_FS    DC_offset_V   U4_out_dBm"
+foreach p -100 -90 -80 -70 -60 -50 -45 -40 -35 -30
+  setplot const
+  let vv = 2*sqrt(2*50*10^($p/10)*1e-3)
+  alter Vin sin = [ 0 $&vv 103e6 ]
+  tran 400p 80u 40u 400p
+  * measure over the last 20 us: 2 full IF periods, long after the RF and
+  * mixer transients but short enough that the 127 us highpass tail is flat
+  let vd = v(adcp) - v(adcn)
+  meas tran vhi  MAX vd     from=60u to=80u
+  meas tran vlo  MIN vd     from=60u to=80u
+  meas tran vav  AVG vd     from=60u to=80u
+  meas tran rmax MAX v(a4o) from=70u to=80u
+  let amp = (vhi-vlo)/2
+  let pfs = 100*amp/2.5
+  let prf = 10*log10( (rmax*rmax/2) / 50 / 1e-3 )
+  echo "   $p       $&amp     $&pfs     $&vav     $&prf"
+  destroy $curplot
+end
+echo ""
+echo "U4_out_dBm is the level U4 delivers into its load; ADL5531 OP1dB is"
+echo "+19.5 dBm, so watch where this table stops tracking the input 1:1."
+echo ""
+.endc
+.end

@@ -1,0 +1,63 @@
+* tb_if_chain.cir -- LT5560 IF output through to the MCP33131 inputs.
+*   mixer open-collector outs + R33/R34/C64
+*   -> C65/C66 -> MFB lowpass stage 1 (U25)
+*   -> MFB lowpass stage 2 (U26) -> R47/R48 + C76/C77 -> ADC
+* Two cascaded multiple-feedback sections; the intent is a 4th-order
+* Butterworth anti-alias ahead of the 1 Msps SAR.
+.title IF chain, mixer output to ADC input
+.include common.inc
+.include models/behavioral.lib
+
+Vcm  vcm 0 DC {VCM}
+Vif  ifd 0 DC 0 AC 1
+XMIX ifd mxop mxon LT5560_IFSRC gm=8m
+
+.include ifchain.inc
+
+.control
+set filetype=ascii
+* Operating point taken from logic/src/vhdl: fs = 779.2 ksps (60 MHz / 77),
+* IF pinned at 100 kHz, +-75 kHz deviation => the instantaneous IF sweeps
+* 25 kHz .. 175 kHz.  Aliases into that band come from fs-175k .. fs-25k,
+* i.e. 604.2 kHz .. 754.2 kHz.
+ac dec 1200 100 20meg
+let h  = db(v(adcp,adcn))
+let h1 = db(v(o1p,o1n))
+
+meas ac gpass find h at=100k     $ reference at the IF carrier itself
+let hn  = h - gpass
+meas ac g1 find h1 at=100k
+let h1n = h1 - g1
+
+meas ac fhp   when hn=-3 rise=1
+meas ac f3db  when hn=-3 fall=1
+meas ac f3s1  when h1n=-3 fall=1
+meas ac ripple pp hn from=25k to=175k
+meas ac tilt25  find hn at=25k
+meas ac tilt175 find hn at=175k
+meas ac anyq  find hn at=389.6k
+meas ac afold max hn from=604.2k to=754.2k
+meas ac afold2 max hn from=804.2k to=954.2k
+meas ac a5m   find hn at=5meg
+
+echo ""
+echo "=== IF chain: LT5560 IF output to MCP33131 input ==="
+echo "midband transimpedance ..... $&gpass dBohm  (V diff per A of IF current)"
+echo "highpass -3 dB ............. $&fhp Hz    (C65/C66 into R35/R36)"
+echo "lowpass  -3 dB ............. $&f3db Hz"
+echo "   MFB stage 1 alone ....... $&f3s1 Hz"
+echo ""
+echo "-- across the IF swing 25..175 kHz (slope detector sees this tilt) --"
+echo "response at  25 kHz ........ $&tilt25 dB"
+echo "response at 175 kHz ........ $&tilt175 dB"
+echo "peak-to-peak over the swing  $&ripple dB"
+echo ""
+echo "-- anti-alias, fs = 779.2 ksps --"
+echo "response at fs/2 389.6 kHz . $&anyq dB"
+echo "worst in fold band 604-754k  $&afold dB   <- this is the number that matters"
+echo "worst in 2nd fold 804-954k . $&afold2 dB"
+echo "response at 5 MHz .......... $&a5m dB"
+echo ""
+wrdata out/ifchain_ac.csv hn h1n
+.endc
+.end

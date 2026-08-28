@@ -1,0 +1,52 @@
+* tb_lo_drive.cir -- does the ADF4351 deliver enough LO to the LT5560?
+*
+* Board network: U12 RFOUTA+ is an open collector biased by R51 = 50 R to
+* 3V3, so it looks like a 50 R source.  From there C63 (100p) in series,
+* R32 (162 R) to ground, C62 (10n) into LO-.  LO+ is AC grounded by C61.
+*
+* [DS] LT5560f.pdf p.17: LO port is ~180 R and wants 240 mVrms at the IC;
+*      acceptable LO input power is -6 to +1 dBm.
+* [DS] ADF4351 RFOUT is programmable to -4, -1, +2 or +5 dBm.
+.title ADF4351 to LT5560 LO drive
+.include models/behavioral.lib
+
+Vlo losrc 0 DC 0 AC 1
+R51 losrc lo1 50
+C63 lo1 lo2 100p
+R32 lo2 0 162
+C62 lo2 lon 10n
+C61 lop 0 10n
+Rlo lop lon 180        $ LT5560 LO port
+
+.control
+set filetype=ascii
+ac lin 2001 50meg 200meg
+* AC 1 on the source is a 1 V open-circuit EMF = -3.01 dBm available into 50 R.
+* Scale to each ADF4351 output setting and report Vrms at the LO pins.
+let vlo_per_volt = mag(v(lop,lon))
+meas ac k100 find vlo_per_volt at=99.9meg
+meas ac k105 find vlo_per_volt at=105.0meg
+
+echo ""
+echo "=== ADF4351 -> LT5560 LO drive ==="
+echo "network transfer (Vpk at LO port per Vpk of source EMF):"
+echo "   99.9 MHz (channel 0 LO) .. $&k100"
+echo "  105.0 MHz (channel 51 LO) . $&k105"
+echo ""
+echo "  ADF4351 setting   LO port mVrms   (LT5560 needs 240 mVrms)"
+let emf4 = 2*sqrt(2*50*10^(-0.4)*1e-3)
+let emf1 = 2*sqrt(2*50*10^(-0.1)*1e-3)
+let emf2 = 2*sqrt(2*50*10^( 0.2)*1e-3)
+let emf5 = 2*sqrt(2*50*10^( 0.5)*1e-3)
+let v4 = 1000*k100*emf4/sqrt(2)
+let v1 = 1000*k100*emf1/sqrt(2)
+let v2 = 1000*k100*emf2/sqrt(2)
+let v5 = 1000*k100*emf5/sqrt(2)
+echo "     -4 dBm  ..............  $&v4"
+echo "     -1 dBm  ..............  $&v1"
+echo "     +2 dBm  ..............  $&v2"
+echo "     +5 dBm  ..............  $&v5"
+echo ""
+wrdata out/lo_drive.csv vlo_per_volt
+.endc
+.end

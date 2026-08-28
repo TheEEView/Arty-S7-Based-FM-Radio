@@ -1,0 +1,132 @@
+* ---------------------------------------------------------------------------
+* behavioral.lib -- behavioural models for the FM radio analog front end
+*
+* These are *system-level* models: they capture gain, impedance, bandwidth,
+* noise and (where noted) compression.  They are not vendor SPICE models and
+* they say nothing about layout, package parasitics or start-up behaviour.
+* Every number that came from a datasheet is marked [DS]; every number that
+* was fitted or assumed is marked [FIT] / [ASSUMED].
+* ---------------------------------------------------------------------------
+
+* --- ADL5531 : 20 dB, 50 ohm, 20 MHz - 1 GHz gain block ---------------------
+* [DS] gain 20.0 dB @ 100 MHz, NF 2.6 dB, OP1dB +19.5 dBm, Zin=Zout=50
+* The input match is synthesised with a VCCS so it is NOISELESS: a real 50 ohm
+* shunt resistor would floor the model at NF=3.0 dB and the part does 2.6 dB.
+* rnf then sets the excess noise.  vsat sets the tanh compression knee.
+* Both are calibrated by tb_lna_cal.cir -- re-run it if you change av.
+.subckt ADL5531 in out params: av=10 zin=50 zo=50 rnf=9.99 vsat=9.54
+Gin   in    0     in 0 {1/zin}
+Rn    nz    0     {rnf}
+Egain n1    0     in 0 {2*av}
+Enz   n2    n1    nz 0 {2*av}
+Blim  n3    0     V = {vsat} * tanh( V(n2) / {vsat} )
+Rout  n3    out   {zo}
+.ends ADL5531
+
+* --- ADL5531 without compression (faster, use for .ac / .noise) -------------
+.subckt ADL5531_LIN in out params: av=10 zin=50 zo=50 rnf=9.99
+Gin   in    0     in 0 {1/zin}
+Rn    nz    0     {rnf}
+Egain n1    0     in 0 {2*av}
+Enz   n2    n1    nz 0 {2*av}
+Rout  n2    out   {zo}
+.ends ADL5531_LIN
+
+* --- PAT1220-C-xDB : 50 ohm pi attenuator pad -------------------------------
+* BOM says PAT1220-C-5DB-T5 -> 5 dB.  Override with atten=<dB> to re-pad.
+* pi values: rser = Z(N-1)/(2 sqrt N), rsh = Z(sqrt N + 1)/(sqrt N - 1)
+.subckt PAD in out gnd params: atten=5 z0=50
+.param nn   = {pow(10, atten/10)}
+.param rser = {z0*(nn-1)/(2*sqrt(nn))}
+.param rsh  = {z0*(sqrt(nn)+1)/(sqrt(nn)-1)}
+Rs  in  out {rser}
+R1  in  gnd {rsh}
+R2  out gnd {rsh}
+.ends PAD
+
+* --- WBC1-1TL : 1:1 RF transformer / balun, centre-tapped secondary ---------
+* [DS] 0.4 - 300 MHz, ~1 dB insertion loss.  lm is the magnetising inductance
+* that sets the low-frequency roll-off; k<1 gives the leakage/HF roll-off.
+.subckt WBC1_1TL pa pb sa sc sb params: lm=50u k=0.9995 rw=0.35
+Lp   pa   pi   {lm}
+Rp   pi   pb   {rw}
+Ls1  sa   si1  {lm/4}
+Rs1  si1  sc   {rw/2}
+Ls2  sc   si2  {lm/4}
+Rs2  si2  sb   {rw/2}
+K1 Lp Ls1 {k}
+K2 Lp Ls2 {k}
+K3 Ls1 Ls2 {k}
+.ends WBC1_1TL
+
+* --- LT5560 : active double-balanced mixer ----------------------------------
+* [DS] LT5560f.pdf, in docs/:
+*   Table 2  differential signal input Z = 28.5 + j0.8 ohm @ 70 MHz,
+*            28.5 + j1.6 @ 140 MHz  -> 28.5 ohm + ~1.8 nH around 103 MHz
+*   p.17     LO input ~180 ohm, needs 240 mVrms, LO power -6 to +1 dBm
+*   p.1      conversion gain 2.4 dB typ
+*   pins 5/6 are open collectors and need a DC path to VCC (R33/R34 here)
+*
+* [ASSUMED] gm is back-calculated from the 2.4 dB figure assuming the
+* datasheet test circuit presents a 400 ohm differential IF load:
+*   Gp = (0.6366*gm*RL)^2 * Rin/RL = 10^0.24  with RL=400, Rin=28.5
+*   -> gm = 19.4 mA/V.  If you measure a different conversion gain on the
+* bench, scale gm by that ratio -- tb_mixer.cir prints what the model does
+* into the real 660 ohm board load.
+*
+* The B-source is a true time-domain multiply, so it only means anything in
+* .tran.  For .ac work on the IF side use LT5560_IFSRC below.
+.subckt LT5560 rfp rfn lop lon outp outn params: gm=19.4m zrf=28.5 lrf=1.8n zlo=180
+Lrfp rfp  irfp {lrf/2}
+Lrfn rfn  irfn {lrf/2}
+Rrf  irfp irfn {zrf}
+Rlo  lop  lon  {zlo}
+* normalised LO switching function, +-1; tanh gain sets the edge sharpness
+Blo  nsw 0   V = tanh( 20 * V(lop,lon) )
+Bmix outp outn I = {gm} * V(irfp,irfn) * V(nsw)
+Rop  outp 0  1G
+Ron  outn 0  1G
+.ends LT5560
+
+* --- LT5560 small-signal IF-side stand-in -----------------------------------
+* Ideal differential current source into the open-collector outputs.  Drive
+* node "ifdrv" with 1 V to inject {gm} A of differential IF current.
+.subckt LT5560_IFSRC ifdrv outp outn params: gm=19.4m
+Gif outp outn ifdrv 0 {gm}
+Rop outp 0 1G
+Ron outn 0 1G
+.ends LT5560_IFSRC
+
+* --- LTC6362 : low power rail-to-rail differential ADC driver ---------------
+* gbw / avol / slew are PARAMETERS -- check them against the datasheet
+* revision you are building to and override at the .subckt call if needed.
+* [ASSUMED] gbw=34meg avol=1e5 rout=8 slew=60 (V/us)
+* vswing is the swing of EACH output about vocm.  On a 5 V rail with
+* VOCM = 1.25 V the negative side runs out first, so +-1.2 V per output
+* (+-2.4 V differential) is the realistic headroom -- just under the
+* MCP33131 +-Vref = +-2.5 V full scale.  Set vswing=1e6 to disable.
+.subckt LTC6362 inp inn vocm outp outn params: gbw=34meg avol=1e5 rout=8 gm=1m vswing=1.2
+.param rp = {avol/gm}
+.param cp = {gm/(2*3.14159265*gbw)}
+Rinp  inp 0 1G
+Rinn  inn 0 1G
+Gm    0   int inp inn {gm}
+Rpole int 0   {rp}
+Cpole int 0   {cp}
+Blim  lim 0   V = {2*vswing} * tanh( V(int) / {2*vswing} )
+* differential output around the commanded common mode
+Eop   op  0   VALUE = { V(vocm) + 0.5*V(lim) }
+Eon   on  0   VALUE = { V(vocm) - 0.5*V(lim) }
+Rop   op  outp {rout}
+Ron   on  outn {rout}
+.ends LTC6362
+
+* --- MCP33131 : 16-bit 1 Msps SAR, differential input -----------------------
+* Sampling-capacitor + on-resistance load only.  No conversion is modelled.
+.subckt MCP33131 ainp ainn params: csamp=45p ron=40
+Rp ainp np {ron}
+Rn ainn nn {ron}
+Cs np  nn {csamp}
+Cpp np 0 3p
+Cpn nn 0 3p
+.ends MCP33131

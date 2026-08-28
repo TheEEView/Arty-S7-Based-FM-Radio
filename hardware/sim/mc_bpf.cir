@@ -1,0 +1,96 @@
+* mc_bpf.cir -- Monte Carlo of the RF input bandpass filter.
+*
+* Emits one "MC,..." CSV line per trial on stdout; run.sh redirects those
+* into out/mc_bpf.csv and mcstat.py turns them into yield statistics.
+*
+* Tune the run count, the tolerances and the distribution in the .control
+* block below.  Nothing else needs editing.
+.title RF bandpass Monte Carlo
+.include common.inc
+
+Vin src 0 DC 0 AC 2
+Rs  src ant 50
+.include bpf.inc
+Rl  bpo 0  50
+
+.control
+set filetype=ascii
+
+* ---- knobs -------------------------------------------------------------
+let trials  = 500
+let tolc    = 0.02      $ capacitor tolerance, fraction, edge of distribution
+let toll    = 0.03      $ inductor tolerance
+let tolq    = 0.30      $ inductor Q spread (Q is poorly controlled)
+let qnom    = 40
+let dist    = 0         $ 0 = gaussian truncated at the tolerance (3 sigma)
+                        $ 1 = uniform over +-tolerance
+* ------------------------------------------------------------------------
+
+setseed 20260829        $ comment out for a different draw each run
+
+* nominal values, captured before the first alter
+let c1n = 75e-12
+let c2n = 4.8e-12
+let c3n = 220e-12
+let c4n = 4.8e-12
+let c5n = 75e-12
+let l1n = 36e-9
+let l2n = 500e-9
+let l3n = 11.2e-9
+let l4n = 500e-9
+let l5n = 36e-9
+
+define dev(t) (dist eq 0) * (t/3 * sgauss(0)) + (dist ne 0) * (t * sunif(0))
+define clip(x,t) (x > t) * t + (x < -t) * (-t) + (x <= t) * (x >= -t) * x
+
+echo "MC,run,il_worst_db,ripple_db,f_lo_hz,f_hi_hz,peak_db,rej88_db,rej144_db,q_eff"
+
+let run = 0
+dowhile run < trials
+  setplot const
+  let qe  = qnom * (1 + clip(dev(tolq),tolq))
+  let kes = 2*3.14159265*103e6/qe
+
+  let v1 = c1n*(1+clip(dev(tolc),tolc))
+  let v2 = c2n*(1+clip(dev(tolc),tolc))
+  let v3 = c3n*(1+clip(dev(tolc),tolc))
+  let v4 = c4n*(1+clip(dev(tolc),tolc))
+  let v5 = c5n*(1+clip(dev(tolc),tolc))
+  let w1 = l1n*(1+clip(dev(toll),toll))
+  let w2 = l2n*(1+clip(dev(toll),toll))
+  let w3 = l3n*(1+clip(dev(toll),toll))
+  let w4 = l4n*(1+clip(dev(toll),toll))
+  let w5 = l5n*(1+clip(dev(toll),toll))
+
+  alter c1 = v1
+  alter c2 = v2
+  alter c3 = v3
+  alter c4 = v4
+  alter c5 = v5
+  alter l1 = w1
+  alter l2 = w2
+  alter l3 = w3
+  alter l4 = w4
+  alter l5 = w5
+  alter rl1 = kes*w1
+  alter rl2 = kes*w2
+  alter rl3 = kes*w3
+  alter rl4 = kes*w4
+  alter rl5 = kes*w5
+
+  ac lin 3001 60meg 220meg
+  let s21 = db(v(bpo))
+  meas ac pk  max s21 from=60meg to=160meg
+  let sn = s21 - pk
+  meas ac ilw    min s21 from=100meg to=106meg
+  meas ac rip    pp  s21 from=100meg to=106meg
+  meas ac flo    when sn=-3 rise=1
+  meas ac fhi    when sn=-3 fall=1
+  meas ac r88    find s21 at=88meg
+  meas ac r144   find s21 at=144meg
+  echo "MC,$&run,$&ilw,$&rip,$&flo,$&fhi,$&pk,$&r88,$&r144,$&qe"
+  destroy $curplot
+  let run = run + 1
+end
+.endc
+.end
