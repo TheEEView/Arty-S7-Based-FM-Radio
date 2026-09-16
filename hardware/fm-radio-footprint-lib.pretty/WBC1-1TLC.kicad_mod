@@ -1,0 +1,205 @@
+(footprint "WBC1-1TLC"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Coilcraft WBC series SMT mini wideband RF transformer, 6-pin, 4.19 x 4.45 x 3.05 mm. Recommended land pattern per Coilcraft Document 424-2 (rev 06/14/22): 0.76 x 1.14 mm pads, 1.52 mm column pitch, 3.05 mm row pitch. Pads 1-2-3 = secondary (2 = centre tap), pads 4-5-6 = primary (5 unused on WBC1-1TL). Pin 1 is the dotted secondary end.")
+	(tags "RF transformer balun wideband coilcraft WBC")
+	(property "Reference" "REF**"
+		(at 0 -3.3 0)
+		(layer "F.SilkS")
+		(uuid "d7e4d5a1-08ef-4dc8-840e-872c83845518")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "WBC1-1TLC"
+		(at 0 3.3 0)
+		(layer "F.Fab")
+		(uuid "5411e074-086c-4f8c-8e4a-3c98efca32e4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.coilcraft.com/getmedia/f685d903-2563-4c96-8ba6-f82a58883aeb/wbc.pdf"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b4855061-60dc-4e95-aa38-438e9a56621a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Coilcraft WBC1-1TL 1:1 wideband RF transformer, centre-tapped secondary, 0.25-750 MHz"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "38d8eac6-8045-458a-a117-b9ca53785599")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+
+	(fp_line
+		(start -2.21 -2.225)
+		(end -2.21 2.225)
+		(stroke (width 0.12) (type solid))
+		(layer "F.SilkS")
+		(uuid "9dd750be-7243-4c64-9234-0fbacd7e9e4b")
+	)
+	(fp_line
+		(start 2.21 -2.225)
+		(end 2.21 2.225)
+		(stroke (width 0.12) (type solid))
+		(layer "F.SilkS")
+		(uuid "e0331645-be6c-4b92-abeb-73f7d0ee658f")
+	)
+	(fp_poly
+		(pts
+			(xy -2.21 -2.4) (xy -2.37 -2.66) (xy -2.05 -2.66)
+		)
+		(stroke (width 0.12) (type solid))
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "d61c063e-5189-467d-9a16-3df15d002d4d")
+	)
+
+	(fp_line
+		(start -2.095 -1.225)
+		(end -1.095 -2.225)
+		(stroke (width 0.1) (type solid))
+		(layer "F.Fab")
+		(uuid "48cf4d28-a701-41f4-8a40-dd5491ae062b")
+	)
+	(fp_line
+		(start -1.095 -2.225)
+		(end 2.095 -2.225)
+		(stroke (width 0.1) (type solid))
+		(layer "F.Fab")
+		(uuid "380d2a81-2581-4d50-8b38-c3a7483c13f7")
+	)
+	(fp_line
+		(start 2.095 -2.225)
+		(end 2.095 2.225)
+		(stroke (width 0.1) (type solid))
+		(layer "F.Fab")
+		(uuid "f7e6ce7b-c2dc-483f-8571-263027fdf75f")
+	)
+	(fp_line
+		(start 2.095 2.225)
+		(end -2.095 2.225)
+		(stroke (width 0.1) (type solid))
+		(layer "F.Fab")
+		(uuid "4d66c093-6cbd-4957-a236-5bddfbaf6658")
+	)
+	(fp_line
+		(start -2.095 2.225)
+		(end -2.095 -1.225)
+		(stroke (width 0.1) (type solid))
+		(layer "F.Fab")
+		(uuid "124b5e48-5d75-45cf-b6c9-3348cecc7fec")
+	)
+
+	(fp_line
+		(start -2.9 -2.9)
+		(end 2.9 -2.9)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+		(uuid "b6210671-2084-43a3-bbb4-e8152736082a")
+	)
+	(fp_line
+		(start 2.9 -2.9)
+		(end 2.9 2.9)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+		(uuid "73fabea1-3a3b-4267-a7e0-9b73ba8e601b")
+	)
+	(fp_line
+		(start 2.9 2.9)
+		(end -2.9 2.9)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+		(uuid "29fc5a33-31fa-426c-93e4-aa3c5799eed5")
+	)
+	(fp_line
+		(start -2.9 2.9)
+		(end -2.9 -2.9)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+		(uuid "67e4577c-17da-4499-b7b5-2db4db7e9854")
+	)
+
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "7eb03fb2-a838-40a5-bd4f-d48ee66938a5")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+
+	(pad "1" smd roundrect
+		(at -1.52 -1.525)
+		(size 0.76 1.14)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "fbfdc356-0f89-4c9a-b4b2-2f84aafacd38")
+	)
+	(pad "2" smd roundrect
+		(at 0 -1.525)
+		(size 0.76 1.14)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "99173543-bb32-4796-b9c7-a3961a3734d9")
+	)
+	(pad "3" smd roundrect
+		(at 1.52 -1.525)
+		(size 0.76 1.14)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "d19cd457-9b9a-4e15-8861-975b114db1a2")
+	)
+	(pad "4" smd roundrect
+		(at 1.52 1.525)
+		(size 0.76 1.14)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "2638dc6d-3c8e-498d-bd65-bef830dcc60a")
+	)
+	(pad "5" smd roundrect
+		(at 0 1.525)
+		(size 0.76 1.14)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "bc2e01a9-b7b9-418a-bf4c-cea85bf580d6")
+	)
+	(pad "6" smd roundrect
+		(at -1.52 1.525)
+		(size 0.76 1.14)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "b39b656a-f758-4656-9791-fb6894008218")
+	)
+
+	(embedded_fonts no)
+)
